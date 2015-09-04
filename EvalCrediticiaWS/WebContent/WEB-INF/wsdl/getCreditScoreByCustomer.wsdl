@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions
+	targetNamespace="http://servicio.getcreditscorebycustomer.evalCrediticia.aplicaciones.clarochile.cl"
+	xmlns:tns="http://servicio.getcreditscorebycustomer.evalCrediticia.aplicaciones.clarochile.cl"
+	xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:cli="http://estructura.getcreditscorebycustomer.evalCrediticia.aplicaciones.clarochile.cl"
+	xmlns:commonexception="http://commonsexceptions.evalCrediticia.aplicaciones.clarochile.cl"
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+	xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/"
+	xmlns:apachesoap="http://xml.apache.org/xml-soap">
+	 
+	<wsdl:types>
+	<!-- <wsdl:documentation> 
+		Author: Jorge Armando Montoya Jaramillo 
+		email: jorge.montoyajaramillo@tcs.com 
+		Date: 04/03/2013
+		Version: 1.0 Objective: change plan of customer. 
+		IDD: AMX Phase I - OMS Consolidated IDD - Credit EvaluationIntegration 
+		Capabilitys: GetCreditScoreByCustomer 
+	 </wsdl:documentation> --> 
+    
+		<xs:schema>
+			<xs:import
+				namespace="http://estructura.getcreditscorebycustomer.evalCrediticia.aplicaciones.clarochile.cl"
+				schemaLocation="getCreditScoreByCustomer.xsd" />
+			<xs:import namespace="http://commonsexceptions.evalCrediticia.aplicaciones.clarochile.cl"
+				schemaLocation="CommonExceptions.xsd" />
+		</xs:schema>
+	</wsdl:types>
+	
+	<!-- ************************** -->
+	<wsdl:message name="GetCreditScoreByCustomerRequest">
+		<wsdl:part name="body" element="cli:GetCreditScoreByCustomerRequest" />
+	</wsdl:message>
+	<wsdl:message name="GetCreditScoreByCustomerResponse">
+		<wsdl:part name="body" element="cli:GetCreditScoreByCustomerResponse" />
+	</wsdl:message>
+	<wsdl:message name="BusinessExceptionFault">
+		<wsdl:part name="fault" element="commonexception:BusinessExceptionFault" />
+	</wsdl:message>
+	
+	
+    <wsdl:message name="GetCreditScoreByCustomerRequestTest">
+        <wsdl:part name="body" element="cli:GetCreditScoreByCustomerRequestTest" />
+    </wsdl:message>
+    <wsdl:message name="GetCreditScoreByCustomerResponseTest">
+        <wsdl:part name="body" element="cli:GetCreditScoreByCustomerResponseTest" />
+    </wsdl:message>
+
+	<!-- ************************** -->
+	<wsdl:portType name="GetCreditScoreByCustomer">
+		<wsdl:operation name="GetCreditScoreByCustomer">
+			<wsdl:documentation>
+				<description>This operation will be used by AMDOCS to retrieve the
+					credit score by customer.</description>
+			</wsdl:documentation>
+
+			<wsdl:input message="tns:GetCreditScoreByCustomerRequest"
+				name="GetCreditScoreByCustomerInput" />
+			<wsdl:output message="tns:GetCreditScoreByCustomerResponse"
+				name="GetCreditScoreByCustomerOutput" />
+			<wsdl:fault message="tns:BusinessExceptionFault" name="BusinessException"/>
+		</wsdl:operation>
+		
+        <wsdl:operation name="GetCreditScoreByCustomerTest">
+            <wsdl:documentation>
+                <description>This operation will be used by AMDOCS to retrieve the
+                    credit score by customer.</description>
+            </wsdl:documentation>
+
+            <wsdl:input message="tns:GetCreditScoreByCustomerRequestTest"
+                name="GetCreditScoreByCustomerInput2" />
+            <wsdl:output message="tns:GetCreditScoreByCustomerResponseTest"
+                name="GetCreditScoreByCustomerOutput2" />
+            <wsdl:fault message="tns:BusinessExceptionFault" name="BusinessException"/>
+        </wsdl:operation>		
+	</wsdl:portType>
+	
+	<!-- ************************** -->
+	<wsdl:binding name="GetCreditScoreByCustomerSoapBinding"
+		type="tns:GetCreditScoreByCustomer">
+		<wsdlsoap:binding style="document"
+			transport="http://schemas.xmlsoap.org/soap/http" />
+			
+		<wsdl:operation name="GetCreditScoreByCustomer">
+			<wsdlsoap:operation style="document"
+				soapAction="http://getcreditscorebycustomer.evalCrediticia.aplicaciones.clarochile.cl/Operacion" />
+
+			<wsdl:input>
+				<wsdlsoap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<wsdlsoap:body use="literal"/>
+			</wsdl:output>
+
+			<wsdl:fault name="BusinessException">
+				<wsdlsoap:fault name="BusinessException" use="literal" />
+			</wsdl:fault>
+
+		</wsdl:operation>
+		
+        <wsdl:operation name="GetCreditScoreByCustomerTest">
+            <wsdlsoap:operation style="document"
+                soapAction="http://getcreditscorebycustomer.evalCrediticia.aplicaciones.clarochile.cl/OperacionTest" />
+
+            <wsdl:input>
+                <wsdlsoap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <wsdlsoap:body use="literal"/>
+            </wsdl:output>
+
+            <wsdl:fault name="BusinessException">
+                <wsdlsoap:fault name="BusinessException" use="literal" />
+            </wsdl:fault>
+
+        </wsdl:operation>		
+	</wsdl:binding>
+	
+	<!-- ************************** -->
+	<wsdl:service name="GetCreditScoreByCustomerService">
+		<wsdl:port name="GetCreditScoreByCustomerPort" binding="tns:GetCreditScoreByCustomerSoapBinding">
+			<wsdlsoap:address location="${port}" />
+		</wsdl:port>
+	</wsdl:service>
+	
+</wsdl:definitions>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="cl.clarochile.aplicaciones.evalcrediticia.dao.CampoDAO">
+
+	<resultMap id="resultCampo" type="campoTO">
+		<result property="codigoCampo" column="CORR_CAMPO" />
+		<result property="codigoTipoRegla" column="CORR_TIPOREGLA" />
+		<result property="nombreTipoRegla" column="NOMB_TIPOREGLA" />
+		<result property="tipoCampo" column="TIPO_CAMPO" />
+		<result property="nombreCampo" column="NOMB_CAMPO" />
+		<result property="subTipo" column="SUB_TIPO" />
+		<result property="tipoDato" column="TIPO_DATO" />
+		<result property="estado" column="ESTADO" />
+		<result property="fechaAlta" column="FECH_ALTA" />
+		<result property="codigoUsuarioAlta" column="CORR_USUARIOALTA" />
+		<result property="fechaModificion" column="FECH_MODIFICACION" />
+		<result property="codigoUsuario" column="CORR_USUARIO" />
+	</resultMap>
+
+	<parameterMap id="campoParam" type="campoTO">
+		<parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultCampo" />
+	</parameterMap>
+
+	<select id="listarCampo" parameterMap="campoParam" resultMap="resultCampo" parameterType="campoTO" statementType="CALLABLE">
+		{ call
+		PKG_EVC_CAMPOS.PRO_EVC_LISTARCAMPO
+		(
+		#{codigoCampo, mode=IN, jdbcType=VARCHAR},
+		#{nombreCampo, mode=IN, jdbcType=VARCHAR},
+		#{tipoCampo, mode=IN, jdbcType=VARCHAR},
+		#{codigoTipoRegla, mode=IN, jdbcType=VARCHAR},
+		#{subTipo, mode=IN, jdbcType=VARCHAR},
+		#{tipoDato, mode=IN, jdbcType=VARCHAR},
+		#{estado, mode=IN, jdbcType=VARCHAR},
+		#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultCampo, javaType=java.sql.ResultSet}
+		)
+		}
+	</select>
+
+	<select id="insertarCampo" parameterType="campoTO" statementType="CALLABLE">
+		{ call PKG_EVC_CAMPOS.PRO_EVC_INGRESARCAMPO
+		(
+		#{codigoCampo, mode=IN, jdbcType=VARCHAR},
+		#{nombreCampo, mode=IN, jdbcType=VARCHAR},
+		#{tipoCampo, mode=IN, jdbcType=VARCHAR},
+		#{codigoTipoRegla, mode=IN, jdbcType=VARCHAR},
+		#{subTipo, mode=IN, jdbcType=VARCHAR},
+		#{tipoDato, mode=IN, jdbcType=VARCHAR},
+		#{estado, mode=IN, jdbcType=VARCHAR},
+		#{codigoUsuarioAlta, mode=IN, jdbcType=NUMERIC}
+		)
+		}
+	</select>
+
+	<select id="buscarCampoPorCodigo" parameterType="campoTO" statementType="CALLABLE">
+		{ call PKG_EVC_CAMPOS.PRO_EVC_BUSCARCAMPO
+		(
+		#{codigoCampo, mode=IN, jdbcType=VARCHAR},
+		#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultCampo, javaType=java.sql.ResultSet}
+		)
+		}
+	</select>
+
+	<select id="actualizarCampo" parameterType="campoTO" statementType="CALLABLE">
+		{ call PKG_EVC_CAMPOS.PRO_EVC_MODIFICARCAMPO
+		(
+		#{codigoCampo, mode=IN, jdbcType=VARCHAR},
+		#{tipoCampo, mode=IN, jdbcType=VARCHAR},
+		#{codigoTipoRegla, mode=IN, jdbcType=VARCHAR},
+		#{subTipo, mode=IN, jdbcType=VARCHAR},
+		#{tipoDato, mode=IN, jdbcType=VARCHAR},
+		#{estado, mode=IN, jdbcType=VARCHAR},
+		#{codigoUsuario, mode=IN, jdbcType=NUMERIC}
+		)
+		}
+	</select>
+</mapper>

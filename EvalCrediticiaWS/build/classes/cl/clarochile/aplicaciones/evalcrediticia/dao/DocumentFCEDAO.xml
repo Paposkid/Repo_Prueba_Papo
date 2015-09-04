@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.amx.service.dao.DocumentFCEDAO">
+                                                           
+    <resultMap id="resultDocumentFCE" type="documentFCETO">
+        <result property="codDocumento" column="CORR_FCEDOCUMENT"/>
+        <result property="codSalidaFCE" column="CORR_SALFCE"/>
+        <result property="codDocumento" column="CORR_DOCUMENT"/>
+        <result property="codeUsuario" column="CORR_USUARIOALTA"/>
+    </resultMap>
+
+
+    <parameterMap id="DocumentFCEParam" type="documentFCETO">  
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultDocumentFCE" />
+    </parameterMap>
+    
+    <select id="listarDocumentFCEById" parameterMap="DocumentFCEParam" resultMap="resultDocumentFCE" parameterType="documentFCETO" statementType="CALLABLE" >
+         { call  PRO_EVC_BUSCARRELDOCTFCE
+            (
+               #{codDocumento, mode=IN, jdbcType=NUMERIC},               
+               #{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultDocumentFCE, javaType=java.sql.ResultSet}
+            )
+         }
+    </select>
+    
+
+    <insert id="insertarDocumentFCE" parameterType="documentFCETO" statementType="CALLABLE">
+        { call  PRO_EVC_INGRESARRELDOCUMENTFCE
+            (
+               #{codSalidaFCE, mode=IN, jdbcType=NUMERIC},
+               #{codDocumento, mode=IN, jdbcType=NUMERIC},
+               #{codeUsuario, mode=IN, jdbcType=NUMERIC}              
+            )
+        }
+    </insert>
+    
+</mapper>

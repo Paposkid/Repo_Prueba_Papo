@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.amx.service.dao.EquifaxDAO">
+
+	<resultMap id="resultEquifaxTO" type="equifaxTO">
+		<result property="codigoEquifax" column="CORR_EQUIFAX" />
+		<result property="autorizacion" column="AUTORIZACION" />
+		<result property="cantdetalle" column="CANT_DETALLE" />
+		<result property="fechaConsultado" column="FECH_CONSULTADO" />
+		<result property="estado" column="ESTADO" />
+		<result property="usuario" column="CORR_USUARIOALTA" />
+		<result property="origen" column="ORIGEN" />
+	</resultMap>
+	
+	<parameterMap id="equifaxParam" type="equifaxTO">
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultEquifaxTO" />
+	</parameterMap>
+
+
+	<select id="listarEquifax" parameterMap="equifaxParam" resultMap="resultEquifaxTO" parameterType="equifaxTO" statementType="CALLABLE">
+	
+		{ call PRO_EVC_CONSENTEQUIFAX 
+		(
+		#{codigoEquifax, mode=IN, jdbcType=NUMERIC},
+		#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultEquifaxTO,	javaType=java.sql.ResultSet}
+		)
+		}
+	</select>
+	
+		<insert id="insertarEquifax" parameterType="equifaxTO" statementType="CALLABLE">
+		{ call PRO_EVC_INSERTENTEQUIFAX
+		(
+		#{autorizacion, mode=IN, jdbcType=VARCHAR},
+		#{cantdetalle, mode=IN, jdbcType=VARCHAR},
+		#{estado, mode=IN, jdbcType=VARCHAR},
+		#{usuario, mode=IN, jdbcType=NUMERIC},
+		#{origen, mode=IN, jdbcType=VARCHAR},
+		#{codigoEquifax, mode=OUT, jdbcType=NUMERIC}
+		)
+		}
+	</insert>
+	
+
+</mapper>

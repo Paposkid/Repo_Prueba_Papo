@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.amx.service.dao.ExcFceDAO">
+
+	<resultMap id="resultExcFce" type="excFceBean">
+		<result property="codExcFce" column="CORR_EXCFCE"/>
+		<result property="codFce" column="CORR_FCE"/>              
+	</resultMap>
+	
+ 
+	<parameterMap id="excFceParam" type="excFceBean">
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultExcFce" />
+    
+	</parameterMap>
+	
+	<insert id="insertarExcFce" parameterType="excFceBean" statementType="CALLABLE">
+		{ call   pro_evc_ingresarEXCFCE
+			(
+			   #{codExcFce, mode=IN, jdbcType=INTEGER},	
+			   #{codFce, mode=IN, jdbcType=INTEGER},
+               #{codUsuarioAlta, mode=IN,	jdbcType=INTEGER}
+			)
+		}		
+	</insert>
+	
+		<select id="listExcFce" parameterMap="excFceParam" resultMap="resultExcFce" parameterType="excFceBean" statementType="CALLABLE">
+         { call  PRO_EVC_LISTAREXCFCE
+			(
+			   #{codExcFce, mode=IN, jdbcType=INTEGER},
+			   #{codFce, mode=IN, jdbcType=INTEGER},                 
+               #{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultExcFce, javaType=java.sql.ResultSet}
+			)
+		 }
+	</select>
+	
+	
+</mapper>

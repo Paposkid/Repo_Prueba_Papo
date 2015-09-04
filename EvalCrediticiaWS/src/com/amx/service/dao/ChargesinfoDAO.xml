@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.amx.service.dao.ChargesinfoDAO">
+
+	<resultMap id="resultChargesinfo" type="chargesinfoTO">
+		<result property="codigoChargesinfo" column="CORR_CHARGESINFO" />
+		<result property="codigoCompdifinfo" column="CORR_COMPDIFINFO" />
+		<result property="montoActual" column="ACTUAL_AMOUNT" />
+		<result property="tipoCarga" column="CHARGE_TYPE" />
+		<result property="id" column="APID" />
+		<result property="renuncia" column="IS_WAIVED" />
+		<result property="renuncia" column="CORR_USUARIOALTA" />		
+	</resultMap>
+	
+	<parameterMap id="chargesinfoParam" type="chargesinfoTO">
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultChargesinfo" />
+	</parameterMap>
+
+
+	<select id="listarChargesinfo" parameterMap="chargesinfoParam" resultMap="resultChargesinfo" parameterType="chargesinfoTO" statementType="CALLABLE">
+	
+		{ call PRO_EVC_CONSCHARGESINFO 
+		(
+		#{codigoChargesinfo, mode=IN, jdbcType=NUMERIC},
+		#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultChargesinfo,	javaType=java.sql.ResultSet}
+
+		)
+		}
+	</select>
+	
+		<insert id="insertarChargesinfo" parameterType="chargesinfoTO" statementType="CALLABLE">
+		{ call PRO_EVC_INSERTCHARGESINFO
+		(
+		#{codigoCompdifinfo, mode=IN, jdbcType=NUMERIC},
+		#{montoActual, mode=IN, jdbcType=NUMERIC},
+		#{tipoCarga, mode=IN, jdbcType=VARCHAR},
+		#{id, mode=IN, jdbcType=NUMERIC},
+		#{renuncia, mode=IN, jdbcType=VARCHAR},
+		#{usuario, mode=IN, jdbcType=NUMERIC}
+		)
+		}
+	</insert>
+	
+
+</mapper>
+

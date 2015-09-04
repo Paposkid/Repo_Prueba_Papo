@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE configuration  PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>
+		<!-- changes from the defaults -->
+		<setting name="lazyLoadingEnabled" value="false" />
+	</settings>
+
+	<typeAliases>
+		<typeAlias type="cl.clarochile.aplicaciones.evalcrediticia.to.TipoReglaTO" alias="tipoReglaTO" />
+		<typeAlias type="cl.clarochile.aplicaciones.evalcrediticia.to.CategoriaTO" alias="categoriaTO" /> 
+		<typeAlias type="cl.clarochile.aplicaciones.evalcrediticia.to.DominioTO" alias="dominioTO" /> 
+		<typeAlias type="cl.clarochile.aplicaciones.evalcrediticia.to.DominioCategoriaTO" alias="dominioCategoriaTO" /> 
+		<typeAlias type="cl.clarochile.aplicaciones.evalcrediticia.to.ParametroTO" alias="parametroTO" />
+		<typeAlias type="cl.clarochile.aplicaciones.evalcrediticia.to.CampoTO" alias="campoTO" />
+		<typeAlias type="cl.clarochile.aplicaciones.evalcrediticia.to.ListaEspecialTO" alias="listaEspecialTO" />
+		<typeAlias type="cl.clarochile.aplicaciones.evalcrediticia.to.DominioTO" alias="dominioTO" />
+		<typeAlias type="cl.clarochile.aplicaciones.evalcrediticia.to.ConstanteTO" alias="constanteTO" />
+		
+		<typeAlias type="cl.clarochile.aplicaciones.evalcrediticia.to.ComplementoTO" alias="complementoTO" />
+		<typeAlias type="cl.clarochile.aplicaciones.evalcrediticia.to.CondicionTO" alias="condicionTO" />
+		<typeAlias type="cl.clarochile.aplicaciones.evalcrediticia.to.ReglaTO" alias="reglaTO" />
+	</typeAliases>
+
+</configuration>

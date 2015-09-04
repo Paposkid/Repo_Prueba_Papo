@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.amx.service.dao.Subsistema07DAO">
+
+	<resultMap id="resultSubsistema07TO" type="subsistema07TO">
+		<result property="serialVersion" column="SERIAL_VERSIONUID" />
+		<result property="cantQuie" column="CANT_QUIE" />
+		<result property="fechDefu" column="FECH_DEFU" />
+		<result property="fechInte" column="FECH_INTE" />
+		<result property="ibolFlag" column="IBOL_FLAG" />
+		<result property="impeCtac" column="IMPE_CTAC" />
+		<result property="perfDefu" column="PERF_DEFU" />
+		<result property="indiDeud" column="INDI_DEUD" />
+		<result property="usuario" column="CORR_USUARIOALTA" />
+	</resultMap>
+	
+	<parameterMap id="subsistema07Param" type="subsistema07TO">
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultSubsistema07TO" />
+	</parameterMap>
+
+
+	<select id="listarSubsistema07" parameterMap="subsistema07Param" resultMap="resultSubsistema07TO" parameterType="subsistema07TO" statementType="CALLABLE">
+	
+		{ call PRO_EVC_CONSSUBSISTEMA07
+		(
+		#{serialVersion, mode=IN, jdbcType=NUMERIC},
+		#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultSubsistema07TO, javaType=java.sql.ResultSet}
+
+		)
+		}
+	</select>
+	
+	<insert id="insertarSubsistema07" parameterType="subsistema07TO" statementType="CALLABLE">
+		{ call PRO_EVC_INGRESARSUBSISTEMA07
+		(
+		#{serialVersion, mode=IN, jdbcType=NUMERIC},
+		#{cantQuie, mode=IN, jdbcType=NUMERIC},
+		#{fechDefu, mode=IN, jdbcType=NUMERIC},
+		#{fechInte, mode=IN, jdbcType=NUMERIC},
+		#{ibolFlag, mode=IN, jdbcType=NUMERIC},
+		#{impeCtac, mode=IN, jdbcType=VARCHAR},
+		#{impeCtac, mode=IN, jdbcType=VARCHAR},
+		#{perfDefu, mode=IN, jdbcType=VARCHAR},
+		#{usuario, mode=IN, jdbcType=NUMERIC}
+		)
+		}
+	</insert>
+	
+
+</mapper>

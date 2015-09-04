@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="cl.clarochile.aplicaciones.evalcrediticia.dao.DominioCategoriaDAO">
+
+	<resultMap id="resultDominioCategoria" type="dominioCategoriaTO">
+		<result property="codigo" column="CORR_DOMINIOCATEG" />
+		<result property="dominioTO.codigo" column="CORR_DOMINIO" />
+		<result property="dominioTO.nombre" column="NOMB_DOMINIO" />
+	</resultMap>
+
+	<parameterMap id="dominioCategoriaParam" type="dominioCategoriaTO">
+		<parameter property="resultadosDomCat" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultDominioCategoria" />
+	</parameterMap>
+
+	<select id="insertarDominioCategoria" parameterType="dominioCategoriaTO"
+		statementType="CALLABLE">
+		{ call PKG_EVC_CATEGORIA.PRO_EVC_INGRESARDOMCAT
+			(
+				#{dominioTO.codigo, mode=IN, jdbcType=VARCHAR},
+				#{categoria.codigoCategoria, mode=IN, jdbcType=VARCHAR},
+				#{estado, mode=IN, jdbcType=VARCHAR},
+				#{codUsuarioAlta, mode=IN,	jdbcType=NUMERIC}
+			)
+		}
+	</select>
+
+	<select id="listarDominioCategorias" parameterMap="dominioCategoriaParam"
+		resultMap="resultDominioCategoria" parameterType="dominioCategoriaTO"
+		statementType="CALLABLE">
+		{ call  PKG_EVC_CATEGORIA.PRO_EVC_LISTARDOMCAT
+			(
+				#{codigoCategoria, mode=IN, jdbcType=VARCHAR},
+				#{resultadosDomCat, mode=OUT, jdbcType=CURSOR, resultMap=resultDominioCategoria, javaType=java.sql.ResultSet}
+			)
+		}
+	</select>
+	
+	<select id="eliminarDominioCategoria" parameterMap="dominioCategoriaParam"
+		resultMap="resultDominioCategoria" parameterType="dominioCategoriaTO" statementType="CALLABLE">
+		{ call  PKG_EVC_CATEGORIA.PRO_EVC_DELDOMCAT
+			(
+				#{codigo, mode=IN, jdbcType=NUMERIC},
+				#{codUsuario, mode=IN, jdbcType=NUMERIC}
+			)
+		}
+	</select>
+</mapper>

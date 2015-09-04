@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.amx.service.dao.SubSistema1DAO">
+
+	<resultMap id="resultSubSistema1" type="subSistema1Bean">
+		<result property="serialVersion" column="SERIAL_VERSIONUID"/>
+		<result property="nombreEval" column="NOMB_EVAL"/>
+		<result property="fechaNacimiento" column="FECH_NACI"/>
+		<result property="edadEval" column="EDAD_EVAL"/>
+        <result property="descActi" column="DESC_ACTI"/>
+        <result property="descRubr" column="DESC_RUBR"/>
+        <result property="codUsuarioAlta" column="CORR_USUARIOALTA"/>
+		</resultMap>
+	
+ 
+	<parameterMap id="subSistema1Param" type="subSistema1Bean">
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultSubSistema1" />
+    
+	</parameterMap>
+	
+	<insert id="insetarSubSistema1" parameterType="subSistema1Bean" statementType="CALLABLE">
+		{ call   pro_evc_ingresarsubsistema01
+			(
+			   #{serialVersion, mode=IN, jdbcType=INTEGER},
+			   #{edadEval, mode=IN, jdbcType=VARCHAR},	
+			   #{descRubr, mode=IN, jdbcType=VARCHAR},
+               #{descActi, mode=IN, jdbcType=VARCHAR},
+               #{nombreEval, mode=IN, jdbcType=VARCHAR},
+               #{fechaNacimiento, mode=IN, jdbcType=VARCHAR},
+               #{codUsuarioAlta, mode=IN,	jdbcType=INTEGER}
+               
+			)
+		}		
+	</insert>
+	
+		<select id="listSubSys1" parameterMap="subSistema1Param" resultMap="resultSubSistema1" parameterType="subSistema1Bean" statementType="CALLABLE">
+         { call  pro_evc_conssubsistema01
+			(
+			   #{serialVersion, mode=IN, jdbcType=INTEGER},               
+               #{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultSubSistema1, javaType=java.sql.ResultSet}
+			)
+		 }
+	</select>
+	
+	
+</mapper>

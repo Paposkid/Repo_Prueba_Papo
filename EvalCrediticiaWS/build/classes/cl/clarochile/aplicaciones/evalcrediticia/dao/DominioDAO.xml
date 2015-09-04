@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.amx.service.dao.DominioDAO">
+
+	<resultMap id="resultDominio" type="dominioTO">
+		<result property="codigo" column="CORR_DOMINIO" />
+		<result property="nombre" column="NOMB_DOMINIO" />
+		<result property="tipoDato" column="TIPO_DATO" />
+		<result property="tipoCaracter" column="TIPO_CARACTERES" />
+		<result property="valor" column="VLOR_DOMINIO" />
+		<result property="estado" column="ESTADO" />
+		<result property="fechaCreacion" column="FECH_ALTA" />
+		<result property="usuarioCreacion" column="CORR_USUARIOALTA" />
+		<result property="fechaModificacion" column="FECH_MODIFICACION" />
+		<result property="usuarioModificacion" column="CORR_USUARIO" />
+	</resultMap>
+
+	<parameterMap id="dominioParam" type="dominioTO">
+		<parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultDominio" />
+	</parameterMap>
+
+
+	<select id="listarDominio" parameterMap="dominioParam" resultMap="resultDominio" parameterType="dominioTO" statementType="CALLABLE">
+		{ call PKG_EVC_DOMINIOS.PRO_EVC_LISTARDOMINIOS
+		(
+		#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultDominio, javaType=java.sql.ResultSet}
+		)
+		}
+	</select>
+
+
+	<select id="obtenerDominioPorCodigo" parameterMap="dominioParam" resultMap="resultDominio" parameterType="dominioTO" statementType="CALLABLE">
+		{ call PKG_EVC_DOMINIOS.PRO_EVC_DOMINIOBYCODIGO
+		(
+		#{codigo, mode=IN, jdbcType=VARCHAR},
+		#{resultados, mode=OUT, jdbcType=CURSOR, resultMap=resultDominio, javaType=java.sql.ResultSet}
+		)
+		}
+	</select>
+	
+	<select id="obtenerDominioPorNombre" parameterMap="dominioParam" resultMap="resultDominio" parameterType="dominioTO" statementType="CALLABLE">
+		{ call PKG_EVC_DOMINIOS.PRO_EVC_DOMINIOBYNOMBRE
+		(
+		#{nombre, mode=IN, jdbcType=VARCHAR},
+		#{resultados, mode=OUT, jdbcType=CURSOR, resultMap=resultDominio, javaType=java.sql.ResultSet}
+		)
+		}
+	</select>
+
+	<select id="buscarDominioPorCampos" parameterMap="dominioParam" resultMap="resultDominio" parameterType="dominioTO" statementType="CALLABLE">
+		{ call PKG_EVC_DOMINIOS.PRO_EVC_BUSQUEDA
+		(
+		#{codigo, mode=IN, jdbcType=VARCHAR},
+		#{nombre, mode=IN, jdbcType=VARCHAR},
+		#{tipoCaracter, mode=IN, jdbcType=VARCHAR},
+		#{tipoDato, mode=IN, jdbcType=VARCHAR},
+		#{estado, mode=IN, jdbcType=VARCHAR},
+		#{valor, mode=IN, jdbcType=VARCHAR},
+		#{resultados, mode=OUT, jdbcType=CURSOR, resultMap=resultDominio, javaType=java.sql.ResultSet}
+		)
+		}
+	</select>
+
+	<select id="insertarDominio" parameterType="dominioTO" statementType="CALLABLE">
+		{ call PKG_EVC_DOMINIOS.PRO_EVC_INGRESARDOMINIO
+		(
+		#{codigo, mode=IN, jdbcType=VARCHAR},
+		#{nombre, mode=IN, jdbcType=VARCHAR},
+		#{tipoDato, mode=IN, jdbcType=VARCHAR},
+		#{tipoCaracter, mode=IN, jdbcType=VARCHAR},
+		#{valor, mode=IN, jdbcType=VARCHAR},
+		#{estado, mode=IN, jdbcType=VARCHAR},
+		#{fechaCreacion, mode=IN, jdbcType=DATE},
+		#{usuarioCreacion, mode=IN, jdbcType=NUMERIC}
+		)
+		}
+	</select>
+
+
+	<select id="actualizarDominio" parameterType="dominioTO" statementType="CALLABLE">
+		{ call PKG_EVC_DOMINIOS.PRO_EVC_ACTUALIZARDOMINIO
+		(
+		#{codigo, mode=IN, jdbcType=VARCHAR},
+		#{valor, mode=IN, jdbcType=VARCHAR},
+		#{estado, mode=IN, jdbcType=VARCHAR},
+		#{fechaModificacion, mode=IN, jdbcType=DATE},
+		#{usuarioModificacion, mode=IN, jdbcType=NUMERIC}
+		)
+		}
+	</select>
+</mapper>

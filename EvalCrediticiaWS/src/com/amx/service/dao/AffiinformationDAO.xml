@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.amx.service.dao.AffiinformationDAO">
+
+	<resultMap id="listaDatosMap" type="affiinformationTo">
+		<result property="corrAffInformation" column="CORR_AFFIINFORMATION" />
+		<result property="affiliate" column="AFFILIATE" />
+		<result property="market" column="MARKET" />
+		 <result property="usuario" column="CORR_USUARIOALTA" />
+	</resultMap>
+	<parameterMap id="AffiInformationParam" type="affiinformationTo">
+		<parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="listaDatosMap" />
+	</parameterMap>
+	
+	<select id="buscarAffiinformation"  parameterType="affiinformationTo" statementType="CALLABLE" >
+		{ call pro_evc_buscaraffinformation(
+			#{resultados,mode=OUT,jdbcType=CURSOR,
+			javaType=java.sql.ResultSet,resultMap=listaDatosMap},
+			#{corrAffInformation,mode=IN,jdbcType=NUMERIC})
+		}
+
+	</select>
+	<insert id="ingresarAffiinformation" parameterType="affiinformationTo"
+		statementType="CALLABLE" >
+		{ call pro_evc_ingresaraffinformation(
+		#{affiliate,mode=IN, jdbcType=VARCHAR},
+		#{market,mode=IN, jdbcType=VARCHAR},
+		#{corrAffInformation,mode=OUT,jdbcType=NUMERIC}, 
+		#{usuario,mode=IN,jdbcType=NUMERIC})
+		}
+
+	</insert>
+	<select id="buscarAffiinformationAfiliate"  parameterType="affiinformationTo" statementType="CALLABLE" >
+		{ call pro_evc_consafiliate(
+			
+			#{affiliate,mode=IN,jdbcType=VARCHAR},
+			#{resultados,mode=OUT,jdbcType=CURSOR,
+			javaType=java.sql.ResultSet,resultMap=listaDatosMap}
+			)
+		}
+
+	</select>
+	
+</mapper>

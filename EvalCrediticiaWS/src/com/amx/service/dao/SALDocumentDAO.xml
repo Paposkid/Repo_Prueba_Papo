@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.amx.service.dao.SALDocumentDAO">
+														   
+	<resultMap id="resultSALDocument" type="SalDocumentTO">
+		<result property="codigoDocument" column="CORR_DOC"/>
+		<result property="descripcionDocument" column="DESC_DOCUMENT"/>
+        <result property="codeUsuario" column="CORR_USUARIOALTA"/>
+	</resultMap>
+
+	<parameterMap id="SALDocumentParam" type="SalDocumentTO">  
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultSALDocument" />
+	</parameterMap>
+	
+	<select id="listarSALDocumentById" parameterMap="SALDocumentParam" resultMap="resultSALDocument" parameterType="sALDocumentTO" statementType="CALLABLE" >
+         { call  PRO_EVC_BUSCARSALDOC
+			(
+			   #{codigoDocument, mode=IN, jdbcType=NUMERIC},               
+               #{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultSALDocument, javaType=java.sql.ResultSet}
+			)
+		 }
+	</select>
+	
+	
+	<insert id="insertarSALDocument" parameterType="SalDocumentTO" statementType="CALLABLE">
+		{ call  PRO_EVC_INGRESARSALDOCUMENT
+			(
+               #{descripcionDocument, mode=IN, jdbcType=VARCHAR},
+               #{codeUsuario, mode=IN, jdbcType=NUMERIC},
+               #{codigoDocument, mode=OUT, jdbcType=NUMERIC}
+			)
+		}
+	</insert>
+	
+		<select id="listarSALDocumentByNombre" parameterMap="SALDocumentParam" resultMap="resultSALDocument" parameterType="sALDocumentTO" statementType="CALLABLE" >
+         { call  PRO_EVC_BUSCARSALDOCNOM
+			(
+			   #{nombre, mode=IN, jdbcType=NUMERIC},               
+               #{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultSALDocument, javaType=java.sql.ResultSet}
+			)
+		 }
+	</select>
+	
+</mapper>

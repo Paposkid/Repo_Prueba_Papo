@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.amx.service.dao.ReadListaDAO">
+
+	<resultMap id="resultReadLista" type="readListaTypeTO">
+		<result property="idLista" column="ID_LISTA"/>
+		<result property="numCondiciones" column="NMRO_CONDICIONES"/>
+		<result property="respuesta" column="RESP_LISTAESPECIALES"/>
+        <result property="codUsuario" column="CORR_USUARIOALTA"/>
+        <result property="origen" column="ORIGEN"/>
+    </resultMap>
+
+	<parameterMap id="specialListParam" type="readListaTypeTO">
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultReadLista" />
+    </parameterMap>
+	
+	<select id="buscarListSpecial" parameterType="readListaTypeTO" statementType="CALLABLE">
+         { call  pro_evc_consentlistaespecial
+			(
+			   #{codListaEspecial, mode=IN, jdbcType=NUMERIC},               
+               #{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultReadLista, javaType=java.sql.ResultSet}
+			)
+		 }
+	</select>
+
+	<insert id="insertarSpecialList" parameterType="readListaTypeTO" statementType="CALLABLE">
+		{ call   PRO_EVC_INGRESARLISTAESPECIAL
+			(
+			   #{idLista, mode=IN, jdbcType=VARCHAR},	
+			   #{numCondiciones, mode=IN, jdbcType=NUMERIC},
+			   #{respuesta, mode=IN, jdbcType=VARCHAR},
+               #{codUsuario, mode=IN, jdbcType=NUMERIC},
+               #{origen, mode=IN, jdbcType=VARCHAR},
+               #{codListaEspecial, mode=OUT, jdbcType=NUMERIC}
+            )
+		}		
+	</insert>
+		
+</mapper>
+
+

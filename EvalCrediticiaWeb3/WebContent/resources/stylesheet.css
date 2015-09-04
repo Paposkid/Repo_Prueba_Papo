@@ -1,0 +1,1227 @@
+/*
+  - Author(s): Jorge Higuita.
+  - Date: 07/02/2013
+ */
+
+
+/* ================================================= Estilos para el Menú */
+
+.ui-accordion .ui-accordion-header {
+	margin-top: 0px;
+	display: block;
+	cursor: pointer;
+	position: relative;
+	background-image:
+		url(/EvalCrediticiaWeb/resources/images/bg_tab28_med_02_b.png);
+	height: 27px;
+	background-size: cover;
+	border: 0px solid #d3d3d3 !important;
+	font-family: Arial, Helvetica, sans-serif;
+	background-repeat: repeat-x;
+	font-size: 11px;
+	filter: progid :   DXImageTransform.Microsoft.AlphaImageLoader (  
+	  src =   '/EvalCrediticiaWeb/resources/images/bg_tab28_med_02_b.png',
+		sizingMethod =   'scale' );
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+h3 {
+	-webkit-margin-after: 0em;
+	margin: 0px;
+}
+
+.ui-accordion-content {
+	margin: 0px;
+	padding: 0em .5em 0em .7em;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	list-style: none;
+	list-style-type: none;
+	border-top: 0;
+	overflow: none;
+	font-size: 11px;
+	padding: 0em .5em 0em .7em;
+}
+
+#accordion a {
+	text-decoration: none;
+	color: #375d84;
+}
+
+#accordion li {
+	height: 18px;
+	color: #000000;
+	text-decoration: none;
+	margin: 0px;
+	background-image:
+		url(/EvalCrediticiaWeb/resources/images/wpsMenuLateralL2_separador.gif);
+	background-repeat: no-repeat;
+	background-position: center bottom;
+	padding-top: 5px;
+	padding-right: 5px;
+	padding-bottom: 10px;
+	padding-left: 5px;
+}
+
+
+.ui-icon {
+	width: 8px;
+	height: 5px;
+}
+
+.ui-icon-circle-arrow-e {
+	position: absolute;
+	right: 4px;
+	top: 70%;
+	margin-top: -8px;
+	background-image: url(/EvalCrediticiaWeb/resources/images/bt_arw_abrir.png);
+}
+
+.ui-icon-circle-arrow-s {
+	position: absolute;
+	right: 4px;
+	top: 70%;
+	margin-top: -8px;
+	background-image: url(/EvalCrediticiaWeb/resources/images/bt_arw_cerrar.png);
+}
+
+.ui-state-active {
+	font-weight: bold;
+}
+
+.title {
+	padding: 5px;
+	position: absolute;
+	vertical-align: middle;
+}
+
+/* ================================================= Estilos para Datepicker */
+
+.ui-datepicker {
+	width: 17em;
+	padding: .2em .2em 0;
+	display: none;
+	background-color: #FFF;
+	border: 1px solid;
+}
+.ui-datepicker .ui-datepicker-header {
+	position: relative;
+	padding: .2em 0;
+	background-color: #D52B1E;
+	color: white;
+	font-weight: bold;
+}
+.ui-datepicker .ui-datepicker-prev,
+.ui-datepicker .ui-datepicker-next {
+	position: absolute;
+	top: 2px;
+	width: 1.8em;
+	height: 1.8em;
+}
+.ui-datepicker .ui-datepicker-prev-hover,
+.ui-datepicker .ui-datepicker-next-hover {
+	top: 1px;
+}
+.ui-datepicker .ui-datepicker-prev {
+	left: 2px;
+}
+.ui-datepicker .ui-datepicker-next {
+	right: 1px;
+}
+.ui-datepicker .ui-datepicker-prev-hover {
+	left: 1px;
+}
+.ui-datepicker .ui-datepicker-next-hover {
+	right: 1px;
+}
+.ui-datepicker .ui-datepicker-prev span,
+.ui-datepicker .ui-datepicker-next span {
+	display: block;
+	position: absolute;
+	left: 50%;
+	margin-left: -8px;
+	top: 50%;
+	margin-top: -8px;
+}
+.ui-datepicker .ui-datepicker-title {
+	margin: 0 2.3em;
+	line-height: 1.8em;
+	text-align: center;
+}
+.ui-datepicker .ui-datepicker-title select {
+	font-size: 1em;
+	margin: 1px 0;
+}
+.ui-datepicker select.ui-datepicker-month-year {
+	width: 100%;
+}
+.ui-datepicker select.ui-datepicker-month,
+.ui-datepicker select.ui-datepicker-year {
+	width: 49%;
+}
+.ui-datepicker table {
+	width: 100%;
+	font-size: .9em;
+	border-collapse: collapse;
+	margin: 0 0 .4em;
+
+}
+.ui-datepicker th {
+	padding: .7em .3em;
+	text-align: center;
+	font-weight: bold;
+	border: 0;
+}
+.ui-datepicker td {
+	border: 0;
+	padding: 1px;
+}
+.ui-datepicker td span,
+.ui-datepicker td a {
+	display: block;
+	padding: .2em;
+	text-align: right;
+	text-decoration: none;
+	color: black;
+}
+.ui-datepicker .ui-datepicker-buttonpane {
+	background-image: none;
+	margin: .7em 0 0 0;
+	padding: 0 .2em;
+	border-left: 0;
+	border-right: 0;
+	border-bottom: 0;
+}
+.ui-datepicker .ui-datepicker-buttonpane button {
+	float: right;
+	margin: .5em .2em .4em;
+	cursor: pointer;
+	padding: .2em .6em .3em .6em;
+	width: auto;
+	overflow: visible;
+}
+.ui-datepicker .ui-datepicker-buttonpane button.ui-datepicker-current {
+	float: left;
+}
+
+/* with multiple calendars */
+.ui-datepicker.ui-datepicker-multi {
+	width: auto;
+}
+.ui-datepicker-multi .ui-datepicker-group {
+	float: left;
+}
+.ui-datepicker-multi .ui-datepicker-group table {
+	width: 95%;
+	margin: 0 auto .4em;
+}
+.ui-datepicker-multi-2 .ui-datepicker-group {
+	width: 50%;
+}
+.ui-datepicker-multi-3 .ui-datepicker-group {
+	width: 33.3%;
+}
+.ui-datepicker-multi-4 .ui-datepicker-group {
+	width: 25%;
+}
+.ui-datepicker-multi .ui-datepicker-group-last .ui-datepicker-header,
+.ui-datepicker-multi .ui-datepicker-group-middle .ui-datepicker-header {
+	border-left-width: 0;
+}
+.ui-datepicker-multi .ui-datepicker-buttonpane {
+	clear: left;
+}
+.ui-datepicker-row-break {
+	clear: both;
+	width: 100%;
+	font-size: 0;
+}
+
+/* RTL support */
+.ui-datepicker-rtl {
+	direction: rtl;
+}
+.ui-datepicker-rtl .ui-datepicker-prev {
+	right: 2px;
+	left: auto;
+}
+.ui-datepicker-rtl .ui-datepicker-next {
+	left: 2px;
+	right: auto;
+}
+.ui-datepicker-rtl .ui-datepicker-prev:hover {
+	right: 1px;
+	left: auto;
+}
+.ui-datepicker-rtl .ui-datepicker-next:hover {
+	left: 1px;
+	right: auto;
+}
+.ui-datepicker-rtl .ui-datepicker-buttonpane {
+	clear: right;
+}
+.ui-datepicker-rtl .ui-datepicker-buttonpane button {
+	float: left;
+}
+.ui-datepicker-rtl .ui-datepicker-buttonpane button.ui-datepicker-current,
+.ui-datepicker-rtl .ui-datepicker-group {
+	float: right;
+}
+.ui-datepicker-rtl .ui-datepicker-group-last .ui-datepicker-header,
+.ui-datepicker-rtl .ui-datepicker-group-middle .ui-datepicker-header {
+	border-right-width: 0;
+	border-left-width: 1px;
+}
+
+/* ================================================= Estilos para la pantalla de Login */
+.logo 
+{
+	margin: 2px; 
+	width:106px; 
+	height:106px;
+	background-image:url(images/logo_claro.png);
+	background-repeat:no-repeat;
+	text-align: left;
+}
+
+.loginEncabezado {
+	color:#000000; 
+	display:block; 
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size:24px;
+	margin:0;
+	padding:0;
+	text-align:right;
+}
+
+.lineaRoja  
+{
+	background-color:#d52b1e ; 
+	width:100%; 
+	height:3px; 
+	font-size:0px; 
+	float:left;
+}
+
+
+.imagenhome 
+{ 
+	width:615px; 
+	height:350px; 
+	background-image:url(images/imagen-baner.png);
+	margin-left: 30px;
+}
+
+
+.titulo-login 
+{
+	font-size: 14px; 
+	width:100% !important; 
+	height:26px; 
+	padding-left:30px; 
+	background-image:url(images/caja1.png); 
+	background-repeat:no-repeat; 
+	padding-top:5px; 
+	font-weight:bold;
+	text-align: left;
+}
+
+
+
+.login { 
+	margin:3px; 
+	width:285px; 
+	height:100%;
+}
+
+.contenido 
+{ 
+	font-size: 13px; 
+	width:285px; 
+	height:313px; 
+	background-image:url(images/caja.png); 
+	background-repeat:repeat-x; 
+	padding-top:5px; 
+}
+
+
+
+.campoTextoLogin  {
+	margin-top: 4px;
+	border: 0px solid rgb(110, 159, 205); 
+	margin: 1pt; 
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size: 13px;
+	font-weight: bold;
+}
+
+
+ .campoTextoLogin LABEL {
+	margin: 1pt; 
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size: 12px;
+	font-weight: bold;
+	width: 120px;
+	border: 1px;
+	
+}
+
+.campoTextoLogin INPUT {
+	border: 1px solid rgb(110, 159, 205); 
+	margin: 1pt; 
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size: 100%;
+	color:#000000;
+}
+
+
+.campoTextoLogin EM {
+    color: #F00;
+    font-family: Arial, Helvetica, sans-serif; 
+}
+
+
+.barraBotonesLogin {
+    margin-top: 4px;
+}
+
+
+.barraBotonesLogin INPUT {
+	 background-image: url(images/bg_boton.jpg); 
+	 background-repeat:repeat-x; 
+	 color:#FFFFFF; 
+	 font-size:10px; 
+	 height:auto; 
+	 width:80px; 
+	 font-weight:700;   
+	 text-align:center;
+}
+
+
+.barraBotonesLogin .barraBotones {
+	background-image: url(images/bg_boton.jpg);
+    padding: 0px;
+    color: #FFF;
+    font: normal normal bold 10pt Verdana;
+    width: 80px;
+    border:2px;
+    border-left-color: #EE2F22;
+    border-bottom-color:#EE2F22;
+    border-top-color:#EE2F22;
+    border-right-color: #EE2F22;
+}
+
+
+
+/* ======================================== Elementos de HTML ================ */
+
+
+BODY {
+    color: #000;
+    font: normal normal normal 9pt Helvetica; 
+    margin: 0;
+    padding: 0;
+    
+}
+
+A {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+FORM {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+IMG {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+H1 {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+P {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+
+
+/* ============================================ ENCABEZADO Section Definition */
+
+
+.botonesEncabezado { 
+	width: auto;	
+	margin: 0 auto;	
+	padding: 10px 5px 7px; 
+	color: #ADAFAF; 
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size:13px; 
+	text-align: right;
+}
+
+
+.botonesEncabezado LABEL {
+	margin: 1pt; 
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size: 13px;
+	font-weight: bold;
+}
+
+.botonesEncabezado .cerrarSesion {
+	border: none; 
+	font: normal normal bold 7pt Verdana;
+	color: red;
+}
+
+.botonesEncabezado .bienvenido {
+    font: normal normal normal 9pt Verdana;
+}
+
+.botonesEncabezado .bienvenido SPAN {
+    font: normal normal bold 8pt Verdana;
+}
+
+.botonesEncabezado .bienvenido LABEL {
+    font: normal normal bold 9pt Arial;
+    color: #000;
+}
+
+
+
+
+/* ================================================ Estilos para los elementos del BODY ================ */
+
+
+.body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.imageFondo {
+	width:615px; 
+	height:350px; 
+	background-position:center;
+	background-image:url(images/images.jpg); 
+	background-repeat:no-repeat;
+}
+
+.body .titulo {
+    color: #000; 
+    text-align: center;
+    margin-left: 80px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    
+}
+
+.body .titulo H1 {
+	font-family: Arial, Helvetica, sans-serif;
+    font-size: 14pt;
+    padding: 0px;
+    padding-top: 10px;
+}
+
+
+.body .grupoCampos {
+    margin-top: 0px;
+    padding: 4px;
+    margin-left: 0px;
+}
+
+.body .grupoCampos LEGEND {
+    color: #000;
+    font: normal normal bold 9pt Arial;
+    margin-bottom: 18px;
+    margin-top: 7px;
+}
+
+
+/* ==================================	Campos Cajas de textos Solo Lectura ====================== */
+
+
+.body .grupoCampos .campoSoloLectura {
+    margin-top: 4px;
+    margin-left: 80px;
+}
+
+.body .grupoCampos .campoSoloLectura LABEL {
+    display: block; 
+    float: left; 
+    border: 0px solid rgb(110, 159, 205);
+    margin: 1pt; 
+    font-family: Arial, Helvetica, sans-serif;
+    font: normal normal normal 9pt Helvetica;
+    font-weight: bold;
+	width: 120px;
+	margin-left: 220px;
+}
+
+.body .grupoCampos .campoSoloLectura EM {
+    color: #F00;
+    font: normal normal normal 12pt Helvetica;
+}
+
+.body .grupoCampos .campoSoloLectura INPUT{
+    background-color: #FFF;
+    margin: 1pt;
+    border: 0;
+    font: normal normal normal 9pt Helvetica;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 177px;
+}
+
+
+.body .grupoCampos .campoSoloLectura SELECT {
+    background-color: #FFF;
+    border: 0;
+    margin: 1pt;
+    font: normal normal normal 8pt Helvetica;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 178px;
+}
+
+  
+/* ==================================	Campos Cajas de textos Solo Lectura ====================== */
+   
+
+.body .grupoCampos .campoSoloLectura2 {
+    margin-top: 4px;
+}
+
+.body .grupoCampos .campoSoloLectura2 LABEL {
+    display: block; 
+    float: left; 
+    border: 0px solid rgb(110, 159, 205);
+    margin: 1pt; 
+    font-family: Arial, Helvetica, sans-serif;
+    font: normal normal normal 9pt Helvetica;
+    font-weight: bold;
+	width: 120px;
+	margin-left: 220px;
+}
+
+.body .grupoCampos .campoSoloLectura2 EM {
+    color: #F00;
+    font: normal normal normal 12pt Helvetica;
+}
+
+.body .grupoCampos .campoSoloLectura2 INPUT {
+    background-color: #FFF;
+    margin: 1pt;
+    border: 0;
+    font: normal normal normal 9pt Helvetica;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.body .grupoCampos .campoSoloLectura2 SELECT {
+    background-color: #FFF;
+    border: 0;
+    margin: 1pt;
+    font: normal normal normal 8pt Helvetica;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 178px;
+}
+
+/* ==================================	Campos Cajas de textos ====================== */
+
+.body .grupoCampos .campoTexto {
+    margin-top: 4px;
+    margin-left: 80px;
+}
+
+
+.body .grupoCampos .campoTexto LABEL {
+    display: block; 
+    float: left; 
+    border: 0px solid rgb(110, 159, 205);
+    margin: 1pt; 
+    font-family: Arial, Helvetica, sans-serif;
+    font: normal normal normal 9pt Helvetica;
+    font-weight: bold;
+	width: 120px;
+	margin-left: 220px;
+}
+
+.body .grupoCampos .campoTexto EM {
+    color: #F00;
+    font: normal normal normal 12pt Helvetica;
+}
+
+
+.body .grupoCampos .campoTexto INPUT {
+    border: 1px solid rgb(110, 159, 205);
+    margin: 1pt; 
+    font: normal normal normal 9pt Helvetica;
+    font-family: Arial, Helvetica, sans-serif;
+	color:#000;
+    width: 177px;
+}
+
+
+/*============================== Campo Texto 2 ===================================== */
+
+.body .grupoCampos .campoTexto2 {
+    margin-top: 4px;
+}
+
+
+.body .grupoCampos .campoTexto2 LABEL {
+    display: block; 
+    float: left; 
+    border: 0px solid rgb(110, 159, 205);
+    margin: 1pt; 
+    font-family: Arial, Helvetica, sans-serif;
+    font: normal normal normal 9pt Helvetica;
+    font-size: 13px;
+    font-weight: bold;
+	width: 120px;
+}
+
+.body .grupoCampos .campoTexto2 EM {
+    color: #F00;
+    font: normal normal normal 12pt Helvetica;
+}
+
+
+.body .grupoCampos .campoTexto2 INPUT {
+    border: 1px solid rgb(110, 159, 205);
+    margin: 1pt; 
+    font: normal normal normal 9pt Helvetica;
+    font-family: Arial, Helvetica, sans-serif;
+	color:#000;
+    width: 150px;
+}
+
+
+
+
+/* ==================================	Campos Listas Desplegables ====================== */
+
+.body .grupoCampos .campoCombo {
+    margin-top: 4px;
+    margin-left: 80px;
+}
+
+.body .grupoCampos .campoCombo LABEL {
+	display: block; 
+    float: left; 
+    border: 0px solid rgb(110, 159, 205);
+    margin: 1pt; 
+    font-family: Arial, Helvetica, sans-serif;
+    font: normal normal normal 9pt Helvetica;
+    font-weight: bold;
+	width: 120px;
+	margin-left: 220px;
+}
+
+
+.body .grupoCampos .campoCombo EM {
+    color: #F00;
+    font: normal normal normal 10pt Helvetica;
+}
+
+.body .grupoCampos .campoCombo SELECT {
+    
+    border: 1px solid rgb(110, 159, 205);
+    margin: 1pt; 
+    font: normal normal normal 8pt Helvetica;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 178px;
+}
+
+
+/* ====================================   Combo 2   =============================== */
+
+.body .grupoCampos .campoCombo2 {
+    margin-top: 4px;
+}
+
+.body .grupoCampos .campoCombo2 LABEL {
+	display: block; 
+    float: left; 
+    border: 0px solid rgb(110, 159, 205);
+    margin: 1pt; 
+    font-family: Arial, Helvetica, sans-serif;
+    font: normal normal normal 9pt Helvetica;
+    font-weight: bold;
+	width: 120px;
+}
+
+
+.body .grupoCampos .campoCombo2 EM {
+    color: #F00;
+    font: normal normal normal 10pt Helvetica;
+}
+
+.body .grupoCampos .campoCombo2 SELECT {
+    border: 1px solid rgb(110, 159, 205);
+    margin: 1pt; 
+    font: normal normal normal 8pt Helvetica;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 178px;
+}
+
+
+/* ==================================	Campos Checkbox ====================== */
+
+.body .grupoCampos .campoCheck {
+    margin-top: 4px;
+    margin-left: 80px;
+}
+
+
+.body .grupoCampos .campoCheck LABEL {
+    display: block; 
+    float: left; 
+    border: 0px solid rgb(110, 159, 205);
+    margin: 1pt; 
+    font-family: Arial, Helvetica, sans-serif;
+    font: normal normal normal 9pt Helvetica;
+    font-weight: bold;
+	width: 120px;
+	margin-left: 220px;
+}
+
+.body .grupoCampos .campoCheck EM {
+    color: #F00;
+    font: normal normal normal 12pt Helvetica;
+}
+
+
+.body .grupoCampos .campoCheck INPUT {
+    border: 1px solid rgb(110, 159, 205);
+    margin: 1pt; 
+    font: normal normal normal 9pt Helvetica;
+    font-family: Arial, Helvetica, sans-serif;
+	color:#000;
+}
+
+
+/* ==================================	Botones ====================== */
+
+
+.body .barraBotones {
+    margin-top: 8px;
+}
+
+
+.body .divBarraBotones {
+	text-align: center;	
+}
+
+
+.body .divBarraBotones .barraBotones {
+	background-image: url(images/bg_boton.jpg);
+    border-color: #D52B1E;
+    color: #FFF;
+    font: normal normal bold 8pt Verdana;
+    width: 70px;
+    border:1px;
+}
+
+.body .divBarraBotones .barraBotonesGrande {
+	background-image: url(images/bg_boton.jpg);
+    border-color: #D52B1E;
+    color: #FFF;
+    font: normal normal bold 8pt Verdana;
+    width: auto;
+    border:1px;
+}
+
+.body .barraBotones2 {
+    margin-top: 8px;
+}
+
+
+.body .barraBotones2 INPUT {
+	background-image: url(images/bg_boton.jpg);
+    border-color: #D52B1E;
+    color: #FFF;
+    font: normal normal bold 8pt Verdana;
+    width: 80px;
+    border:2px;
+}
+
+
+/* ==================================	Campo Area de Texto ====================== */
+
+.body .grupoCampos .areaTexto {
+    margin-top: 4px;
+}
+
+.body .grupoCampos .areaTexto LABEL {
+    display: block; 
+    float: left; 
+    border: 0px solid rgb(110, 159, 205);
+    margin: 1pt; 
+    font-family: Arial, Helvetica, sans-serif;
+    font: normal normal normal 8pt Helvetica;
+    font-size: 13px;
+    font-weight: bold;
+	width: 120px;
+	margin-left: 220px;
+}
+
+.body .grupoCampos .areaTexto EM {
+    color: #F00;
+    font: normal normal normal 8pt Helvetica;
+}
+
+.body .grupoCampos .areaTexto TEXTAREA {
+}
+
+.body .grupoCampos .areaTexto2 {
+    margin-top: 4px;
+}
+
+.body .grupoCampos .areaTexto2 LABEL {
+    font: normal normal normal 8pt Helvetica;
+    width: 180px;
+}
+
+.body .grupoCampos .areaTexto2 EM {
+    color: #F00;
+    font: normal normal normal 8pt Helvetica;
+}
+
+
+
+/* ==================================	Tablas  ======================  */
+
+.body .nuevoItem {
+    margin-top: 15px;
+    text-align: left;
+    margin-left: 65px;
+}
+
+.body .nuevoItem A {
+    color: #D52B1E; 
+    font: normal normal bold 9pt Arial; 
+}
+
+
+.body .grupoCampos .tabla {
+    margin-top: 4px;
+    width: 80%;
+}
+
+
+.body .grupoCampos .tabla2 {
+    margin-top: 4px;
+}
+
+.body .grupoCampos .tabla TABLE {
+    width: 100%;
+    margin-left: 65px;
+}
+
+
+.body .grupoCampos .tabla .pagebanner,
+.body .grupoCampos .tabla .pagelinks {
+    background-color: #FFF;  
+    color: #000;
+    font: normal normal normal 9pt Helvetica;
+    margin-top: 8px;
+    text-align: right;
+    width: 100%;
+}
+
+
+.body .grupoCampos .tabla THEAD {
+    background-color: #ADAFAF;
+    font: normal normal normal 10pt Helvetica;
+}
+
+
+.body .grupoCampos .tabla TBODY {
+	font: normal normal normal 9pt Helvetica; 
+}
+
+
+.body .tabla .odd {
+    background-color: #FFF;
+    color: #000;
+    font: normal normal normal 8pt Verdana; 
+}
+
+.body .tabla .even {
+    /* background-color: #EEE; */
+    background-color: #EEEEEE;
+    color: #000;
+    font: normal normal normal 8pt Verdana; 
+}
+
+
+/* =========================== Tabla para los Dominios ====================================== */
+
+.body .grupoCamposDominio {
+    margin-top: 0px;
+    padding: 4px;
+    margin-left: 110px;
+    margin-right: 150px;
+}
+
+.body .grupoCamposDominio .tablaDominios {
+    margin-top: 4px;
+    width: 100%;
+    margin-left: 70px;
+    margin-right: 80px;
+}
+
+
+.body .grupoCamposDominio .tablaDominios {
+    margin-top: 4px;
+}
+
+.body .grupoCamposDominio .tablaDominios TABLE {
+    width: 60%;
+    margin-left: 65px;
+}
+
+
+.body .grupoCamposDominio .tablaDominios .pagebanner,
+.body .grupoCamposDominio .tablaDominios .pagelinks {
+    background-color: #FFF;  
+    color: #000;
+    font: normal normal normal 9pt Helvetica;
+    margin-top: 8px;
+    text-align: right;
+    width: 60%;
+}
+
+
+.body .grupoCamposDominio .tablaDominios THEAD {
+    background-color: #ADAFAF;
+    font: normal normal normal 10pt Helvetica;
+}
+
+
+.body .grupoCamposDominio .tablaDominios TBODY {
+	font: normal normal normal 9pt Helvetica; 
+}
+
+
+.body .tablaDominios .odd {
+    background-color: #FFF;
+    color: #000;
+    font: normal normal normal 8pt Verdana; 
+}
+
+.body .tablaDominios .even {
+    /* background-color: #EEE; */
+    background-color: #EEEEEE;
+    color: #000;
+    font: normal normal normal 8pt Verdana; 
+}
+
+
+
+
+/* =============================================== Estilos Excepcionador */
+
+.bodyExp {
+    width: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+.bodyExp .titulo {
+    color: #000; 
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.bodyExp .titulo H1 {
+	font-family: Arial, Helvetica, sans-serif;
+    font-size: 14pt;
+    padding: 0px;
+    padding-top: 10px;
+}
+
+.bodyExp .grupoCamposExp {
+    margin-top: 0px;
+    padding: 4px;
+}
+
+.bodyExp .grupoCamposExp LEGEND {
+    color: #000;
+    font: normal normal bold 9pt Arial;
+}
+
+.bodyExp .grupoCamposExp .campoTexto LABEL {
+    font-family: Arial, Helvetica, sans-serif;
+    font: normal normal normal 9pt Helvetica;
+    font-weight: bold;
+	width: 120px;
+}
+
+.bodyExp .grupoCamposExp .campoTexto INPUT {
+    border: 1px solid rgb(110, 159, 205);
+    margin: 1pt; 
+    font: normal normal normal 9pt Helvetica;
+    font-family: Arial, Helvetica, sans-serif;
+	color:#000;
+    width: 177px;
+}
+
+.bodyExp .grupoCamposExp .campoCombo LABEL {
+    font-family: Arial, Helvetica, sans-serif;
+    font: normal normal normal 9pt Helvetica;
+    font-weight: bold;
+}
+
+.bodyExp .grupoCamposExp .campoCombo SELECT {
+    border: 1px solid rgb(110, 159, 205);
+    margin: 1pt; 
+    font: normal normal normal 8pt Helvetica;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 178px;
+}
+
+.bodyExp .grupoCamposExp .campoSoloLectura LABEL {
+    font-family: Arial, Helvetica, sans-serif;
+    font: normal normal normal 9pt Helvetica;
+    font-weight: bold;
+	width: 120px;
+}
+
+.bodyExp .grupoCamposExp .campoSoloLectura INPUT{
+    background-color: #FFF;
+    margin: 1pt;
+    border: 0;
+    font: normal normal normal 9pt Helvetica;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 177px;
+}
+
+.bodyExp .grupoCamposExp .campoSoloLectura SELECT {
+    background-color: #FFF;
+    border: 0;
+    margin: 1pt;
+    font: normal normal normal 8pt Helvetica;
+    font-family: Arial, Helvetica, sans-serif;
+    width: 178px;
+}
+
+.bodyExp .barraBotones {
+    margin-top: 8px;
+}
+
+
+.bodyExp .divBarraBotones {
+	text-align: center;	
+}
+
+
+.bodyExp .divBarraBotones .barraBotones {
+	background-image: url(images/bg_boton.jpg);
+    border-color: #D52B1E;
+    color: #FFF;
+    font: normal normal bold 8pt Verdana;
+    width: 70px;
+    border:1px;
+}
+
+.bodyExp .divBarraBotones .barraBotonesGrande {
+	background-image: url(images/bg_boton.jpg);
+    border-color: #D52B1E;
+    color: #FFF;
+    font: normal normal bold 8pt Verdana;
+    width: auto;
+    border:1px;
+}
+
+
+
+/* ================================================ CUERPO Section Definition */
+
+
+.mensajeError {
+    margin-left: 80px;
+    color: #F00; 
+    font: normal normal normal 9pt Verdana; 
+    margin-top: 8px;
+    margin-bottom: 10px;
+    text-align: left;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+
+.body .mensajeError {
+	border-right: #ff0066 2px solid;
+	border-top: #ff0066 2px solid;
+	border-left: #ff0066 2px solid;
+	border-bottom: #ff0066 2px solid;
+	
+	background-color: #FEE; 
+	color: #D8000C;
+	margin: 5px 2px 2px 80px;
+	padding-right: 2px;
+	padding-left: 60px;
+	padding-bottom: 2px;
+	padding-top: 2px;
+	font: normal normal bold 9pt Verdana;
+}
+
+
+.mensajeRequerido {
+    margin-left: 80px;
+    color: #F00; 
+    font: normal normal normal 9pt Verdana; 
+    margin-top: 8px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+
+
+.body .mensajeInformativo {
+	
+	border-top: #007f99 2px solid;
+	border-bottom: #007f99 2px solid;
+	border-left: #007f99 2px solid;
+	border-right: #007f99 2px solid;
+	
+	background-color: #f9fcfa;
+	margin: 5px 2px 2px 80px;
+	padding-right: 2px;
+	padding-left: 60px;
+	padding-bottom: 2px;
+	padding-top: 2px;
+	
+	font-weight: bold;
+	font-size: 11pt;
+	color: #007f99;
+	
+	/* background-image: url("./Imagenes/Ok.gif"); */
+	background-repeat :no-repeat ;
+
+}
+
+
+.body .mensajeAdvertencia {
+	
+	border-top: #E09010 2px;
+	border-bottom: #E09010 2px;
+	border-left: #E09010 2px;
+	border-right: #E09010 2px;
+	
+    background-color: #FEEFB3;
+	margin: 5px 2px 2px 80px;
+	padding-right: 2px;
+	padding-left: 60px;
+	padding-bottom: 2px;
+	padding-top: 2px;
+
+	font-weight: bold;
+	font-size: 11pt;
+    color: #9F6000;  
+    text-align: justify;
+}

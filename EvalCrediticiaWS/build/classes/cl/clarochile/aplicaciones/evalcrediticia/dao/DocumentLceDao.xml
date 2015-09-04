@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.amx.service.dao.DocumentLceDao">
+	<resultMap type="DocumentLceTO" id="resultDocumentLce">
+		<result property="corrSallceDocument" column="CORR_SALLCEDOCUMENT"/>
+		<result property="corrSallce" column="CORR_SALLCE"/>
+		<result property="corrDocument" column="CORR_DOCUMENT"/>
+		<result property="corrUsuarioAlta" column="CORR_USUARIOALTA"/>	
+	</resultMap>
+	<parameterMap id="DocumentLceParam" type="DocumentLceTO">
+		<parameter property="resultados" jdbcType="CURSOR"
+			javaType="java.sql.ResultSet" mode="OUT" resultMap="resultDocumentLce" />
+	</parameterMap>
+	
+	<insert id="insertarDocumentLce" parameterType="DocumentLceTO"
+		statementType="CALLABLE">
+		{ call PKG_EVC_SAL_DOCUMENTLCE.PRO_EVC_INSERSALDOCUMENTLCE
+		(
+		#{corrSallce, mode=IN, jdbcType=NUMERIC},
+		#{corrDocument, mode=IN, jdbcType=NUMERIC},
+		#{corrUsuarioAlta, mode=IN, jdbcType=NUMERIC}
+		)
+		}
+	</insert>
+</mapper>

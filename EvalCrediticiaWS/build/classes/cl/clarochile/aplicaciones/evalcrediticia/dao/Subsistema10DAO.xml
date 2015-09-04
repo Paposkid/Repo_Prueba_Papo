@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.amx.service.dao.Subsistema10DAO">
+
+	<resultMap id="resultSubsistema10TO" type="subsistema10TO">
+		<result property="totaImpa" column="TOTA_IMPA" />
+  		<result property="serialVersion" column="SERIAL_VERSIONUID" />
+		<result property="maxImpa" column="MAX_IMPA" />
+		<result property="usuario" column="CORR_USUARIOALTA" />
+	</resultMap>
+	
+	<parameterMap id="subsistema10Param" type="subsistema10TO">
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultSubsistema10TO" />
+	</parameterMap>
+
+
+	<select id="listarSubsistema10" parameterMap="subsistema10Param" resultMap="resultSubsistema10TO" parameterType="subsistema10TO" statementType="CALLABLE">
+	
+		{ call PRO_EVC_CONSSUBSISTEMA10
+		(
+		#{serialVersion, mode=IN, jdbcType=NUMERIC},
+		#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultSubsistema10TO, javaType=java.sql.ResultSet}
+
+		)
+		}
+	</select>
+	
+	<insert id="insertarSubsistema10" parameterType="subsistema10TO" statementType="CALLABLE">
+		{ call PRO_EVC_INGRESARSUBSISTEMA10
+		(
+		#{totaImpa, mode=IN, jdbcType=NUMERIC},
+		#{serialVersionUId, mode=IN, jdbcType=NUMERIC},
+		#{maxImpa, mode=IN, jdbcType=NUMERIC},
+		#{usuario, mode=IN, jdbcType=NUMERIC}
+		)
+		}
+	</insert>
+	
+
+</mapper>

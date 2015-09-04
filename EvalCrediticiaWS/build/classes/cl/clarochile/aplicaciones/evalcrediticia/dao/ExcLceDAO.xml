@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.amx.service.dao.ExcLceDAO">
+
+	<resultMap id="resultExcLce" type="excLceBean">
+		<result property="codExcLce" column="CORR_EXCLCE"/>
+		<result property="codLce" column="CORR_LCE"/>
+		<result property="tipoPlan" column="TIPO_PLAN"/>
+		<result property="purcLimit" column="PURC_LIMIT"/>
+		<result property="totalNumberFlines" column="TOTAL_NUMBEROFLINES"/>
+		<result property="rcPaymentRequired" column="RC_PAYMENTINAVANCEDREQUIRED"/>
+		<result property="equiInmediatePaymentRequired" column="EQUI_INMEDIATEPAYMENTREQUIRED"/>
+		<result property="payMeanRequired" column="PAY_MEANSREQUIRED"/>             
+	</resultMap>
+	
+ 
+	<parameterMap id="excLceParam" type="excLceBean">
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultExcLce" />
+    
+	</parameterMap>
+	
+	<insert id="insertarExcLce" parameterType="excLceBean" statementType="CALLABLE">
+		{ call   pro_evc_ingresarEXCLCE
+			(
+			   #{codExcLce, mode=IN, jdbcType=INTEGER},	
+			   #{codLce, mode=IN, jdbcType=INTEGER},
+               #{tipoPlan, mode=IN,	jdbcType=VARCHAR},
+               #{purcLimit, mode=IN, jdbcType=VARCHAR},	
+			   #{totalNumberFlines, mode=IN, jdbcType=INTEGER},
+               #{rcPaymentRequired, mode=IN,	jdbcType=VARCHAR},
+               #{equiInmediatePaymentRequired, mode=IN, jdbcType=VARCHAR},	
+			   #{payMeanRequired, mode=IN, jdbcType=VARCHAR},
+               #{codUsuarioAlta, mode=IN,	jdbcType=INTEGER}
+			)
+		}		
+	</insert>
+	
+		<select id="listExcLce" parameterMap="excLceParam" resultMap="resultExcLce" parameterType="excLceBean" statementType="CALLABLE">
+         { call  PRO_EVC_LISTAREXCLCE
+			(
+			   #{codExcLce, mode=IN, jdbcType=INTEGER},               
+			   #{codLce, mode=IN, jdbcType=INTEGER},       
+               #{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultExcLce, javaType=java.sql.ResultSet}
+			)
+		 }
+	</select>
+	
+	
+</mapper>

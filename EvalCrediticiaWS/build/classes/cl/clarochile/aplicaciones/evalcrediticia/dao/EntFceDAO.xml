@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.amx.service.dao.EntFceDAO">
+
+	<resultMap id="listaDatosMap" type="EntFceTo">
+		<result property="corrFCE" column="CORR_FCE" />
+		<result property="corrAffiInformation" column="CORR_AFFIINFORMATION" />
+		<result property="corrCredScoreInfo" column="CORR_CREDSCOREINFO" />
+		<result property="credApproValidInput" column="CRED_APPROVALIDINPUT" />
+	    <result property="usuario" column="CORR_USUARIOALTA" />
+	</resultMap>
+	
+	<parameterMap id="EntFceParam" type="EntFceTo">
+		<parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="listaDatosMap" />
+	</parameterMap>
+	
+	<select id="buscarFce"  parameterType="EntFceTo" statementType="CALLABLE" >
+		{ call  pro_evc_buscarFCE(
+			#{resultados,mode=OUT,jdbcType=CURSOR,
+			javaType=java.sql.ResultSet,resultMap=listaDatosMap},
+			#{corrFCE,mode=IN,jdbcType=NUMERIC})
+		}
+
+	</select>
+	<select id="ingresarFce" parameterType="EntFceTo"
+		statementType="CALLABLE" >
+		{ call  pro_evc_ingresarFCE(
+		#{corrFCE,mode=IN,jdbcType=NUMERIC}, 
+		#{corrAffiInformation,mode=IN, jdbcType=NUMERIC},
+		#{corrCredScoreInfo,mode=IN, jdbcType=NUMERIC},
+		#{credApproValidInput,mode=IN,jdbcType=VARCHAR},
+		#{usuario,mode=IN,jdbcType=NUMERIC})
+		}
+
+	</select>
+	<select id="buscarFceXAprovalId"  parameterType="EntFceTo" statementType="CALLABLE" >
+		{ call  pro_evc_conscreditaproid(
+			
+			#{credApproValidInput,mode=IN,jdbcType=VARCHAR},
+			#{resultados,mode=OUT,jdbcType=CURSOR,
+			javaType=java.sql.ResultSet,resultMap=listaDatosMap}
+			)
+		}
+
+	</select>
+	
+</mapper>

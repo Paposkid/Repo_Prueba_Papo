@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.amx.service.dao.SubSistema5DAO">
+
+	<resultMap id="resultSubSistema5" type="subSistema5Bean">
+		<result property="serialVersion" column="SERIAL_VERSIONUID"/>
+		<result property="indiImpa" column="INDI_IMPA"/>
+		<result property="acceIcom" column="ACCE_ICOM"/>
+		<result property="errorIcom" column="ERROR_ICOM"/>
+        <result property="totaImpa" column="TOTA_IMPA"/>
+        <result property="mtoImpa" column="MTO_IMPA"/>
+        <result property="fultImpa" column="FULT_IMPA"/>
+        <result property="multImpa" column="MULT_IMPA"/>
+		<result property="tultImpa" column="TULT_IMPA"/>
+		<result property="mto0mt06" column="MTO0MTO6"/>
+		<result property="mes0mes06" column="MES0MES6"/>
+		<result property="mto6mt012" column="MTO6MTO12"/>
+		<result property="mes6mes12" column="MES6MES12"/>
+		<result property="mto12mt024" column="MTO12MTO24"/>
+		<result property="mes12mes24" column="MES12MES24"/>
+        <result property="mto24mt099" column="MTO24MTO99"/>
+        <result property="mes24mes99" column="MES24MES99"/>
+        <result property="codUsuarioAlta" column="CORR_USUARIOALTA"/>
+        </resultMap>
+	
+ 
+	<parameterMap id="subSistema5Param" type="subSistema5Bean">
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultSubSistema5" />
+    
+	</parameterMap>
+	
+	<insert id="insetarSubSistema5" parameterType="subSistema5Bean" statementType="CALLABLE">
+		{ call   pro_evc_ingresarsubsistema05
+			(
+			   #{mtoImpa, mode=IN, jdbcType=INTEGER},
+			   #{mto0mt06, mode=IN, jdbcType=INTEGER},	
+			   #{multImpa, mode=IN, jdbcType=INTEGER},
+               #{mto6mt012, mode=IN, jdbcType=INTEGER},
+               #{mto12mt024, mode=IN, jdbcType=INTEGER},
+               #{mto24mt099, mode=IN, jdbcType=INTEGER},
+               #{serialVersion, mode=IN, jdbcType=INTEGER},
+			   #{mes24mes99, mode=IN, jdbcType=INTEGER},	
+			   #{totaImpa, mode=IN, jdbcType=INTEGER},
+               #{mes0mes06, mode=IN, jdbcType=INTEGER},
+               #{mto12mt024, mode=IN, jdbcType=INTEGER},
+                #{mes6mes12, mode=IN, jdbcType=INTEGER},
+               #{fultImpa, mode=IN, jdbcType=INTEGER},
+			   #{tultImpa, mode=IN, jdbcType=VARCHAR},	
+			   #{acceIcom, mode=IN, jdbcType=VARCHAR},
+               #{indiImpa, mode=IN, jdbcType=VARCHAR},
+               #{errorIcom, mode=IN, jdbcType=VARCHAR},
+			   #{codUsuarioAlta, mode=IN,	jdbcType=INTEGER}
+               
+			)
+		}		
+	</insert>
+	
+		<select id="listSubSys5" parameterMap="subSistema5Param" resultMap="resultSubSistema5" parameterType="subSistema5Bean" statementType="CALLABLE">
+         { call  pro_evc_conssubsistema05
+			(
+			   #{serialVersion, mode=IN, jdbcType=INTEGER},               
+               #{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultSubSistema5, javaType=java.sql.ResultSet}
+			)
+		 }
+	</select>
+	
+	
+</mapper>

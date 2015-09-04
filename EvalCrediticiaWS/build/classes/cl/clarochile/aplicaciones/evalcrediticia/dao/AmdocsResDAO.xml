@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.amx.service.dao.AmdocsResDAO">
+
+	<resultMap id="resultAmdocsRes" type="amdocsResTO">
+		<result property="rut" column="RUT"/>
+		<result property="antgLineasAct" column="ANTG_LINEASACTIVASCLIENTE"/>
+		<result property="deudaVencida" column="DEUDA_VENCIDACLIENTE"/>
+		<result property="notaComportamineto" column="NOTA_COMPORTAMIENTO"/>
+        <result property="cantLineasAct" column="CANT_LINEASACTUALES"/>
+        <result property="pagoRecurrenteAct" column="PAGO_RECURRENTEACTUAL"/>
+        <result property="fechaAlta" column="FECH_ALTA"/>   
+        <result property="codUsuarioAlta" column="CORR_USUARIOALTA"/>
+        <result property="fechaModificacion" column="FECH_MODIFICACION"/>
+        <result property="codUsuario" column="CORR_USUARIO"/>            
+	</resultMap>
+	
+ 
+	<parameterMap id="amdocsResParam" type="amdocsResTO">
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultAmdocsRes" />
+    
+	</parameterMap>
+	
+	<insert id="insertarAmdocsRes" parameterType="amdocsResTO" statementType="CALLABLE">
+		{ call   pro_evc_ingresaramdocsres
+			(
+			   #{rut, mode=IN, jdbcType=VARCHAR},	
+			   #{antgLineasAct, mode=IN, jdbcType=INTEGER},
+               #{deudaVencida, mode=IN, jdbcType=INTEGER},
+               #{notaComportamineto, mode=IN, jdbcType=VARCHAR},
+               #{cantLineasAct, mode=IN, jdbcType=INTEGER},
+               #{pagoRecurrenteAct, mode=IN,	jdbcType=INTEGER},
+               #{codUsuarioAlta, mode=IN, jdbcType=INTEGER}               
+			)
+		}		
+	</insert>
+	
+		<select id="listAmdocsRes" parameterMap="amdocsResParam" resultMap="resultAmdocsRes" parameterType="amdocsResTO" statementType="CALLABLE">
+         { call  PRO_EVC_LISTARAMDOCSRES
+			(
+			   #{rut, mode=IN, jdbcType=VARCHAR},               
+               #{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultAmdocsRes, javaType=java.sql.ResultSet}
+			)
+		 }
+	</select>
+		
+</mapper>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.amx.service.dao.DetSubsistema03DAO">
+
+	<resultMap id="resultDetSubsistema03TO" type="detSubsistema03TO">
+		<result property="corrDetallesubsistema03" column="corr_detallesubsistema03" />
+		<result property="serialVersion" column="SERIAL_VERSIONUID" />
+		<result property="codiExpl" column="CODI_EXPL" />
+		<result property="descExpl" column="DESC_EXPL" />
+		<result property="usuario" column="CORR_USUARIOALTA" />
+	</resultMap>
+	
+	<parameterMap id="detSubsistema03Param" type="detSubsistema03TO">
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultDetSubsistema03TO" />
+	</parameterMap>
+
+
+	<select id="listarDetSubsistema03" parameterMap="detSubsistema03Param" resultMap="resultDetSubsistema03TO" parameterType="detSubsistema03TO" statementType="CALLABLE">
+	
+		{ call PRO_EVC_CONSDETSUBSISTEMA03
+		(
+		#{serialVersion, mode=IN, jdbcType=NUMERIC},
+		#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultDetSubsistema03TO, javaType=java.sql.ResultSet}
+
+		)
+		}
+	</select>
+	
+		<insert id="insertarDetSubsistema03" parameterType="detSubsistema03TO" statementType="CALLABLE">
+		{ call PRO_EVC_INGDETSUBSISTEMA03
+		(
+		#{serialVersion, mode=IN, jdbcType=NUMERIC},
+		#{codiExpl, mode=IN, jdbcType=VARCHAR},
+		#{descExpl, mode=IN, jdbcType=VARCHAR},
+		#{usuario, mode=IN, jdbcType=NUMERIC}
+		)
+		}
+	</insert>
+	
+
+</mapper>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.amx.service.dao.Subsistema06DAO">
+
+	<resultMap id="resultSubsistema06TO" type="subsistema06TO">
+		<result property="vigeSisf" column="VIGE_SISF" />
+		<result property="tavaFisc" column="TAVA_FISC" />
+		<result property="icnuSisf" column="ICNU_SISF" />
+		<result property="serialVersion" column="SERIAL_VERSIONUID" />
+		<result property="comeMimp" column="COME_MIMP" />
+		<result property="comeMexp" column="COME_MEXP" />
+		<result property="comeFexp" column="COME_FEXP" />
+		<result property="foliUdec" column="FOLI_UDEC" />
+		<result property="nsocRela" column="NSOC_RELA" />
+		<result property="totaBcos" column="TOTA_BCOS" />
+		<result property="comeFimp" column="COME_FIMP" />
+		<result property="numeProp" column="NUME_PROP" />
+		<result property="nsocSoci" column="NSOC_SOCI" />
+		<result property="periSisf" column="PERI_SISF" />
+		<result property="fechUdec" column="FECH_UDEC" />
+		<result property="fechVeri" column="FECH_VERI" />
+		<result property="usuario" column="CORR_USUARIOALTA" />
+	</resultMap>
+	
+	<parameterMap id="subsistema06Param" type="subsistema06TO">
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultSubsistema06TO" />
+	</parameterMap>
+
+
+	<select id="listarSubsistema06" parameterMap="subsistema06Param" resultMap="resultSubsistema06TO" parameterType="subsistema06TO" statementType="CALLABLE">
+	
+		{ call PRO_EVC_CONSSUBSISTEMA06
+		(
+		#{serialVersion, mode=IN, jdbcType=NUMERIC},
+		#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultSubsistema06TO, javaType=java.sql.ResultSet}
+
+		)
+		}
+	</select>
+	
+	<insert id="insertarSubsistema06" parameterType="subsistema06TO" statementType="CALLABLE">
+		{ call PRO_EVC_INGRESARSUBSISTEMA06
+		(
+		#{vigeSisf, mode=IN, jdbcType=NUMERIC},
+		#{tavaFisc, mode=IN, jdbcType=NUMERIC},
+		#{icnuSisf, mode=IN, jdbcType=NUMERIC},
+		#{serialVersion, mode=IN, jdbcType=NUMERIC},
+		#{comeMimp, mode=IN, jdbcType=NUMERIC},
+		#{comeMexp, mode=IN, jdbcType=NUMERIC},
+		#{comeFexp, mode=IN, jdbcType=NUMERIC},
+		#{foliUdec, mode=IN, jdbcType=NUMERIC},
+		#{nsocRela, mode=IN, jdbcType=NUMERIC},
+		#{totaBcos, mode=IN, jdbcType=NUMERIC},
+		#{comeFimp, mode=IN, jdbcType=NUMERIC},
+		#{numeProp, mode=IN, jdbcType=NUMERIC},
+		#{nsocSoci, mode=IN, jdbcType=NUMERIC},
+		#{periSisf, mode=IN, jdbcType=NUMERIC},
+		#{fechUdec, mode=IN, jdbcType=NUMERIC},
+		#{fechVeri, mode=IN, jdbcType=NUMERIC},
+		#{usuario, mode=IN, jdbcType=NUMERIC}
+		)
+		}
+	</insert>
+	
+
+</mapper>

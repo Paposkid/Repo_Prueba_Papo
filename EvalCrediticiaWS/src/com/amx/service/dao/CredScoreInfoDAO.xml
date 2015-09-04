@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.amx.service.dao.CredScoreInfoDAO">
+
+	<resultMap id="resultCredScoreInfo" type="credScoreInfoTO">
+		
+		<result property="codigoCredScoreInfo" column="CORR_CREDSCOREINFO" />
+		<result property="orderID" column="ORDER_ID" />
+		<result property="oaType" column="OA_TYPE" />
+		<result property="credCheckapprovel" column="CRED_CHECKAPPROVEL" />
+		<result property="credRefNumber" column="CRED_REFNUMBER" />
+		<result property="saleChannel" column="SALE_CHANNEL" />
+		<result property="location" column="LOCAT" />
+		<result property="dealerOnBehalf" column="DEALER_ONBEHALF" />
+		<result property="dealerId" column="DEALER_ID" />
+		<result property="userId" column="USER_ID" />
+		<result property="region" column="REGION" />
+		<result property="idenNumber" column="IDEN_NUMBER" />
+		<result property="idenType" column="IDEN_TYPE" />
+		<result property="firstName" column="FIRST_NAME" />
+		<result property="lastName" column="LAST_NAME" />
+		<result property="vIPIndication" column="VIP_INDICATION" />
+		<result property="nuncaIndication" column="NUNCA_INDICATION" />
+		<result property="phoneNumber" column="PHONE_NUMBER" />
+		<result property="dateBirth" column="DATE_BIRTH" />
+		<result property="custType" column="CUST_TYPE" />
+		<result property="custSubtype" column="CUST_SUBTYPE" />
+		<result property="custId" column="CUST_ID" />
+		<result property="codUsuarioAlta" column="CORR_USUARIOALTA" />
+	</resultMap>
+
+	<parameterMap id="CredScoreInfoParam" type="credScoreInfoTO">
+		<parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultCredScoreInfo" />
+	</parameterMap>
+
+	<select id="consultarCredScoreInfoByCodigo" parameterMap="CredScoreInfoParam"
+		resultMap="resultCredScoreInfo" parameterType="credScoreInfoTO" statementType="CALLABLE">
+		{ call PRO_EVC_BUSCARCREDSCOREINFO
+			(
+				#{codigoCredScoreInfo, mode=IN, jdbcType=NUMERIC},
+				#{resultados, mode=OUT, jdbcType=CURSOR, resultMap=resultCredScoreInfo, javaType=java.sql.ResultSet}
+			)
+		}
+	</select>
+
+	<insert id="insertarCredScoreInfo" parameterType="credScoreInfoTO"
+		statementType="CALLABLE">
+		{ call PRO_EVC_INGRESARCREDSCOREINFO
+			(
+				#{orderID, mode=IN, jdbcType=VARCHAR},
+				#{oaType, mode=IN, jdbcType=VARCHAR},
+				#{credCheckapprovel, mode=IN, jdbcType=VARCHAR},
+				#{credRefNumber, mode=IN, jdbcType=VARCHAR},
+				#{saleChannel, mode=IN, jdbcType=VARCHAR},
+				#{location, mode=IN, jdbcType=VARCHAR},
+				#{dealerOnBehalf, mode=IN, jdbcType=VARCHAR},
+				#{dealerId, mode=IN, jdbcType=VARCHAR},
+				#{userId, mode=IN, jdbcType=VARCHAR},
+				#{region, mode=IN, jdbcType=VARCHAR},
+				#{idenNumber, mode=IN, jdbcType=VARCHAR},
+				#{idenType, mode=IN, jdbcType=VARCHAR},
+				#{firstName, mode=IN, jdbcType=VARCHAR},
+				#{lastName, mode=IN, jdbcType=VARCHAR},
+				#{vIPIndication, mode=IN, jdbcType=VARCHAR},
+				#{nuncaIndication, mode=IN, jdbcType=VARCHAR},
+				#{phoneNumber, mode=IN, jdbcType=VARCHAR},
+				#{dateBirth, mode=IN, jdbcType=DATE},
+				#{custType, mode=IN, jdbcType=VARCHAR},
+				#{custSubtype, mode=IN, jdbcType=VARCHAR},
+				#{custId, mode=IN, jdbcType=VARCHAR},
+				#{codigoCredScoreInfo, mode=OUT, jdbcType=NUMERIC},
+				#{codUsuarioAlta, mode=IN, jdbcType=NUMERIC}
+			)
+		}
+	</insert>
+	<select id="consultarCredScoreInfoByOrder" parameterMap="CredScoreInfoParam"
+		resultMap="resultCredScoreInfo" parameterType="credScoreInfoTO" statementType="CALLABLE">
+		{ call pro_evc_consorderid
+			(
+				#{codigoCredScoreInfo, mode=IN, jdbcType=NUMERIC},
+				#{resultados, mode=OUT, jdbcType=CURSOR, resultMap=resultCredScoreInfo, javaType=java.sql.ResultSet}
+			)
+		}
+	</select>
+
+</mapper>

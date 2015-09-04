@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.amx.service.dao.AmdocsDAO">
+
+	<resultMap id="resultAmdocs" type="amdocsBean">
+		<result property="codAmdocs" column="CORR_APIAMDOCS"/>
+		<result property="fechaConsulta" column="FECH_CONSULTA"/>
+		<result property="antiguedaLineasAct" column="ANTG_LINEASACTIVASCLIENTE"/>
+		<result property="deudaVencida" column="DEUDA_VENCIDACLIENTE"/>
+        <result property="notaComportamiento" column="NOTA_COMPORTAMIENTO"/>
+        <result property="cantLineasAct" column="CANT_LINEASACTUALES"/>
+        <result property="pagoRecurrenteAct" column="PAGO_RECURRENTEACTUAL"/> 
+        <result property="origen" column="ORIGEN"/>               
+	</resultMap>
+	
+ 
+	<parameterMap id="amdocsParam" type="amdocsBean">
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultAmdocs" />
+    
+	</parameterMap>
+	
+	<insert id="insertarAmdocs" parameterType="amdocsBean" statementType="CALLABLE">
+		{ call   pro_evc_ingresaramdocs
+			(
+			   #{antiguedaLineasAct, mode=IN, jdbcType=INTEGER},	
+			   #{deudaVencida, mode=IN, jdbcType=INTEGER},
+               #{notaComportamiento, mode=IN, jdbcType=VARCHAR},
+               #{cantLineasAct, mode=IN, jdbcType=INTEGER},
+               #{pagoRecurrenteAct, mode=IN, jdbcType=INTEGER},
+               #{codUsuarioAlta, mode=IN,	jdbcType=INTEGER},
+               #{origen, mode=IN, jdbcType=VARCHAR},
+               #{codAmdocs, mode=OUT,	jdbcType=INTEGER}
+			)
+		}		
+	</insert>
+	
+		<select id="listAmdocs" parameterMap="amdocsParam" resultMap="resultAmdocs" parameterType="amdocsBean" statementType="CALLABLE">
+         { call  PRO_EVC_LISTARAMDOCS
+			(
+			   #{codAmdocs, mode=IN, jdbcType=INTEGER},               
+               #{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultAmdocs, javaType=java.sql.ResultSet}
+			)
+		 }
+	</select>
+	
+	
+</mapper>

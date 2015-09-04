@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.amx.service.dao.RelDocumentExcFceDAO">
+
+	<resultMap id="resultRelDocumentExcFce" type="relDocumentExcFceBean">
+		<result property="codFceDocument" column="CORR_FCEDOCUMENT"/>
+		<result property="codExcFce" column="CORR_EXCFCE"/>
+		<result property="codDocument" column="CORR_DOCUMENT"/>               
+	</resultMap>
+	
+ 
+	<parameterMap id="relDocumentExcFceParam" type="relDocumentExcFceBean">
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultRelDocumentExcFce" />
+    
+	</parameterMap>
+	
+	<insert id="insertarRelDocumentExcFce" parameterType="relDocumentExcFceBean" statementType="CALLABLE">
+		{ call   pro_evc_ingrRELDOCUEXCFCE
+			(
+			   #{codExcFce, mode=IN, jdbcType=INTEGER},	
+			   #{codDocument, mode=IN, jdbcType=INTEGER},
+               #{codUsuarioAlta, mode=IN,	jdbcType=INTEGER}
+			)
+		}		
+	</insert>
+	
+		<select id="listRelDocumentExcFce" parameterMap="relDocumentExcFceParam" resultMap="resultRelDocumentExcFce" parameterType="relDocumentExcFceBean" statementType="CALLABLE">
+         { call  PRO_EVC_LISTARRELDOCUEXCFCE
+			(
+			   #{codFceDocument, mode=IN, jdbcType=INTEGER},               
+               #{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultRelDocumentExcFce, javaType=java.sql.ResultSet}
+			)
+		 }
+	</select>
+	
+	
+</mapper>

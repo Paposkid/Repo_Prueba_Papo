@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.amx.service.dao.SubSistema2DAO">
+
+	<resultMap id="resultSubSistema2" type="subSistema2Bean">
+		<result property="serialVersion" column="SERIAL_VERSIONUID"/>
+		<result property="cantDire" column="CANT_DIRE"/>
+		<result property="direPart" column="DIRE_PART"/>
+		<result property="ciudPart" column="CIUD_PART"/>
+        <result property="comuPart" column="COMU_PART"/>
+        <result property="primTele" column="PRIM_TELE"/>
+        <result property="seguTele" column="SEGU_TELE"/>
+        <result property="numeFaxs" column="NUME_FAXS"/>
+		<result property="direMail" column="DIRE_MAIL"/>
+		<result property="direDurl" column="DIRE_DURL"/>
+		<result property="codiPost" column="CODI_POST"/>
+		<result property="codUsuarioAlta" column="CORR_USUARIOALTA"/>
+        </resultMap>
+	
+ 
+	<parameterMap id="subSistema2Param" type="subSistema2Bean">
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultSubSistema2" />
+    
+	</parameterMap>
+	
+	<insert id="insetarSubSistema2" parameterType="subSistema2Bean" statementType="CALLABLE">
+		{ call   pro_evc_ingresarsubsistema02
+			(
+			   #{serialVersion, mode=IN, jdbcType=INTEGER},
+			   #{cantDire, mode=IN, jdbcType=INTEGER},	
+			   #{primTele, mode=IN, jdbcType=VARCHAR},
+               #{numeFaxs, mode=IN, jdbcType=VARCHAR},
+               #{seguTele, mode=IN, jdbcType=VARCHAR},
+               #{comuPart, mode=IN, jdbcType=VARCHAR},
+               #{ciudPart, mode=IN, jdbcType=VARCHAR},
+			   #{direMail, mode=IN, jdbcType=VARCHAR},	
+			   #{direDurl, mode=IN, jdbcType=VARCHAR},
+               #{direPart, mode=IN, jdbcType=VARCHAR},
+               #{codiPost, mode=IN, jdbcType=VARCHAR},
+			   #{codUsuarioAlta, mode=IN,	jdbcType=INTEGER}
+               
+			)
+		}		
+	</insert>
+	
+		<select id="listSubSys2" parameterMap="subSistema2Param" resultMap="resultSubSistema2" parameterType="subSistema2Bean" statementType="CALLABLE">
+         { call  pro_evc_conssubsistema02
+			(
+			   #{serialVersion, mode=IN, jdbcType=INTEGER},               
+               #{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultSubSistema2, javaType=java.sql.ResultSet}
+			)
+		 }
+	</select>
+	
+	
+</mapper>

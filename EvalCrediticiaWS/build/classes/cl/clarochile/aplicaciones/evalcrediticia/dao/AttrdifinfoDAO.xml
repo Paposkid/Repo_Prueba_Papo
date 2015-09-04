@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.amx.service.dao.AttrdifinfoDAO">
+
+	<resultMap id="resultAttrdifinfo" type="attrdifinfoTO">
+		<result property="codigoAttrdifinfo" column="CORR_ATTRDIFINFO" />
+		<result property="codigoCompdifinfo" column="CORR_COMPDIFINFO" />
+		<result property="nombre" column="ATTR_NAME" />
+		<result property="idatributo" column="ATTR_PROPERTYID" />
+		<result property="valor" column="ATTR_VALUE" />
+		<result property="antiguoValor" column="ATTR_OLDVALUE" />
+		<result property="accion" column="DIFF_ACTION" />
+		<result property="usuario" column="CORR_USUARIOALTA" />
+	</resultMap>
+	
+	<parameterMap id="AttrDifInfoParam" type="attrdifinfoTO">
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultAttrdifinfo" />
+	</parameterMap>
+	
+	<select id="listarAttrdifinfo" parameterMap="AttrDifInfoParam" resultMap="resultAttrdifinfo" parameterType="attrdifinfoTO" statementType="CALLABLE">
+	
+		{ call PRO_EVC_CONSATTRDIFINFO 
+		(
+		#{codigoAttrdifinfo, mode=IN, jdbcType=NUMERIC},
+		#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultAttrdifinfo,	javaType=java.sql.ResultSet}
+		)
+		}
+	</select>
+	
+	<insert id="insertarAttrdifinfo" parameterType="attrdifinfoTO" statementType="CALLABLE">
+		{ call PRO_EVC_INSERTATTRDIFINFO
+		(
+		#{codigoCompdifinfo, mode=IN, jdbcType=NUMERIC},
+		#{nombre, mode=IN, jdbcType=VARCHAR},
+		#{idatributo, mode=IN, jdbcType=VARCHAR},
+		#{valor, mode=IN, jdbcType=VARCHAR},
+		#{antiguoValor, mode=IN, jdbcType=VARCHAR},
+		#{accion, mode=IN, jdbcType=VARCHAR},
+		#{usuario, mode=IN, jdbcType=NUMERIC}		
+		)
+		}
+	</insert>
+	
+</mapper>

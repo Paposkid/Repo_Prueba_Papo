@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cl.clarochile.aplicaciones.evalcrediticia.dao.CondicionDAO">
+
+	<resultMap id="resultCondicion" type="condicionTO">
+		<result property="codigo" column="CORR_CONDICION" />
+		<result property="regla.codigo" column="CORR_REGLA" />
+		<result property="campo.codigoCampo" column="CORR_CAMPO" />
+		<result property="constante.codigo" column="CORR_CONSTANTE" />
+		<result property="dominio.codigo" column="CORR_DOMINIO" />
+		<result property="categoria.codigoCategoria" column="CORR_CATEGORIA" />
+		<result property="operador" column="OPERADOR" />
+		<result property="parenIqz" column="PARE_IZQUIERDA" />
+	</resultMap>
+	
+	<parameterMap id="condicionParam" type="condicionTO">
+		<parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultCondicion" />
+	</parameterMap>
+	
+	<select id="listarCondicion" parameterMap="condicionParam" resultMap="resultCondicion" parameterType="condicionTO" statementType="CALLABLE">
+		{ call PKG_EVC_REGLA.pro_evc_listar_condiciones
+			(
+				#{codigo, jdbcType=INTEGER, mode=IN },
+				#{regla.codigo, jdbcType=VARCHAR, mode=IN },
+				#{campo.codigoCampo, jdbcType=VARCHAR, mode=IN },
+				#{constante.codigo, jdbcType=VARCHAR, mode=IN },
+				#{dominio.codigo, jdbcType=VARCHAR, mode=IN },
+				#{categoria.codigoCategoria, jdbcType=VARCHAR, mode=IN },
+				#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultCondicion, javaType=java.sql.ResultSet}
+			)
+		}
+	</select>
+	
+	<insert id="insertarCondicion" parameterType="condicionTO" statementType="CALLABLE">
+		{ call PKG_EVC_REGLA.pro_evc_ingresar_condiciones
+			(
+				#{codigo, jdbcType=INTEGER, mode=IN },
+				#{regla.codigo, jdbcType=VARCHAR, mode=IN },
+				#{campo.codigoCampo, jdbcType=VARCHAR, mode=IN },
+				#{constante.codigo, jdbcType=VARCHAR, mode=IN },
+				#{dominio.codigo, jdbcType=VARCHAR, mode=IN },
+				#{categoria.codigoCategoria, jdbcType=VARCHAR, mode=IN },
+				#{operador, mode=IN, jdbcType=VARCHAR},
+				#{parenIqz, jdbcType=VARCHAR, mode=IN }
+			)
+		}		
+	</insert>
+	
+	<select id="actualizarCondicion" parameterType="condicionTO" statementType="CALLABLE">
+		{ call PKG_EVC_REGLA.pro_evc_modificar_condiciones
+			(
+				#{codigo, jdbcType=INTEGER, mode=IN },
+				#{regla.codigo, jdbcType=VARCHAR, mode=IN },
+				#{campo.codigoCampo, jdbcType=VARCHAR, mode=IN },
+				#{constante.codigo, jdbcType=VARCHAR, mode=IN },
+				#{dominio.codigo, jdbcType=VARCHAR, mode=IN },
+				#{categoria.codigoCategoria, jdbcType=VARCHAR, mode=IN },
+				#{operador, mode=IN, jdbcType=VARCHAR},
+				#{parenIqz, jdbcType=VARCHAR, mode=IN }
+			)
+		}
+	</select>
+
+</mapper>

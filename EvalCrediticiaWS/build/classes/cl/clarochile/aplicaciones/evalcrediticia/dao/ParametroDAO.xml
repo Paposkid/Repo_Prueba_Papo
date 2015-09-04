@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.amx.service.dao.ParametroDAO">
+
+	<resultMap id="resultParametro" type="parametroTO">
+		<result property="codigoParametro" column="CORR_PARAMGLOBAL" />
+		<result property="nombreParametro" column="NOMB_PARAMGLOBAL" />
+		<result property="tipoParametro" column="TIPO_PARAMETRO" />
+		<result property="valorParametro" column="VLOR_PARAMGLOBAL" />
+		<result property="estadoParametro" column="ESTADO" />
+		<result property="fechaAlta" column="FECH_ALTA" />
+		<result property="codigoUsuarioAlta" column="CORR_USUARIOALTA" />
+		<result property="fechaModificacion" column="FECH_MODIFICACION" />
+		<result property="codigoUsuario" column="CORR_USUARIO" />
+	</resultMap>
+	
+	<parameterMap id="parametroParam" type="parametroTO">
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultParametro" />
+	</parameterMap>
+
+		
+	<select id="buscarParametroPorNombre" parameterType="parametroTO" statementType="CALLABLE">
+		{ call PRO_EVC_LISTARPARAMETRO
+		(
+		#{nombreParametro, mode=IN, jdbcType=VARCHAR},
+		#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultParametro,	javaType=java.sql.ResultSet}
+		)
+		}
+	</select>
+	
+	<select id="buscarParametroPorNomb" parameterType="parametroTO" statementType="CALLABLE">
+        { call PRO_EVC_LISTARPARAMETROLIKE
+        (
+        #{nombreParametro, mode=IN, jdbcType=VARCHAR},
+        #{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultParametro, javaType=java.sql.ResultSet}
+        )
+        }
+    </select>
+	
+	
+</mapper>

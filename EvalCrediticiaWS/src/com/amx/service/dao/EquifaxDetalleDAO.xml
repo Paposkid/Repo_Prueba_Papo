@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.amx.service.dao.EquifaxDetalleDAO">
+
+	<resultMap id="resultEquifaxDetalleTO" type="equifaxDetalleTO">
+		<result property="codigoDetalleEquifax" column="CORR_DETALLEEQUIFAX" />
+		<result property="codigoEquifax" column="CORR_EQUIFAX" />
+		<result property="codigoEntrada" column="CORR_ENTRADA" />
+		<result property="codigoBanco" column="COD_BANCO" />
+		<result property="cuentaCorriente" column="CTA_CORRIENTE" />
+		<result property="numeroCheque" column="NUM_CHEQUE" />
+		<result property="tipoDocumento" column="TIPO_DOC" />
+		<result property="rut" column="RUT" />
+		<result property="numeroSerie" column="NUM_SERIE" />
+		<result property="indConsulta" column="IND_CONSULTA" />
+		<result property="usosrcel" column="USO_SRCEL" />
+		<result property="autorizado" column="AUTORIZADO" />
+		<result property="codigoRespuesta" column="COD_RESPUESTA" />
+		<result property="codigoRechazo" column="COD_RECHAZO" />
+		<result property="nombreRut" column="NOMB_RUT" />
+		<result property="indIcom" column="IND_ICOM" />
+		<result property="sexo" column="SEXO" />
+		<result property="edad" column="EDAD" />
+		<result property="usuario" column="CORR_USUARIOALTA" />
+	</resultMap>
+	
+	<parameterMap id="equifaxDetalleParam" type="equifaxDetalleTO">
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultEquifaxDetalleTO" />
+	</parameterMap>
+
+
+	<select id="listarDetalleEquifax" parameterMap="equifaxDetalleParam" resultMap="resultEquifaxDetalleTO" parameterType="equifaxDetalleTO" statementType="CALLABLE">
+	
+		{ call PRO_EVC_CONSDETALLEEQUIFAX 
+		(
+		#{codigoDetalleEquifax, mode=IN, jdbcType=NUMERIC},
+		#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultEquifaxDetalleTO,	javaType=java.sql.ResultSet}
+
+		)
+		}
+	</select>
+	
+	   <select id="listarDetalleEquifaxByRut" parameterMap="equifaxDetalleParam" resultMap="resultEquifaxDetalleTO" parameterType="equifaxDetalleTO" statementType="CALLABLE">
+    
+        { call PRO_EVC_CONSDETALLEEQUIFAXRUT 
+        (
+        #{rut, mode=IN, jdbcType=NUMERIC},
+        #{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultEquifaxDetalleTO,  javaType=java.sql.ResultSet}
+
+        )
+        }
+    </select>
+	
+		<insert id="insertarDetalleEquifax" parameterType="equifaxDetalleTO" statementType="CALLABLE">
+		{ call PRO_EVC_INSERTDETALLEEQUIFAX
+		(
+		#{codigoEquifax, mode=IN, jdbcType=NUMERIC},
+		#{codigoEntrada, mode=IN, jdbcType=VARCHAR},
+		#{codigoBanco, mode=IN, jdbcType=VARCHAR},
+		#{cuentaCorriente, mode=IN, jdbcType=VARCHAR},
+		#{numeroCheque, mode=IN, jdbcType=VARCHAR},
+		#{tipoDocumento, mode=IN, jdbcType=VARCHAR},
+		#{rut, mode=IN, jdbcType=VARCHAR},
+		#{numeroSerie, mode=IN, jdbcType=VARCHAR},
+		#{indConsulta, mode=IN, jdbcType=VARCHAR},
+		#{usosrcel, mode=IN, jdbcType=VARCHAR},
+		#{autorizado, mode=IN, jdbcType=VARCHAR},
+		#{codigoRespuesta, mode=IN, jdbcType=VARCHAR},
+		#{codigoRechazo, mode=IN, jdbcType=VARCHAR},
+		#{nombreRut, mode=IN, jdbcType=VARCHAR},
+		#{indIcom, mode=IN, jdbcType=VARCHAR},
+		#{sexo, mode=IN, jdbcType=VARCHAR},
+		#{edad, mode=IN, jdbcType=VARCHAR},
+		#{usuario, mode=IN, jdbcType=VARCHAR},
+		#{codigoDetalleEquifax, mode=OUT, jdbcType=NUMERIC}
+		)
+		}
+	</insert>
+	
+
+</mapper>

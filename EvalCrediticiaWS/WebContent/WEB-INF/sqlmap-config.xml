@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!DOCTYPE configuration  PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	<settings>
+		<!-- changes from the defaults -->
+		<setting name="lazyLoadingEnabled" value="false" />
+	</settings>
+
+	<typeAliases>
+
+		<typeAlias alias="equifaxTO"
+			type="com.amx.service.bean.EquifaxTO" />
+
+		<typeAlias alias="equifaxDetalleTO"
+			type="com.amx.service.bean.EquifaxDetalleTO" />
+
+		<typeAlias alias="compdifinfoTO"
+			type="com.amx.service.bean.CompdifinfoTO" />
+
+		<typeAlias alias="chargesinfoTO"
+			type="com.amx.service.bean.ChargesinfoTO" />
+
+		<typeAlias alias="attrdifinfoTO"
+			type="com.amx.service.bean.AttrdifinfoTO" />
+
+		<typeAlias alias="amdocsBean"
+			type="com.amx.service.bean.AmdocsTO" />
+
+		<typeAlias alias="subSistemaOBean"
+			type="com.amx.service.bean.SubSistema00TO" />
+
+		<typeAlias alias="subSistema1Bean"
+			type="com.amx.service.bean.SubSistema01TO" />
+
+		<typeAlias alias="subSistema2Bean"
+			type="com.amx.service.bean.SubSistema02TO" />
+
+		<typeAlias alias="subSistema5Bean"
+			type="com.amx.service.bean.SubSistema05TO" />
+
+		<typeAlias alias="subSistema8Bean"
+			type="com.amx.service.bean.SubSistema08TO" />
+
+		<typeAlias alias="plusGoldTO"
+			type="com.amx.service.bean.PlusGoldTO" />
+
+		<typeAlias alias="bancoTO"
+			type="com.amx.service.bean.BancoTO" />
+
+		<typeAlias alias="subsistema03TO"
+			type="com.amx.service.bean.SubSistema03TO" />
+
+		<typeAlias alias="subsistema06TO"
+			type="com.amx.service.bean.SubSistema06TO" />
+
+		<typeAlias alias="subsistema07TO"
+			type="com.amx.service.bean.SubSistema07TO" />
+
+		<typeAlias alias="subsistema09TO"
+			type="com.amx.service.bean.SubSistema09TO" />
+
+		<typeAlias alias="subsistema10TO"
+			type="com.amx.service.bean.SubSistema10TO" />
+
+		<typeAlias alias="detSubsistema03TO"
+			type="com.amx.service.bean.DetSubsistema03TO" />
+
+		<typeAlias alias="detSubsistema07TO"
+			type="com.amx.service.bean.DetSubsistema07TO" />
+
+		<typeAlias alias="detSubsistema09TO"
+			type="com.amx.service.bean.DetSubsistema09TO" />
+
+		<typeAlias alias="detSubsistema10TO"
+			type="com.amx.service.bean.DetSubsistema10TO" />
+
+		<typeAlias alias="conditionFCETO"
+			type="com.amx.service.bean.ConditionFCETO" />
+
+		<typeAlias alias="docExtraTO"
+			type="com.amx.service.bean.DocExtraTO" />
+
+		<typeAlias alias="documentFCETO"
+			type="com.amx.service.bean.DocumentFCETO" />
+
+		<typeAlias alias="fCEDocExtraTO"
+			type="com.amx.service.bean.FCEDocExtraTO" />
+
+		<typeAlias alias="SalFceTO"
+			type="com.amx.service.bean.SalFceTO" />
+
+		<typeAlias alias="SalDocumentTO"
+			type="com.amx.service.bean.SALDocumentTO" />
+
+		<typeAlias alias="excCondicionFceBean"
+			type="com.amx.service.bean.ExcCondicionFceTO" />
+
+		<typeAlias alias="excFceBean"
+			type="com.amx.service.bean.ExcFceTO" />
+
+		<typeAlias alias="excLceBean"
+			type="com.amx.service.bean.ExcLceTO" />
+
+		<typeAlias alias="relExcFceDocExtraBean"
+			type="com.amx.service.bean.RelExcFceDocExtraTO" />
+
+		<typeAlias alias="relDocumentExcFceBean"
+			type="com.amx.service.bean.RelDocumentExcFceTO" />
+
+		<typeAlias alias="negFceBean"
+			type="com.amx.service.bean.NegFceTO" />
+
+		<typeAlias alias="negLceBean"
+			type="com.amx.service.bean.NegLceTO" />
+
+		<typeAlias alias="negExcepcionBean"
+			type="com.amx.service.bean.NegExcepcionTO" />
+
+		<typeAlias alias="reglalceTO"
+			type="com.amx.service.bean.ReglalceTO" />
+
+		<typeAlias alias="amdocsResTO"
+			type="com.amx.service.bean.AmdocsResTO" />
+
+		<typeAlias alias="previredTO"
+			type="com.amx.service.bean.PreviredTO" />
+
+		<typeAlias alias="detallePreviredTO"
+			type="com.amx.service.bean.DetallePreviredTO" />
+
+		<typeAlias alias="aDDRInfoDetTO"
+			type="com.amx.service.bean.ADDRInfoDetTO" />
+
+		<typeAlias alias="credScoreInfoTO"
+			type="com.amx.service.bean.CredScoreInfoTO" />
+
+		<typeAlias alias="resourcesTO"
+			type="com.amx.service.bean.ResourcesTO" />
+
+		<typeAlias alias="reglaFCETO"
+			type="com.amx.service.bean.ReglaFCETO" />
+
+		<typeAlias alias="accrdataTo"
+			type="com.amx.service.bean.AccreditationDataTO" />
+
+		<typeAlias alias="affiinformationTo"
+			type="com.amx.service.bean.AffiinformationTO" />
+
+		<typeAlias alias="EntFceTo"
+			type="com.amx.service.bean.EntFceTO" />
+
+		<typeAlias alias="EntLceTo"
+			type="com.amx.service.bean.EntLceTO" />
+
+		<typeAlias alias="accrinfoTo"
+			type="com.amx.service.bean.AccrinfoTO" />
+
+		<typeAlias alias="accrdocumentTo"
+			type="com.amx.service.bean.AccrdocumentTO" />
+
+		<typeAlias alias="productTo"
+			type="com.amx.service.bean.ProductTO" />
+
+		<typeAlias alias="orderactionTo"
+			type="com.amx.service.bean.OrderactionTO" />
+
+		<typeAlias alias="biomTo"
+			type="com.amx.service.bean.BiomTO" />
+
+		<typeAlias alias="creditScoreTO"
+			type="com.amx.service.bean.CreditScoreTO" />
+
+		<typeAlias alias="documentLceTO"
+			type="com.amx.service.bean.DocumentLceTO" />
+
+		<typeAlias alias="salLceTO"
+			type="com.amx.service.bean.SalLceTO" />
+
+		<typeAlias alias="contactInfoTO"
+			type="com.amx.service.bean.ContactInfoTO" />
+
+		<typeAlias alias="nlineSallopGaptTO"
+			type="com.amx.service.bean.NlineSallopGaptTO" />
+
+		<typeAlias alias="readListaTypeTO"
+			type="com.amx.service.bean.ReadListaTypeTO" />
+
+
+		<typeAlias alias="listaEspecialTO"
+			type="com.amx.service.bean.ListaEspecialTO" />
+
+		<typeAlias alias="parametroTO"
+			type="com.amx.service.bean.ParametroTO" />
+
+		<typeAlias alias="readParametroTypeTO"
+			type="com.amx.service.bean.ReadParametroTypeTO" />
+
+		<typeAlias
+			type="com.amx.service.bean.TipoReglaTO"
+			alias="tipoReglaTO" />
+		<typeAlias
+			type="com.amx.service.bean.CategoriaTO"
+			alias="categoriaTO" />
+		<typeAlias type="com.amx.service.bean.DominioTO"
+			alias="dominioTO" />
+		<typeAlias
+			type="com.amx.service.bean.DominioCategoriaTO"
+			alias="dominioCategoriaTO" />
+		<typeAlias
+			type="com.amx.service.bean.ParametroTO"
+			alias="parametroTO" />
+		<typeAlias type="com.amx.service.bean.CampoTO"
+			alias="campoTO" />
+		<typeAlias
+			type="com.amx.service.bean.ListaEspecialTO"
+			alias="listaEspecialTO" />
+		<typeAlias type="com.amx.service.bean.DominioTO"
+			alias="dominioTO" />
+		<typeAlias
+			type="com.amx.service.bean.ConstanteTO"
+			alias="constanteTO" />
+		<typeAlias
+			type="com.amx.service.bean.EquivalenteEntradaTO"
+			alias="equivalenteTO" />
+		<typeAlias
+			type="com.amx.service.bean.ComplementoTO"
+			alias="complementoTO" />
+		<typeAlias
+			type="com.amx.service.bean.CondicionTO"
+			alias="condicionTO" />
+		<typeAlias type="com.amx.service.bean.ReglaTO"
+			alias="reglaTO" />
+
+
+	</typeAliases>
+
+</configuration>

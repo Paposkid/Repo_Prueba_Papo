@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.amx.service.dao.AccreditationDataDAO">
+
+	<resultMap id="listaDatosMap" type="accrdataTo">
+		<result property="corrAccrData" column="CORR_ACCRDATA" />
+		<result property="corrAccrInfo" column="CORR_ACCRINFO" />
+		<result property="accrName" column="ACCR_NAME" />
+		<result property="accrValue" column="ACCR_VALUE" />
+        <result property="usuario" column="CORR_USUARIOALTA" /> 
+	</resultMap>
+	<parameterMap id="AccrDataParam" type="accrdataTo">
+		<parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="listaDatosMap" />
+	</parameterMap>
+	<select id="buscarAccrData"  parameterType="accrdataTo" statementType="CALLABLE" >
+		{ call  pro_evc_buscarACCRDATA(
+			#{resultados,mode=OUT,jdbcType=CURSOR,
+			javaType=java.sql.ResultSet,resultMap=listaDatosMap},
+			#{corrAccrData,mode=IN,jdbcType=NUMERIC})
+		}
+
+	</select>
+	<insert id="ingresarAccrData" parameterType="accrdataTo"
+		statementType="CALLABLE" >
+		{ call pro_evc_ingresarACCRDATA(
+		#{corrAccrInfo,mode=IN,jdbcType=NUMERIC}, 
+		#{accrName,mode=IN, jdbcType=VARCHAR},
+		#{accrValue,mode=IN, jdbcType=VARCHAR},
+		#{corrAccrData,mode=OUT, jdbcType=NUMERIC},
+		#{usuario,mode=IN,jdbcType=NUMERIC})
+		}
+
+	</insert>
+	
+</mapper>

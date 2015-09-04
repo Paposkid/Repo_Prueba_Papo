@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.amx.service.dao.Subsistema03DAO">
+
+	<resultMap id="resultSubsistema03TO" type="subsistema03TO">
+		<result property="serialVersion" column="SERIAL_VERSIONUID" />
+		<result property="pcjePred" column="PCJE_PRED" />
+		<result property="vlorPred" column="VLOR_PRED" />
+		<result property="caliExpl" column="CALI_EXPL" />
+		<result property="caliOrig" column="CALI_ORIG" />
+		<result property="usuario" column="CORR_USUARIOALTA" />
+	</resultMap>
+	
+	<parameterMap id="subsistema03Param" type="subsistema03TO">
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultSubsistema03TO" />
+	</parameterMap>
+
+
+	<select id="listarSubsistema03" parameterMap="subsistema03Param" resultMap="resultSubsistema03TO" parameterType="subsistema03TO" statementType="CALLABLE">
+	
+		{ call PRO_EVC_CONSSUBSISTEMA03
+		(
+		#{serialVersion, mode=IN, jdbcType=NUMERIC},
+		#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultSubsistema03TO, javaType=java.sql.ResultSet}
+
+		)
+		}
+	</select>
+	
+	<insert id="insertarSubsistema03" parameterType="subsistema03TO" statementType="CALLABLE">
+		{ call PRO_EVC_INGRESARSUBSISTEMA03
+		(
+		#{serialVersion, mode=IN, jdbcType=NUMERIC},
+		#{pcjePred, mode=IN, jdbcType=NUMERIC},
+		#{vlorPred, mode=IN, jdbcType=NUMERIC},
+		#{caliExpl, mode=IN, jdbcType=VARCHAR},
+		#{caliOrig, mode=IN, jdbcType=VARCHAR},
+		#{usuario, mode=IN, jdbcType=NUMERIC}
+		)
+		}
+	</insert>
+	
+
+</mapper>

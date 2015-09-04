@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.amx.service.dao.LceDao">
+	<resultMap type="LceTO" id="resultLce">
+		<result property="corrLce" column="CORR_LCE"/>
+		<result property="numbOffinancedActiveLines" column="NUMB_OFFINANCEDACTIVELINES"/>
+		<result property="corrUsuarioAlta" column="CORR_USUARIOALTA"/>
+	</resultMap>
+	<parameterMap id="LceParam" type="LceTO">
+		<parameter property="resultados" jdbcType="CURSOR"
+			javaType="java.sql.ResultSet" mode="OUT" resultMap="resultLce" />
+	</parameterMap>
+	
+	<insert id="insertarLce" parameterType="LceTO"
+		statementType="CALLABLE">
+		{ call PRO_EVC_INSERSALLCE
+		(
+		#{corrLce, mode=IN, jdbcType=NUMERIC},
+		#{numbOffinancedActiveLines, mode=IN, jdbcType=NUMERIC},
+		#{corrUsuarioAlta, mode=IN, jdbcType=NUMERIC}
+		)
+		}
+	</insert>
+</mapper>

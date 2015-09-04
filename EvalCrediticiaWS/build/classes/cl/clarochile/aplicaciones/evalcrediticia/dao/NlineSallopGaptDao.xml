@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.amx.service.dao.NlineSallopGaptDao">
+	<resultMap type="NlineSallopGaptTO" id="resultNlineSallopGapt">
+		<result property="CorrNlineSallopGapt" column="CORR_NLINESALLOPGAPT"/>
+		<result property="CorrSallce" column="CORR_SALLCE"/>
+		<result property="TotalNumbLineSallowed" column="TOTAL_NUMBLINESALLOWED"/>
+		<result property="gama" column="GAMA"/>
+		<result property="ProdType" column="PROD_TYPE"/>
+		<result property="corrUsuarioAlta" column="CORR_USUARIOALTA"/>
+	</resultMap>
+	<parameterMap id="NlineSallopGaptParam" type="NlineSallopGaptTO">
+		<parameter property="resultados" jdbcType="CURSOR"
+			javaType="java.sql.ResultSet" mode="OUT" resultMap="resultNlineSallopGapt" />
+	</parameterMap>
+	
+	<insert id="insertarNlineSallopGapt" parameterType="NlineSallopGaptTO"
+		statementType="CALLABLE">
+		{ call PRO_EVC_INSERNLINESALLOPGAPT
+		(
+		#{CorrSallce, mode=IN, jdbcType=NUMERIC},
+		#{TotalNumbLineSallowed, mode=IN, jdbcType=VARCHAR},
+		#{gama, mode=IN, jdbcType=VARCHAR},
+		#{ProdType, mode=IN, jdbcType=VARCHAR},
+		#{corrUsuarioAlta, mode=IN, jdbcType=NUMERIC}
+		)
+		}
+	</insert>
+	
+		<select id="listarNlineSallopGapt"  parameterType="NlineSallopGaptTO" statementType="CALLABLE" >
+		{ call PRO_EVC_BUSCARNLINESALLOPGAPT(
+			#{CorrSallce,mode=IN,jdbcType=NUMERIC},
+			#{resultados, jdbcType=CURSOR,mode=OUT,resultMap=resultNlineSallopGapt, javaType=java.sql.ResultSet}
+			)
+		}
+
+	</select>
+</mapper>

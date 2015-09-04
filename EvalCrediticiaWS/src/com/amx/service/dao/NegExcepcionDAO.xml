@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.amx.service.dao.NegExcepcionDAO">
+
+	<resultMap id="resultNegExcepcion" type="negExcepcionBean">
+		<result property="codExcepcion" column="CORR_EXCEPCION"/>
+		<result property="estado" column="ESTADO"/>              
+	</resultMap>
+	
+ 
+	<parameterMap id="negExcepcionParam" type="negExcepcionBean">
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultNegExcepcion" />
+    
+	</parameterMap>
+	
+	<insert id="insertarNegExcepcion" parameterType="negExcepcionBean" statementType="CALLABLE">
+		{ call   pro_evc_ingresarNEGEXCEPCION
+			(
+			   #{estado, mode=IN, jdbcType=INTEGER},	
+			   #{codUsuarioAlta, mode=IN, jdbcType=INTEGER},
+               #{codExcepcion, mode=OUT,	jdbcType=INTEGER}
+			)
+		}		
+	</insert>
+	
+		<select id="listNegExcepcion" parameterMap="negExcepcionParam" resultMap="resultNegExcepcion" parameterType="negExcepcionBean" statementType="CALLABLE">
+         { call  PRO_EVC_LISTARNEGEXCEPCION
+			(
+			   #{codExcepcion, mode=IN, jdbcType=INTEGER},               
+               #{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultNegExcepcion, javaType=java.sql.ResultSet}
+			)
+		 }
+	</select>
+	<insert id="actualizarEstadoNegExcepcion" parameterType="negExcepcionBean" statementType="CALLABLE">
+		{ call   PRO_EVC_ACTNEGEXCEPCION
+			(
+			   #{codExcepcion, mode=IN, jdbcType=INTEGER},	
+			   #{estado, mode=IN, jdbcType=VARCHAR},
+               #{codUsuarioModificacion, mode=IN,	jdbcType=INTEGER}
+			)
+		}		
+	</insert>
+	
+</mapper>

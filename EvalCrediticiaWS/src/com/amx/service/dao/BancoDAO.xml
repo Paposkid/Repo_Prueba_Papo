@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.amx.service.dao.BancoDAO">
+
+	<resultMap id="resultBancoTO" type="bancoTO">
+		<result property="corrBanco" column="CORR_BANCO" />
+		<result property="serialVersion" column="SERIAL_VERSIONUID" />
+		<result property="nombBcos" column="NOMB_BCOS" />
+		<result property="usuario" column="CORR_USUARIOALTA" />
+	</resultMap>
+	
+	<parameterMap id="bancoParam" type="bancoTO">
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultBancoTO" />
+	</parameterMap>
+
+
+	<select id="listarBanco" parameterMap="bancoParam" resultMap="resultBancoTO" parameterType="bancoTO" statementType="CALLABLE">
+	
+		{ call PRO_EVC_CONSBANCO
+		(
+		#{serialVersion, mode=IN, jdbcType=NUMERIC},
+		#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultBancoTO, javaType=java.sql.ResultSet}
+
+		)
+		}
+	</select>
+	
+		<insert id="insertarBanco" parameterType="bancoTO" statementType="CALLABLE">
+		{ call PRO_EVC_INGRESARBANCO
+		(
+		#{serialVersion, mode=IN, jdbcType=NUMERIC},
+		#{nombBcos, mode=IN, jdbcType=VARCHAR},
+		#{usuario, mode=IN, jdbcType=NUMERIC}
+		)
+		}
+	</insert>
+	
+
+</mapper>
+

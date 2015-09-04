@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.amx.service.dao.EntLceDAO">
+
+	<resultMap id="listaDatosMap" type="EntLceTo">
+		<result property="corrLce" column="CORR_LCE" />
+		<result property="corrAffiinformation" column="CORR_AFFIINFORMATION" />
+		<result property="corrCredscoreinfo" column="CORR_CREDSCOREINFO" />
+		<result property="credApprovalid" column="CRED_APPROVALID" />
+		<result property="usuario" column="CORR_USUARIOALTA" />
+
+	</resultMap>
+	<parameterMap id="EntLceParam" type="EntLceTo">
+		<parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="listaDatosMap" />
+	</parameterMap>
+	<select id="buscarLce"  parameterMap="EntLceParam" resultMap="listaDatosMap" parameterType="EntLceTo" statementType="CALLABLE" >
+		{ call  pro_evc_buscarLCE(
+			#{corrLce,mode=IN,jdbcType=NUMERIC},
+			#{resultados,jdbcType=CURSOR,mode=OUT, resultMap=listaDatosMap,
+			javaType=java.sql.ResultSet})
+			
+		}
+
+	</select>
+	<select id="buscarLceCredApprovalid"  parameterMap="EntLceParam" resultMap="listaDatosMap" parameterType="EntLceTo" statementType="CALLABLE" >
+		{ call  pro_evc_buscarLCE(
+			#{idLceCredApprovalid,mode=IN,jdbcType=VARCHAR},
+			#{resultados,jdbcType=CURSOR,mode=OUT, resultMap=listaDatosMap,
+			javaType=java.sql.ResultSet})
+			
+		}
+
+	</select>
+	<insert id="ingresarLce" parameterType="EntLceTo"
+		statementType="CALLABLE" >
+		{ call  pro_evc_ingresarLCE(
+		#{corrLce,mode=IN,jdbcType=NUMERIC}, 
+		#{corrAffiinformation,mode=IN, jdbcType=NUMERIC},
+		#{corrCredscoreinfo,mode=IN, jdbcType=NUMERIC},
+		#{credApprovalid,mode=IN,jdbcType=VARCHAR},
+		#{usuario,mode=IN,jdbcType=NUMERIC})
+		}
+
+	</insert>
+	
+</mapper>

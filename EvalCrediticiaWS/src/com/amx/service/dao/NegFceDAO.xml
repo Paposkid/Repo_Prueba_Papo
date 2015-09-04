@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.amx.service.dao.NegFceDAO">
+
+	<resultMap id="resultNegFce" type="negFceBean">
+		<result property="codFce" column="CORR_FCE"/>
+		<result property="codLce" column="CORR_LCE"/>
+		<result property="estado" column="ESTADO"/> 
+		<result property="fechaAlta" column="FECH_ALTA"/>   
+		<result property="codUsuarioAlta" column="CORR_USUARIOALTA"/>
+		<result property="fechaModificacion" column="FECH_MODIFICACION"/> 
+		<result property="codUsuarioModificacion" column="CORR_USUARIO"/>              
+	</resultMap>
+	
+ 
+	<parameterMap id="negFceParam" type="negFceBean">
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultNegFce" />
+    
+	</parameterMap>
+	
+	<insert id="insertarNegFce" parameterType="negFceBean" statementType="CALLABLE">
+		{ call   pro_evc_ingresarNEGFCE
+			(
+			   #{codLce, mode=IN, jdbcType=INTEGER},	
+			   #{estado, mode=IN, jdbcType=VARCHAR},
+               #{codUsuarioAlta, mode=IN,	jdbcType=INTEGER},
+               #{codFce, mode=OUT,	jdbcType=INTEGER}
+			)
+		}		
+	</insert>
+	
+		<select id="listNegFce" parameterMap="negFceParam" resultMap="resultNegFce" parameterType="negFceBean" statementType="CALLABLE">
+         { call  PRO_EVC_LISTARNEGFCE
+			(
+			   #{codFce, mode=IN, jdbcType=NUMERIC}, 
+			   #{codLce, mode=IN, jdbcType=NUMERIC},               
+               #{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultNegFce, javaType=java.sql.ResultSet}
+			)
+		 }
+	</select>
+	<select id="listNegFCEByCodLCE" parameterMap="negFceParam" resultMap="resultNegFce" parameterType="negFceBean" statementType="CALLABLE">
+         { call  PRO_EVC_BUSCARFCEBYLCE
+			(
+			                  
+             	#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultNegFce, javaType=java.sql.ResultSet},
+				#{codLce, mode=IN, jdbcType=INTEGER}
+			)
+		 }
+	</select>
+	<select id="actualizarEstadoNegFce" parameterType="negFceBean" statementType="CALLABLE">
+		{ call   PRO_EVC_ACTNEGFCE
+			(
+			   #{codFce, mode=IN, jdbcType=INTEGER},	
+			   #{estado, mode=IN, jdbcType=VARCHAR},
+               #{codUsuarioModificacion, mode=IN,	jdbcType=NUMERIC}
+			)
+		}		
+	</select>
+	
+</mapper>

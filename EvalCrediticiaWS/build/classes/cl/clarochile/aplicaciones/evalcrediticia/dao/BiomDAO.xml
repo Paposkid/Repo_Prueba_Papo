@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.amx.service.dao.BiomDAO">
+
+	<resultMap id="listaDatosMap" type="biomTo">
+		<result property="corrBiom" column="CORR_BIOMVALIDATION" />
+		<result property="corrEntLCE" column="CORR_ENTLCE" />
+		<result property="type" column="TYP" />
+		<result property="errorCode" column="ERROR_CODE" />
+		<result property="errorDesc" column="ERROR_DESC" />
+		<result property="auditNumber" column="AUDIT_NUMBER" />
+		<result property="isPrevire" column="IS_PREVIREDALLOWED" />
+		<result property="usuario" column="CORR_USUARIOALTA" />
+	</resultMap>
+	<parameterMap id="BiometricValidationParam" type="biomTo">
+		<parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="listaDatosMap" />
+	</parameterMap>
+	
+	<select id="buscarBiom"  parameterType="biomTo" statementType="CALLABLE" >
+		{ call  pro_evc_buscarBIOMVALIDATION(
+			#{resultados,mode=OUT,jdbcType=CURSOR,
+			javaType=java.sql.ResultSet,resultMap=listaDatosMap},
+			#{corrBiom,mode=IN,jdbcType=NUMERIC})
+		}
+
+	</select>
+	<select id="ingresarBiom" parameterType="biomTo"
+		statementType="CALLABLE" >
+		{ call  pro_evc_ingresarBIOMVALIDATION(
+		 
+		#{corrEntLCE,mode=IN, jdbcType=NUMERIC},
+		#{type,mode=IN, jdbcType=VARCHAR},
+		#{errorCode,mode=IN,jdbcType=VARCHAR}, 
+		#{errorDesc,mode=IN, jdbcType=VARCHAR},
+		#{auditNumber,mode=IN, jdbcType=VARCHAR},
+		#{isPrevire,mode=IN,jdbcType=VARCHAR},
+		#{corrBiom,mode=OUT,jdbcType=NUMERIC},
+		#{usuario,mode=IN,jdbcType=NUMERIC})
+		}
+
+	</select>
+	
+</mapper>

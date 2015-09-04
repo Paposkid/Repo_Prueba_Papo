@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.amx.service.dao.NegLceDAO">
+
+	<resultMap id="resultNegLce" type="negLceBean">
+		<result property="codLce" column="CORR_LCE"/>
+		<result property="nroOrden" column="NMR_ORDEN"/>
+		<result property="plusGold" column="PLUS_GOLD"/>
+		<result property="previred" column="PREVIRED"/>
+		<result property="equiFax" column="EQUIFAX"/>
+		<result property="codAmdocs" column="AMDOCS"/>
+		<result property="estado" column="ESTADO"/> 
+		<result property="fechaAlta" column="FECH_ALTA"/>   
+		<result property="codUsuarioAlta" column="CORR_USUARIOALTA"/>
+		<result property="fechaModificacion" column="FECH_MODIFICACION"/> 
+		<result property="codUsuarioModificacion" column="CORR_USUARIO"/>               
+	</resultMap>
+	
+ 
+	<parameterMap id="negLceParam" type="negLceBean">
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultNegLce" />
+    
+	</parameterMap>
+	
+	<insert id="insertarNegLce" parameterType="negLceBean" statementType="CALLABLE">
+		{ call   pro_evc_ingresarNEGLCE
+			(
+			   #{nroOrden, mode=IN, jdbcType=INTEGER},	
+			   #{plusGold, mode=IN, jdbcType=INTEGER},
+               #{previred, mode=IN,	jdbcType=INTEGER},
+               #{equiFax, mode=IN,	jdbcType=INTEGER},
+               #{codAmdocs, mode=IN, jdbcType=INTEGER},	
+			   #{estado, mode=IN, jdbcType=VARCHAR},
+               #{codUsuarioAlta, mode=IN,	jdbcType=INTEGER},
+               #{codLce, mode=OUT,	jdbcType=INTEGER}
+			)
+		}		
+	</insert>
+	
+	<select id="listNegLce" parameterMap="negLceParam" resultMap="resultNegLce" parameterType="negLceBean" statementType="CALLABLE">
+         { call  PRO_EVC_LISTARNEGLCE
+			(
+			   #{codLce, mode=IN, jdbcType=INTEGER},               
+               #{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultNegLce, javaType=java.sql.ResultSet}
+			)
+		 }
+	</select>
+	<select id="listNegLceOrder" parameterMap="negLceParam" resultMap="resultNegLce" parameterType="negLceBean" statementType="CALLABLE">
+         { call  pro_evc_consorder
+			(
+			   #{nroOrden, mode=IN, jdbcType=INTEGER},               
+               #{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultNegLce, javaType=java.sql.ResultSet}
+			)
+		 }
+	</select>
+	
+	<insert id="actualizarNegLce" parameterType="negLceBean" statementType="CALLABLE">
+		{ call   pro_evc_ACTNEGLCESERVEXT
+			(
+               #{previred, mode=IN,	jdbcType=INTEGER},
+               #{equiFax, mode=IN,	jdbcType=INTEGER},
+               #{codAmdocs, mode=IN, jdbcType=INTEGER},
+               #{plusGold, mode=IN, jdbcType=INTEGER},	
+               #{codUsuarioModificacion, mode=IN,	jdbcType=INTEGER},
+               #{codLce, mode=IN,	jdbcType=INTEGER}
+			)
+		}		
+	</insert>
+	
+	<insert id="actualizarEstadoNegLce" parameterType="negLceBean" statementType="CALLABLE">
+		{ call   PRO_EVC_ACTNEGLCE
+			(
+			   #{codLce, mode=IN, jdbcType=INTEGER},	
+			   #{estado, mode=IN, jdbcType=VARCHAR},
+               #{codUsuarioModificacion, mode=IN,	jdbcType=INTEGER}
+			)
+		}		
+	</insert>
+	
+	
+</mapper>

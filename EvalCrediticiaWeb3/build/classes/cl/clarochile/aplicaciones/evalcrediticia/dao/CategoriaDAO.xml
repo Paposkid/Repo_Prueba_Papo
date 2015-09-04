@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="cl.clarochile.aplicaciones.evalcrediticia.dao.CategoriaDAO">
+
+	<resultMap id="resultCategoria" type="categoriaTO">
+		<result property="codigoCategoria" column="CORR_CATEGORIA" />
+		<result property="codigoCampo" column="CORR_CAMPO" />
+		<result property="tipoCategoria" column="TIPO_CATEGORIA" />
+		<result property="nombreCategoria" column="NOMB_CATEGORIA" />
+		<result property="fechaAlta" column="FECH_ALTA" />
+		<result property="codigoUsuarioAlta" column="CORR_USUARIOALTA" />
+		<result property="fechaModificacion" column="FECH_MODIFICACION" />
+		<result property="codigoUsuario" column="CORR_USUARIO" />
+		<result property="rangoDesde" column="RANGO_DESDE" />
+		<result property="rangoHasta" column="RANGO_HASTA" />
+		<result property="nombreCampo" column="NOMB_CAMPO" />
+		<result property="tipoDominio" column="TIPODOMINIO" />
+		<result property="tipoCampo" column="TIPO_CAMPO" />
+	</resultMap>
+
+
+	<parameterMap id="categoriaParam" type="categoriaTO">
+		<parameter property="tipoRegla" mode="IN" jdbcType="VARCHAR"/>
+		<parameter property="tipoCampo" mode="IN" jdbcType="VARCHAR"/>
+		<parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultCategoria" />
+	</parameterMap>
+
+	<!-- parameter type debe de ser type id parameter map id del parameter map -->
+	<select id="listarCategorias" parameterMap="categoriaParam" resultMap="resultCategoria" parameterType="categoriaTO" statementType="CALLABLE">
+		{ call PKG_EVC_CATEGORIA.PRO_EVC_LISTARCAT
+		(
+		#{nombreCategoria, jdbcType=VARCHAR, mode=IN },
+		#{tipoCategoria, jdbcType=VARCHAR, mode=IN },
+		#{tipoCampo, jdbcType=VARCHAR, mode=IN },
+		#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultCategoria, javaType=java.sql.ResultSet}
+		)
+		}
+	</select>
+
+
+	<select id="obtenerCategoriaPorCodigo" parameterMap="categoriaParam" resultMap="resultCategoria" parameterType="categoriaTO" statementType="CALLABLE">
+		{ call PKG_EVC_CATEGORIA.PRO_EVC_LISTARCATXCOD
+		(
+		#{codigoCategoria, mode=IN, jdbcType=VARCHAR},
+		#{resultados, mode=OUT, jdbcType=CURSOR, resultMap=resultCategoria, javaType=java.sql.ResultSet}
+		)
+		}
+	</select>
+
+
+	<select id="insertarCategoria" parameterType="categoriaTO" statementType="CALLABLE">
+		{ call PKG_EVC_CATEGORIA.PRO_EVC_INGRESARCATEGORIAS
+		(
+		#{codigoCampo, mode=IN, jdbcType=VARCHAR},
+		#{tipoCampo, mode=IN, jdbcType=VARCHAR},
+		#{nombreCategoria, mode=IN, jdbcType=VARCHAR},
+		#{codigoUsuarioAlta, mode=IN, jdbcType=INTEGER},
+		#{rangoDesde, mode=IN, jdbcType=VARCHAR},
+		#{rangoHasta, mode=IN, jdbcType=VARCHAR},
+		#{codigoCategoria, mode=OUT,	jdbcType=NUMERIC}
+		)
+		}		
+	</select>
+
+
+	<select id="actualizarCategoria" parameterType="categoriaTO" statementType="CALLABLE">
+		{ call PKG_EVC_CATEGORIA.PRO_EVC_UPDCATEG
+		(
+		#{codigoCategoria, mode=IN, jdbcType=VARCHAR},
+		#{codigoCampo, mode=IN, jdbcType=VARCHAR},
+		#{tipoCategoria, mode=IN, jdbcType=VARCHAR},
+		#{nombreCategoria, mode=IN, jdbcType=VARCHAR},
+		#{codigoUsuario, mode=IN, jdbcType=NUMERIC},
+		#{rangoDesde, mode=IN, jdbcType=VARCHAR},
+		#{rangoHasta, mode=IN, jdbcType=VARCHAR}
+		)
+		}
+	</select>
+	
+	<select id="listarCategorias2" parameterMap="categoriaParam" resultMap="resultCategoria" parameterType="categoriaTO" statementType="CALLABLE">
+		{ call PKG_EVC_CATEGORIA.PRO_EVC_LISTARCAT2
+		(
+		#{nombreCategoria, jdbcType=VARCHAR, mode=IN },
+		#{tipoCampo, jdbcType=VARCHAR, mode=IN },
+		#{tipoCategoria, jdbcType=VARCHAR, mode=IN },
+		#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultCategoria, javaType=java.sql.ResultSet}
+		)
+		}
+	</select>
+</mapper>

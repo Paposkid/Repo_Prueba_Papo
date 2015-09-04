@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.amx.service.dao.ExcCondicionFceDAO">
+
+	<resultMap id="resultExcCondicionFce" type="excCondicionFceBean">
+		<result property="codCondicionFce" column="CORR_CONDICIONFCE"/>
+		<result property="codExcFce" column="CORR_EXCFCE"/>
+		<result property="codOrderactionInfo" column="CORR_ORDERACTIONINFO"/>
+		<result property="numRcInAvanced" column="NUM_RCINAVANCED"/>
+		<result property="instZero" column="INST_ZERO"/>
+		<result property="numInstallment" column="NUM_INSTALLMENT"/>
+		<result property="deposit" column="DEPOSIT"/>            
+	</resultMap>
+	
+ 
+	<parameterMap id="excCondicionFceParam" type="excCondicionFceBean">
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultExcCondicionFce" />
+    
+	</parameterMap>
+	
+	<insert id="insertarExcCondicionFce" parameterType="excCondicionFceBean" statementType="CALLABLE">
+		{ call   pro_evc_ingreEXCCONDCIONFCE
+			(
+			   #{codExcFce, mode=IN, jdbcType=INTEGER},	
+			   #{codOrderactionInfo, mode=IN, jdbcType=INTEGER},
+               #{numRcInAvanced, mode=IN,	jdbcType=VARCHAR},
+               #{instZero, mode=IN, jdbcType=VARCHAR},	
+			   #{numInstallment, mode=IN, jdbcType=VARCHAR},
+               #{deposit, mode=IN,	jdbcType=VARCHAR},
+               #{codUsuarioAlta, mode=IN, jdbcType=INTEGER}	
+			)
+		}		
+	</insert>
+	
+		<select id="listExcCondicionFce" parameterMap="excCondicionFceParam" resultMap="resultExcCondicionFce" parameterType="excCondicionFceBean" statementType="CALLABLE">
+         { call  PRO_EVC_LISTAREXCCONDIFCE
+			(
+			   #{codCondicionFce, mode=IN, jdbcType=INTEGER},               
+               #{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultExcCondicionFce, javaType=java.sql.ResultSet}
+			)
+		 }
+	</select>
+	
+	
+</mapper>

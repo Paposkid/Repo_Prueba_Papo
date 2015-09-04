@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.amx.service.dao.DetSubsistema09DAO">
+
+	<resultMap id="resultDetSubsistema09TO" type="detSubsistema09TO">
+		<result property="corrDetallesubsistema09" column="CORR_DETALLESUBSISTEMA09" />
+		<result property="serialVersion" column="SERIAL_VERSIONUID" />
+		<result property="fechCons" column="FECH_CONS" />
+		<result property="emprCons" column="EMPR_CONS" />
+		<result property="infoCons" column="INFO_CONS" />
+		<result property="usuario" column="CORR_USUARIOALTA" />
+	</resultMap>
+	
+	<parameterMap id="detSubsistema09Param" type="detSubsistema09TO">
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultDetSubsistema09TO" />
+	</parameterMap>
+
+
+	<select id="listarDetSubsistema09" parameterMap="detSubsistema09Param" resultMap="resultDetSubsistema09TO" parameterType="detSubsistema09TO" statementType="CALLABLE">
+	
+		{ call PRO_EVC_CONSDETSUBSISTEMA09
+		(
+		#{serialVersion, mode=IN, jdbcType=NUMERIC},
+		#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultDetSubsistema09TO, javaType=java.sql.ResultSet}
+
+		)
+		}
+	</select>
+	
+		<insert id="insertarDetSubsistema09" parameterType="detSubsistema09TO" statementType="CALLABLE">
+		{ call PRO_EVC_INGDETSUBSISTEMA09
+		(
+		#{serialVersion, mode=IN, jdbcType=NUMERIC},
+		#{fechCons, mode=IN, jdbcType=NUMERIC},
+		#{emprCons, mode=IN, jdbcType=VARCHAR},
+		#{infoCons, mode=IN, jdbcType=VARCHAR},
+		#{usuario, mode=IN, jdbcType=NUMERIC}
+		)
+		}
+	</insert>
+	
+
+</mapper>

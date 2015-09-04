@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.amx.service.dao.SubSistema8DAO">
+
+	<resultMap id="resultSubSistema8" type="subSistema8Bean">
+		<result property="serialVersion" column="SERIAL_VERSIONUID"/>
+		<result property="nombEmpr" column="NOMB_EMPR"/>
+		<result property="cargEmpr" column="CARG_EMPR"/>
+		<result property="fuenInfo" column="FUEN_INFO"/>
+        <result property="direLabo" column="DIRE_LABO"/>
+        <result property="ciudLabo" column="CIUD_LABO"/>
+        <result property="comuLabo" column="COMU_LABO"/>
+        <result property="fechVeri" column="FECH_VERI"/>
+        <result property="codUsuarioAlta" column="CORR_USUARIOALTA"/>
+		</resultMap>
+	
+ 
+	<parameterMap id="subSistema8Param" type="subSistema8Bean">
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultSubSistema8" />
+    
+	</parameterMap>
+	
+	<insert id="insetarSubSistema8" parameterType="subSistema8Bean" statementType="CALLABLE">
+		{ call   pro_evc_ingresarsubsistema08
+			(
+			   #{serialVersion, mode=IN, jdbcType=INTEGER},
+			   #{fechVeri, mode=IN, jdbcType=INTEGER},	
+			   #{comuLabo, mode=IN, jdbcType=VARCHAR},
+               #{ciudLabo, mode=IN, jdbcType=VARCHAR},
+               #{cargEmpr, mode=IN, jdbcType=VARCHAR},
+               #{fuenInfo, mode=IN, jdbcType=VARCHAR},
+               #{direLabo, mode=IN, jdbcType=VARCHAR},
+			   #{nombEmpr, mode=IN, jdbcType=VARCHAR},	
+			   #{codUsuarioAlta, mode=IN,	jdbcType=INTEGER}
+               
+			)
+		}		
+	</insert>
+	
+		<select id="listSubSys8" parameterMap="subSistema8Param" resultMap="resultSubSistema8" parameterType="subSistema8Bean" statementType="CALLABLE">
+         { call  pro_evc_conssubsistema08
+			(
+			   #{serialVersion, mode=IN, jdbcType=INTEGER},               
+               #{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultSubSistema8, javaType=java.sql.ResultSet}
+			)
+		 }
+	</select>
+	
+	
+</mapper>

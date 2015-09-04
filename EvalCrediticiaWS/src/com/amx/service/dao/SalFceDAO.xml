@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.amx.service.dao.SalFceDAO">
+														   
+	<resultMap id="resultFCE" type="SalFceTO">
+		<result property="codFCE" column="CORR_FCE"/>
+		<result property="status" column="STATUS"/>
+		<result property="descStatus" column="DESC_STATUS"/>
+		<result property="numCredito" column="CRED_REFNUMBER"/>
+		<result property="visita" column="HOME_VISITREQUIRED"/>
+		<result property="pagoInmediato" column="IS_OVERRIDEINMEDIATEPAYMENT"/>
+		<result property="aprobacionCred" column="CRED_APPROVALIDOUTPUT"/>
+        <result property="codeUsuario" column="CORR_USUARIOALTA"/>	
+        <result property="lineasDisponibles" column="LINEAS_DISPONIBLES"/>	
+	</resultMap>
+
+
+	<parameterMap id="FCEParam" type="SalFceTO">  
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultFCE" />
+	</parameterMap>
+	
+	<select id="listarFCEById" parameterMap="FCEParam" resultMap="resultFCE" parameterType="SalFceTO" statementType="CALLABLE" >
+         { call  PRO_EVC_BUSCARSALFCE
+			(
+			   #{codFCE, mode=IN, jdbcType=NUMERIC},               
+               #{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultFCE, javaType=java.sql.ResultSet}
+			)
+		 }
+	</select>
+	<select id="listarFCECredAprIdOut" parameterMap="FCEParam" resultMap="resultFCE" parameterType="SalFceTO" statementType="CALLABLE" >
+         { call  pro_evc_consfcecredaproid
+			(
+			   #{aprobacionCred, mode=IN, jdbcType=VARCHAR},               
+               #{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultFCE, javaType=java.sql.ResultSet}
+			)
+		 }
+	</select>
+	
+
+	<insert id="insertarFCE" parameterType="SalFceTO" statementType="CALLABLE">
+		{ call  PRO_EVC_INGRESARSALFCE
+			(
+			   #{status, mode=IN, jdbcType=VARCHAR},
+			   #{descStatus, mode=IN, jdbcType=VARCHAR},
+               #{numCredito, mode=IN, jdbcType=VARCHAR},
+               #{visita, mode=IN, jdbcType=VARCHAR},
+			   #{pagoInmediato, mode=IN, jdbcType=VARCHAR},
+               #{aprobacionCred, mode=IN, jdbcType=VARCHAR},
+               #{codeUsuario, mode=IN, jdbcType=NUMERIC},
+               #{codFCE, mode=IN, jdbcType=NUMERIC},
+               #{lineasDisponibles, mode=IN, jdbcType=NUMERIC}                  
+			)
+		}
+	</insert>
+	
+	<update id="updateSalFCEOnlyLineas" parameterType="SalFceTO" statementType="CALLABLE">
+		{ call  PRO_EVC_UPDATESALFCE
+			(
+			   #{codFCE, mode=IN, jdbcType=NUMERIC},
+               #{lineasDisponibles, mode=IN, jdbcType=NUMERIC}                 
+			)
+		}
+	</update> 
+	
+</mapper>

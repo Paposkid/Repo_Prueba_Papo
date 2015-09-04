@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.amx.service.dao.ReglaFCEDAO">
+
+	<resultMap id="resultReglaFCE" type="reglaFCETO">
+		<result property="codReglaFCE" column="CORR_REGLAFCE" />
+		<result property="codFCE" column="CORR_FCE" />
+		<result property="codRegla" column="CORR_REGLA" />
+		<result property="codUsuarioAlta" column="CORR_USUARIOALTA" />
+	</resultMap>
+
+	<parameterMap id="ReglaFCEParam" type="reglaFCETO">
+		<parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultReglaFCE" />
+	</parameterMap>
+
+	<select id="consultarReglaFCEByCodigoRegla" parameterMap="ReglaFCEParam"
+		resultMap="resultReglaFCE" parameterType="reglaFCETO" statementType="CALLABLE">
+		{ call PRO_EVC_REGLAFCEBYCODREG
+			(
+				#{codReglaFCE, mode=IN, jdbcType=NUMERIC},
+				#{resultados, mode=OUT, jdbcType=CURSOR, resultMap=resultReglaFCE, javaType=java.sql.ResultSet}
+			)
+		}
+	</select>
+	
+	<select id="consultarReglaFCEByCodigoFCE" parameterMap="ReglaFCEParam"
+		resultMap="resultReglaFCE" parameterType="reglaFCETO" statementType="CALLABLE">
+		{ call PRO_EVC_REGLABYCODFCE
+			(
+				#{codFCE, mode=IN, jdbcType=NUMERIC},
+				#{resultados, mode=OUT, jdbcType=CURSOR, resultMap=resultReglaFCE, javaType=java.sql.ResultSet}
+			)
+		}
+	</select>
+
+	<insert id="insertarReglaFCE" parameterType="reglaFCETO"
+		statementType="CALLABLE">
+		{ call PRO_EVC_REGLAFCE_INSERTAR
+			(
+				#{codReglaFCE, mode=OUT, jdbcType=NUMERIC},
+				#{codFCE, mode=IN, jdbcType=NUMERIC},
+				#{codRegla, mode=IN, jdbcType=VARCHAR},
+				#{codUsuarioAlta, mode=IN, jdbcType=NUMERIC}
+			)
+		}
+	</insert>
+
+</mapper>
+

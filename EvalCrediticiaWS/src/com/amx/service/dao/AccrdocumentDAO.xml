@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.amx.service.dao.AccrdocumentDAO">
+
+	<resultMap id="listaDatosMap" type="accrdocumentTo">
+		<result property="corrAccrdocument" column="CORR_ACCRDOCUMENT" />
+		<result property="corrAccrinfo" column="CORR_ACCRINFO" />
+		<result property="docCategory" column="DOC_CATEGORY" />
+		<result property="docType" column="DOC_TYPE" />
+		<result property="docName" column="DOC_NAME" />
+        <result property="usuario" column="CORR_USUARIOALTA" />	
+	</resultMap>
+
+	<parameterMap id="AccrDocumentParam" type="accrdocumentTo">
+		<parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="listaDatosMap" />
+	</parameterMap>
+	<select id="buscarDocument"  parameterType="accrdocumentTo" statementType="CALLABLE" >
+		{ call  pro_evc_buscarACCRDOCUMENT(
+			#{resultados,mode=OUT,jdbcType=CURSOR,
+			javaType=java.sql.ResultSet,resultMap=listaDatosMap},
+			#{corrAccrdocument,mode=IN,jdbcType=NUMERIC})
+		}
+
+	</select>
+	<insert id="ingresarDocument" parameterType="accrdocumentTo"
+		statementType="CALLABLE" >
+		{ call  pro_evc_ingresarACCRDOCUMENT( 
+		#{corrAccrinfo,mode=IN, jdbcType=NUMERIC},
+		#{docCategory,mode=IN, jdbcType=VARCHAR},
+		#{docType,mode=IN,jdbcType=VARCHAR},
+		#{docName,mode=IN,jdbcType=VARCHAR},
+		#{corrAccrdocument,mode=OUT,jdbcType=NUMERIC},
+		#{usuario,mode=IN, jdbcType=NUMERIC})
+		}
+
+	</insert>
+	
+</mapper>

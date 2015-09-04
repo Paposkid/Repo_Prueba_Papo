@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.amx.service.dao.DocExtraDAO">
+                                                           
+    <resultMap id="resultDocExtra" type="docExtraTO">
+        <result property="codDocExtra" column="CORR_DOCEXTRA"/>
+        <result property="nomDoc" column="DOC_EXTRA"/>
+        <result property="codeUsuario" column="CORR_USUARIOALTA"/>        
+    </resultMap>
+
+
+    <parameterMap id="DocExtraParam" type="documentFCETO">  
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultDocExtra" />
+    </parameterMap>
+    
+    <select id="listarDocExtraById" parameterMap="DocExtraParam" resultMap="resultDocExtra" parameterType="docExtraTO" statementType="CALLABLE" >
+         { call  PRO_EVC_BUSCARSALDOCEXTRA
+            (
+               #{codDocExtra, mode=IN, jdbcType=NUMERIC},               
+               #{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultDocExtra, javaType=java.sql.ResultSet}
+            )
+         }
+    </select>
+    
+    
+    <select id="insertarDocExtra" parameterType="docExtraTO" statementType="CALLABLE">
+        { call PRO_EVC_INGRESARSALDOCEXTRA
+            (
+                
+               #{nomDoc, mode=IN, jdbcType=VARCHAR},
+               #{codeUsuario, mode=IN, jdbcType=NUMERIC},
+               #{codDocExtra, mode=OUT, jdbcType=NUMERIC}
+            )
+        }
+    </select>
+    
+        <select id="listarDocExtraByNombre" parameterMap="DocExtraParam" resultMap="resultDocExtra" parameterType="docExtraTO" statementType="CALLABLE" >
+         { call  PRO_EVC_BUSCARSALDOCEXTNOMB
+            (
+               #{nombre, mode=IN, jdbcType=NUMERIC},               
+               #{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultDocExtra, javaType=java.sql.ResultSet}
+            )
+         }
+    </select>
+    
+</mapper>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.amx.service.dao.ProductDAO">
+
+	<resultMap id="listaDatosMap" type="productTo">
+		<result property="corrProduct" column="CORR_PRODUCTODIFINFO" />
+		<result property="corrEntfce" column="CORR_ENTFCE" />
+		<result property="offerName" column="OFFER_NAME" />
+		<result property="sumCurrentrc" column="SUM_CURRENTRC" />
+		<result property="sumOc" column="SUM_OC" />
+		<result property="campId" column="CAMP_ID" />
+		<result property="campDescription" column="CAMP_DESCRIPTION" />
+		<result property="usuario" column="CORR_USUARIOALTA" />
+	</resultMap>
+	<parameterMap id="ProductParam" type="productTo">
+		<parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="listaDatosMap" />
+	</parameterMap>
+	<select id="buscarProduct"  parameterType="productTo" statementType="CALLABLE" >
+		{ call  pro_evc_buscarPRODUCTD(
+			#{corrProduct,mode=IN,jdbcType=NUMERIC},
+			#{resultados,mode=OUT,jdbcType=CURSOR,
+			javaType=java.sql.ResultSet,resultMap=listaDatosMap}
+			)
+		}
+
+	</select>
+	<select id="ingresarProduct" parameterType="productTo"
+		statementType="CALLABLE" >
+		{ call  pro_evc_ingresarPRODUCTD(
+		 
+		#{corrEntfce,mode=IN, jdbcType=NUMERIC},
+		#{offerName,mode=IN, jdbcType=VARCHAR},
+		#{sumCurrentrc,mode=IN,jdbcType=NUMERIC},
+		#{sumOc,mode=IN,jdbcType=NUMERIC},
+		#{campId,mode=IN,jdbcType=VARCHAR},
+		#{campDescription,mode=IN,jdbcType=VARCHAR},
+		#{corrProduct,mode=OUT,jdbcType=NUMERIC},
+		#{usuario,mode=IN,jdbcType=NUMERIC})
+		}
+
+	</select>
+	
+		<select id="buscarProductByEFCE"  parameterType="productTo" statementType="CALLABLE" >
+		{ call  PRO_EVC_BUSCARPRODUCTDEFCE(
+			#{corrProductEFCE,mode=IN,jdbcType=NUMERIC},
+			#{resultados,mode=OUT,jdbcType=CURSOR,
+			javaType=java.sql.ResultSet,resultMap=listaDatosMap}
+			)
+		}
+
+	</select>
+	
+</mapper>

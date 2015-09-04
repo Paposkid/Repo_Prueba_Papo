@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<weblogic-web-app xmlns="http://xmlns.oracle.com/weblogic/weblogic-web-app" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.oracle.com/weblogic/weblogic-web-app http://xmlns.oracle.com/weblogic/weblogic-web-app/1.2/weblogic-web-app.xsd">
+  <weblogic-version>10.3.5</weblogic-version>
+  <context-root>EvalCrediticiaWS</context-root>
+  <library-ref>
+    <library-name>spring-lib</library-name>
+    <specification-version>2.0</specification-version>
+    <exact-match>true</exact-match>
+  </library-ref>
+  <library-ref>
+    <library-name>utils-lib</library-name>
+    <specification-version>2.0</specification-version>
+    <exact-match>true</exact-match>
+  </library-ref>
+</weblogic-web-app>

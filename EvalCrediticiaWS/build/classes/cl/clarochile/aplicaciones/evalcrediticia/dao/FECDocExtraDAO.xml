@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.amx.service.dao.FCEDocExtraDAO">
+                                                           
+    <resultMap id="resultFCEDocExtra" type="fCEDocExtraTO">
+        <result property="codigoDocExtrasFCE" column="CORR_FCEDOCEXTRA"/>
+        <result property="codigoFCE" column="CORR_FCE"/>
+        <result property="codigoDocExtras" column="CORR_DOCEXTRA"/>
+        <result property="codeUsuario" column="CORR_USUARIOALTA"/>
+    </resultMap>
+
+
+    <parameterMap id="FCEDocExtraParam" type="fCEDocExtraTO">  
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultFCEDocExtra" />
+    </parameterMap>
+    
+    <select id="listarFCEDocExtraById" parameterMap="FCEDocExtraParam" resultMap="resultFCEDocExtra" parameterType="fCEDocExtraTO" statementType="CALLABLE" >
+         { call  PRO_EVC_BUSCARRELFCEDOCEXTRA
+            (
+               #{codigoDocExtrasFCE, mode=IN, jdbcType=NUMERIC},               
+               #{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultFCEDocExtra, javaType=java.sql.ResultSet}
+            )
+         }
+    </select>
+    
+
+    <insert id="insertarFCEDocExtra" parameterType="fCEDocExtraTO" statementType="CALLABLE">
+        { call  PRO_EVC_INGRESARRELFCEDOCEXTRA
+            (
+               #{codigoFCE, mode=IN, jdbcType=NUMERIC},
+               #{codigoDocExtras, mode=IN, jdbcType=NUMERIC},
+               #{codeUsuario, mode=IN, jdbcType=NUMERIC}              
+            )
+        }
+    </insert>
+    
+</mapper>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.amx.service.dao.SalLceDao">
+	<resultMap type="SalLceTO" id="resultSalLce">
+		<result property="corrLce" column="CORR_LCE"/>
+		<result property="numbOffinancedActiveLines" column="NUMB_OFFINANCEDACTIVELINES"/>
+		<result property="corrUsuarioAlta" column="CORR_USUARIOALTA"/>
+		<result property="credAprovalId" column="CRED_APPROVALID"/>
+	</resultMap>
+	<parameterMap id="SalLceParam" type="SalLceTO">
+		<parameter property="resultados" jdbcType="CURSOR"
+			javaType="java.sql.ResultSet" mode="OUT" resultMap="resultSalLce" />
+	</parameterMap>
+	
+	<insert id="insertarLce" parameterType="SalLceTO"
+		statementType="CALLABLE">
+		{ call PRO_EVC_INSERSALLCE
+		(
+		#{corrLce, mode=IN, jdbcType=NUMERIC},
+		#{numbOffinancedActiveLines, mode=IN, jdbcType=NUMERIC},
+		#{corrUsuarioAlta, mode=IN, jdbcType=NUMERIC},
+		#{corrUsuarioAlta, mode=IN, jdbcType=VARCHAR}
+		)
+		}
+	</insert>
+	
+	<select id="buscarLce" parameterType="SalLceTO" statementType="CALLABLE">
+		{ call PRO_EVC_BUSCAR_SAL_LCE
+		(
+		#{codSalLce, mode=IN, jdbcType=NUMERIC},
+		#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultSalLce, javaType=java.sql.ResultSet}
+		)
+		}
+	</select>
+	<select id="buscarLceCredApro" parameterType="SalLceTO" statementType="CALLABLE">
+		{ call PRO_EVC_BUSCARLCEAPROVALID
+		(
+		#{credAprovalId, mode=IN, jdbcType=VARCHAR},
+		#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultSalLce, javaType=java.sql.ResultSet}
+		)
+		}
+	</select>
+</mapper>

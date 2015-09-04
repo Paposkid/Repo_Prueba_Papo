@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cl.clarochile.aplicaciones.evalcrediticia.dao.ComplementoDAO">
+
+	<resultMap id="resultComplemento" type="complementoTO">
+		<result property="codigo" column="CORR_COMPLEMENTO" />
+		<result property="condicion.codigo" column="CORR_CONDICION" />
+		<result property="orden" column="ORDEN" />
+		<result property="operador" column="OPERADOR" />
+		<result property="pareIzq" column="PARE_IZQUIERDA" />
+		<result property="pareDec" column="PARE_DERECHO" />
+		<result property="dominio.codigo" column="CORR_DOMINIO" />
+		<result property="constante.codigo" column="CORR_CONSTANTE" />
+	</resultMap>
+	
+	<parameterMap id="complementoParam" type="complementoTO">
+		<parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultComplemento" />
+	</parameterMap>
+	
+	<select id="listarComplemento" parameterMap="complementoParam" resultMap="resultComplemento" parameterType="complementoTO" statementType="CALLABLE">
+		{ call PKG_EVC_REGLA.pro_evc_listar_complemento
+			(
+				#{codigo, jdbcType=VARCHAR, mode=IN },
+				#{condicion.codigo, jdbcType=VARCHAR, mode=IN },
+				#{dominio.codigo, jdbcType=VARCHAR, mode=IN },
+				#{constante.codigo, jdbcType=VARCHAR, mode=IN },
+				#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultComplemento, javaType=java.sql.ResultSet}
+			)
+		}
+	</select>
+	
+	<select id="insertarComplemento" parameterType="complementoTO" statementType="CALLABLE">
+		{ call PKG_EVC_REGLA.pro_evc_ingresar_complemento
+			(
+				#{codigo, mode=IN, jdbcType=VARCHAR},
+				#{condicion.codigo, mode=IN, jdbcType=VARCHAR},
+				#{orden, mode=IN, jdbcType=VARCHAR},
+				#{operador, mode=IN, jdbcType=VARCHAR},
+				#{pareIzq, mode=IN, jdbcType=VARCHAR},
+				#{pareDec, mode=IN, jdbcType=VARCHAR},
+				#{dominio.codigo, mode=IN, jdbcType=VARCHAR},
+				#{constante.codigo, mode=IN, jdbcType=VARCHAR}
+			)
+		}		
+	</select>
+	
+	<select id="actualizarComplemento" parameterType="complementoTO" statementType="CALLABLE">
+		{ call PKG_EVC_REGLA.pro_evc_modificar_complemento
+			(
+				#{codigo, mode=IN, jdbcType=VARCHAR},
+				#{condicion.codigo, mode=IN, jdbcType=VARCHAR},
+				#{orden, mode=IN, jdbcType=VARCHAR},
+				#{operador, mode=IN, jdbcType=VARCHAR},
+				#{pareIzq, mode=IN, jdbcType=VARCHAR},
+				#{pareDec, mode=IN, jdbcType=VARCHAR},
+				#{dominio.codigo, mode=IN, jdbcType=VARCHAR},
+				#{constante.codigo, mode=IN, jdbcType=VARCHAR}
+			)
+		}
+	</select>
+
+</mapper>

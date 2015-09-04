@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.amx.service.dao.PreviredDAO">
+
+	<resultMap id="resultPrevired" type="previredTO">
+		<result property="codPrevired" column="CORR_PREVIRED" />
+		<result property="nombCliente" column="NOMB_CLIENTE" />
+		<result property="rutCliente" column="RUT_CLIENTE" />
+		<result property="prevMontoPromedio" column="PREV_MONTOPROMEDIO" />
+		<result property="prevAntiguedad" column="PREV_ANTIGUEDAD" />
+		<result property="prevContinuidadLaboral" column="PREV_CONTINUIDADLABORAL" />
+		<result property="fechConsultado" column="FECH_CONSULTADO" />
+		<result property="estado" column="ESTADO" />
+		<result property="codUsuarioAlta" column="CORR_USUARIOALTA" />
+		<result property="origen" column="ORIGEN" />
+	</resultMap>
+	
+
+	<parameterMap id="previredParam" type="previredTO">
+		<parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultPrevired" />
+	</parameterMap>
+	
+
+	<select id="consultarPreviredByCodigo" parameterMap="previredParam"
+		resultMap="resultPrevired" parameterType="previredTO" statementType="CALLABLE">
+		{ call PRO_EVC_PREVI_CONSBYCOD 
+			(
+				#{codPrevired, mode=IN, jdbcType=NUMERIC},
+				#{resultados, mode=OUT, jdbcType=CURSOR, resultMap=resultPrevired, javaType=java.sql.ResultSet}
+			)
+		}
+	</select>
+	
+	<select id="consultarPreviredByRut" parameterMap="previredParam"
+		resultMap="resultPrevired" parameterType="previredTO" statementType="CALLABLE">
+		{ call PRO_EVC_PREVIRED_CONSBYRUT
+			(
+				#{rutCliente, mode=IN, jdbcType=VARCHAR},
+				#{resultados, mode=OUT, jdbcType=CURSOR, resultMap=resultPrevired, javaType=java.sql.ResultSet}
+			)
+		}
+	</select>
+	
+	<select id="insertarPrevired" parameterType="previredTO"
+		statementType="CALLABLE">
+		{ call  PRO_EVC_PREVIRED_INSERTAR
+			(
+				#{codPrevired, mode=OUT, jdbcType=NUMERIC},
+				#{nombCliente, mode=IN, jdbcType=VARCHAR},
+				#{rutCliente, mode=IN, jdbcType=VARCHAR},
+				#{prevMontoPromedio, mode=IN, jdbcType=VARCHAR},
+				#{prevAntiguedad, mode=IN, jdbcType=VARCHAR},
+				#{prevContinuidadLaboral, mode=IN, jdbcType=VARCHAR},
+				#{fechConsultado, mode=IN, jdbcType=DATE},
+				#{estado, mode=IN, jdbcType=VARCHAR},
+				#{origen, mode=IN, jdbcType=VARCHAR},
+				#{codUsuarioAlta, mode=IN, jdbcType=NUMERIC}
+			)
+		}
+	</select>
+	
+
+</mapper>

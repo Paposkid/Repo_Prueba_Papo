@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.amx.service.dao.CompdifinfoDAO">
+
+	<resultMap id="resultCompdifinfo" type="compdifinfoTO">
+		<result property="codigoCompdifinfo" column="CORR_COMPONENTDIFINFO" />
+		<result property="codigoProductdifinfo" column="CORR_PRODUCTDIFINFO" />
+		<result property="nombre" column="COMP_NAME" />
+		<result property="cid" column="COMP_CID" />
+		<result property="accion" column="DIFF_ACTION" />
+		<result property="subComponente" column="SUB_COMPONENT" />
+		<result property="usuario" column="CORR_USUARIOALTA" />
+	</resultMap>
+	
+	<parameterMap id="compdifinfoParam" type="compdifinfoTO">
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultCompdifinfo" />
+	</parameterMap>
+
+
+	<select id="listarCompdifinfo" parameterMap="compdifinfoParam" resultMap="resultCompdifinfo" parameterType="compdifinfoTO" statementType="CALLABLE">
+	
+		{ call PRO_EVC_CONSCOMPDIFINFO 
+		(
+		#{codigoCompdifinfo, mode=IN, jdbcType=NUMERIC},
+		#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultCompdifinfo,	javaType=java.sql.ResultSet}
+
+		)
+		}
+	</select>
+	
+		<insert id="insertarCompdifinfo" parameterType="compdifinfoTO" statementType="CALLABLE">
+		{ call PRO_EVC_INSERTCOMPDIFINFO
+		(
+		#{codigoProductdifinfo, mode=IN, jdbcType=NUMERIC},
+		#{nombre, mode=IN, jdbcType=VARCHAR},
+		#{cid, mode=IN, jdbcType=VARCHAR},
+		#{accion, mode=IN, jdbcType=VARCHAR},
+		#{subComponente, mode=IN, jdbcType=NUMERIC},
+		#{usuario, mode=IN, jdbcType=NUMERIC},
+		#{codigoCompdifinfo, mode=OUT, jdbcType=NUMERIC}
+		)
+		}
+	</insert>
+	
+	<select id="listarCompdifinfoBySubComponente" parameterMap="compdifinfoParam" resultMap="resultCompdifinfo" parameterType="compdifinfoTO" statementType="CALLABLE">
+	
+		{ call PRO_EVC_CONSCOMPDIFINFOSUB 
+		(
+		#{codigosSub, mode=IN, jdbcType=NUMERIC},
+		#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultCompdifinfo,	javaType=java.sql.ResultSet}
+
+		)
+		}
+	</select>
+	
+	<select id="listarCompdifinfoByProducto" parameterMap="compdifinfoParam" resultMap="resultCompdifinfo" parameterType="compdifinfoTO" statementType="CALLABLE">
+	
+		{ call PRO_EVC_CONSCOMPDIFINFOPROD 
+		(
+		#{codigoPro, mode=IN, jdbcType=NUMERIC},
+		#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultCompdifinfo,	javaType=java.sql.ResultSet}
+
+		)
+		}
+	</select>
+	
+
+</mapper>

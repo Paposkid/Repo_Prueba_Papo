@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.amx.service.dao.ContactInfoDao">
+	<resultMap type="ContactInfoTO" id="resultContactInfo">
+		<result property="contId" column="CONT_ID"/>
+		<result property="firstName" column="FIRST_NAME"/>
+		<result property="lastName" column="LAST_NAME"/>
+		<result property="homePhone" column="HOME_PHONE"/>
+		<result property="mobilPhone" column="MOBIL_PHONE"/>
+		<result property="busiPhone" column="BUSI_PHONE"/>
+		<result property="tittle" column="TITTLE"/>
+		<result property="birthDate" column="BIRTH_DATE"/>
+		<result property="vip" column="VIP"/>
+		<result property="nunca" column="NUNCA"/>
+		<result property="address" column="ADDRESS"/>
+		<result property="AddrId" column="ADDR_ID"/>
+		<result property="IdenType" column="IDEN_TYPE"/>
+		<result property="IdenNumber" column="IDEN_NUMBER"/>
+		<result property="corrUsuarioAlta" column="CORR_USUARIOALTA"/>
+	</resultMap>
+	<parameterMap id="ContactInfoParam" type="ContactInfoTO">
+		<parameter property="resultados" jdbcType="CURSOR"
+			javaType="java.sql.ResultSet" mode="OUT" resultMap="resultContactInfo" />
+	</parameterMap>
+	
+	<insert id="insertarContactInfo" parameterType="ContactInfoTO"
+		statementType="CALLABLE">
+		{ call OWNEVC.PRO_EVC_INGRESARCONTACTINFOS
+			(
+				#{contId, mode=IN, jdbcType=VARCHAR},
+				#{fistName, mode=IN, jdbcType=VARCHAR},
+				#{lastName, mode=IN, jdbcType=VARCHAR},
+				#{homePhone, mode=IN, jdbcType=VARCHAR},
+				#{mobilPhone, mode=IN, jdbcType=VARCHAR},
+				#{busiPhone, mode=IN, jdbcType=VARCHAR},
+				#{tittle, mode=IN, jdbcType=VARCHAR},
+				#{birthDate, mode=IN, jdbcType=DATE},
+				#{vip, mode=IN, jdbcType=VARCHAR},
+				#{nunca, mode=IN, jdbcType=VARCHAR},
+				#{address, mode=IN, jdbcType=VARCHAR},
+				#{AddrId, mode=IN, jdbcType=VARCHAR},
+				#{IdenType, mode=IN, jdbcType=VARCHAR},
+				#{IdenNumber, mode=IN, jdbcType=VARCHAR},
+				#{corrUsuarioAlta, mode=IN, jdbcType=NUMERIC}
+			)
+		}
+	</insert>
+	
+	<select id="buscarContactInfo" parameterType="ContactInfoTO" statementType="CALLABLE">
+		{ call OWNEVC.PRO_EVC_BUSCARCONTACTINFO
+		(
+		#{codContactInfo, mode=IN, jdbcType=VARCHAR},
+		#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultContactInfo, javaType=java.sql.ResultSet}
+		)
+		}
+	</select>
+</mapper>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.amx.service.dao.CreditScoreDao">
+	<resultMap type="CreditScoreTO" id="resultCreditScore">
+		<result property="corrLce" column="CORR_LCE"/>
+		<result property="fistName" column="FIST_NAME"/>
+		<result property="secondName" column="SECOND_NAME"/>
+		<result property="lastName" column="LAST_NAME"/>
+		<result property="secondLastName" column="SECOND_LASTNAME"/>
+		<result property="issueDateofid" column="ISSUE_DATEOFID"/>
+		<result property="scoreExpiryDate" column="SCORE_EXPIRYDATE"/>
+		<result property="dateCredBureaouConsulted" column="DATE_CREDBUREAOUCONSULTED"/>
+		<result property="cerdRefNumber" column="CRED_REFNUMBER"/>
+		<result property="evidAlreadyValid" column="EVID_ALREADYVALID"/>
+		<result property="credScoreCode" column="CRED_SCORECODE"/>
+		<result property="credScoreDescription" column="CRED_SCOREDESCRIPTION"/>
+		<result property="gama" column="GAMA"/>
+		<result property="evaStatus" column="EVA_STATUS"/>
+		<result property="ceRejectMEessage" column="CE_REJECTMESSAGE"/>
+		<result property="ageRange" column="AGE_RANGE"/>
+		<result property="idPlaceOfissue" column="ID_PLACEOFISSUE"/>
+		<result property="idExpirationDate" column="ID_EXPIRATIONDATE"/>
+		<result property="paynBehavior" column="PAYM_BEHAVIOR"/>
+		<result property="pastDueamount" column="PAST_DUEAMOUNT"/>
+		<result property="planType" column="PLAN_TYPE"/>
+		<result property="purcLimit" column="PURC_LIMIT"/>
+		<result property="totalNumerRofline" column="TOTAL_NUMBEROFLINES"/>
+		<result property="rcPaymentinaVancedRequied" column="RC_PAYMENTINAVANCEDREQUIRED"/>
+		<result property="equiInmediatePaymentRequired" column="EQUI_INMEDIATEPAYMENTREQUIRED"/>
+		<result property="payMeansRequired" column="PAY_MEANSREQUIRED"/>
+		<result property="acquType" column="ACQU_TYPE"/>
+		<result property="url" column="URL"/>
+		<result property="corrUsuarioAlta" column="CORR_USUARIOALTA"/>
+	</resultMap>
+	<parameterMap id="CreditScoreParam" type="CreditScoreTO">
+		<parameter property="resultados" jdbcType="CURSOR"
+			javaType="java.sql.ResultSet" mode="OUT" resultMap="resultCreditScore" />
+	</parameterMap>
+	
+	<insert id="insertarCreditScore" parameterType="CreditScoreTO"
+		statementType="CALLABLE">
+		{ call PRO_EVC_INSERSALCREDITSCORE
+			(
+				#{corrLce, mode=IN, jdbcType=NUMERIC},
+				#{fistName, mode=IN, jdbcType=VARCHAR},
+				#{secondName, mode=IN, jdbcType=VARCHAR},
+				#{lastName, mode=IN, jdbcType=VARCHAR},
+				#{secondLastName, mode=IN, jdbcType=VARCHAR},
+				#{issueDateofid, mode=IN, jdbcType=DATE},
+				#{scoreExpiryDate, mode=IN, jdbcType=DATE},
+				#{dateCredBureaouConsulted, mode=IN, jdbcType=DATE},
+				#{cerdRefNumber, mode=IN, jdbcType=VARCHAR},
+				#{evidAlreadyValid, mode=IN, jdbcType=VARCHAR},
+				#{credScoreCode, mode=IN, jdbcType=VARCHAR},
+				#{credScoreDescription, mode=IN, jdbcType=VARCHAR},
+				#{gama, mode=IN, jdbcType=VARCHAR},
+				#{evaStatus, mode=IN, jdbcType=VARCHAR},
+				#{ceRejectMEessage, mode=IN, jdbcType=VARCHAR},
+				#{ageRange, mode=IN, jdbcType=VARCHAR},
+				#{idPlaceOfissue, mode=IN, jdbcType=VARCHAR},
+				#{idExpirationDate, mode=IN, jdbcType=DATE},
+				#{paynBehavior, mode=IN, jdbcType=VARCHAR},
+				#{pastDueamount, mode=IN, jdbcType=VARCHAR},
+				#{planType, mode=IN, jdbcType=VARCHAR},
+				#{purcLimit, mode=IN, jdbcType=VARCHAR},
+				#{totalNumerRofline, mode=IN, jdbcType=NUMERIC},
+				#{rcPaymentinaVancedRequied, mode=IN, jdbcType=VARCHAR},
+				#{equiInmediatePaymentRequired, mode=IN, jdbcType=VARCHAR},
+				#{payMeansRequired, mode=IN, jdbcType=VARCHAR},
+				#{acquType, mode=IN, jdbcType=VARCHAR},
+				#{url, mode=IN, jdbcType=VARCHAR},
+				#{corrUsuarioAlta, mode=IN, jdbcType=NUMERIC}
+			)
+		}
+	</insert>
+	
+	<select id="buscarCreditScore" parameterType="CreditScoreTO" statementType="CALLABLE">
+		{ call PRO_EVC_BUSCAR_SAL_CREDITSCORE
+		(
+		#{codLce, mode=IN, jdbcType=NUMERIC},
+		#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultCreditScore, javaType=java.sql.ResultSet}
+		)
+		}
+	</select>
+</mapper>

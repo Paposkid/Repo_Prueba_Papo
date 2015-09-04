@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.amx.service.dao.PlusGoldDAO">
+
+	<resultMap id="resultPlusGoldTO" type="plusGoldTO">
+		<result property="serialVersion" column="SERIAL_VERSIONUID" />
+		<result property="fechConsultado" column="FECH_CONSULTADO" />
+		<result property="estado" column="ESTADO" />
+		<result property="usuario" column="CORR_USUARIOALTA" />
+		<result property="origen" column="ORIGEN" />
+	</resultMap>
+	
+	<parameterMap id="plusGoldParam" type="plusGoldTO">
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultPlusGoldTO" />
+	</parameterMap>
+
+
+	<select id="listarPlusGold" parameterMap="plusGoldParam" resultMap="resultPlusGoldTO" parameterType="plusGoldTO" statementType="CALLABLE">
+	
+		{ call PRO_EVC_CONSPLUSGOLD
+		(
+		#{serialVersionUId, mode=IN, jdbcType=NUMERIC},
+		#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultPlusGoldTO, javaType=java.sql.ResultSet}
+
+		)
+		}
+	</select>
+	
+	<insert id="insertarPlusGold" parameterType="plusGoldTO" statementType="CALLABLE">
+		{ call PRO_EVC_INGRESARPLUSGOLD
+		(
+		#{estado, mode=IN, jdbcType=VARCHAR},
+		#{usuario, mode=IN, jdbcType=NUMERIC},
+		#{origen, mode=IN, jdbcType=VARCHAR},
+		#{serialVersion, mode=OUT, jdbcType=NUMERIC}
+		)
+		}
+	</insert>
+	
+
+</mapper>

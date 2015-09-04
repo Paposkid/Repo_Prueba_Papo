@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.amx.service.dao.ReglalceDAO">
+
+	<resultMap id="resultreglalceTO" type="reglalceTO">
+		<result property="codigoReglalce" column="CORR_REGLALCE" />
+		<result property="codigolce" column="CORR_LCE" />
+		<result property="codigoRegla" column="CORR_REGLA" />
+		<result property="usuario" column="CORR_USUARIOALTA" />
+	</resultMap>
+	
+	<parameterMap id="reglalceParam" type="reglalceTO">
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultreglalceTO" />
+	</parameterMap>
+	
+	<select id="listarReglalceTO" parameterMap="reglalceParam" resultMap="resultreglalceTO" parameterType="reglalceTO" statementType="CALLABLE">
+	
+		{ call PRO_EVC_CONSREGLALCE 
+		(
+		#{codigoReglalce, mode=IN, jdbcType=NUMERIC},
+		#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultreglalceTO,	javaType=java.sql.ResultSet}
+		)
+		}
+	</select>
+	
+	<insert id="insertarReglalce" parameterType="reglalceTO" statementType="CALLABLE">
+		{ call PRO_EVC_INSERTREGLALCE
+		(
+	
+		#{codigolce, mode=IN, jdbcType=NUMERIC},
+		#{codigoRegla, mode=IN, jdbcType=NUMERIC},
+		#{usuario, mode=IN, jdbcType=NUMERIC}		
+		)
+		}
+	</insert>
+	
+</mapper>

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.amx.service.dao.DetSubsistema10DAO">
+
+	<resultMap id="resultDetSubsistema10TO" type="detSubsistema10TO">
+		<result property="corrDetallesubsistema10" column="CORR_DETALLESUBSISTEMA10" />
+		<result property="serialVersion" column="SERIAL_VERSIONUID" />
+		<result property="montImpa" column="MONT_IMPA" />
+		<result property="fechImpa" column="FECH_IMPA" />
+		<result property="fechIngr" column="FECH_INGR" />
+		<result property="fechJust" column="FECH_JUST" />
+		<result property="tipoDeud" column="TIPO_DEUD" />
+		<result property="ncheOper" column="NCHE_OPER" />
+		<result property="tipoDocu" column="TIPO_DOCU" />
+		<result property="tipoMone" column="TIPO_MONE" />
+		<result property="tipoCred" column="TIPO_CRED" />
+		<result property="nombLoca" column="NOMB_LOCA" />
+		<result property="nombNota" column="NOMB_NOTA" />
+		<result property="tipoMoti" column="TIPO_MOTI" />
+		<result property="detaJust" column="DETA_JUST" />
+		<result property="nombLibr" column="NOMB_LIBR" />
+		<result property="usuario" column="CORR_USUARIOALTA" />
+	</resultMap>
+	
+	<parameterMap id="detSubsistema10Param" type="detSubsistema10TO">
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultDetSubsistema10TO" />
+	</parameterMap>
+
+
+	<select id="listarDetSubsistema10" parameterMap="detSubsistema10Param" resultMap="resultDetSubsistema10TO" parameterType="detSubsistema10TO" statementType="CALLABLE">
+	
+		{ call PRO_EVC_CONSDETSUBSISTEMA010
+		(
+		#{serialVersion, mode=IN, jdbcType=NUMERIC},
+		#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultDetSubsistema10TO, javaType=java.sql.ResultSet}
+
+		)
+		}
+	</select>
+	
+		<insert id="insertarDetSubsistema10" parameterType="detSubsistema10TO" statementType="CALLABLE">
+		{ call PRO_EVC_INGDETSUBSISTEMA10
+		(
+		#{serialVersion, mode=IN, jdbcType=NUMERIC},
+		#{montImpa, mode=IN, jdbcType=NUMERIC},
+		#{fechImpa, mode=IN, jdbcType=NUMERIC},
+		#{fechIngr, mode=IN, jdbcType=NUMERIC},
+		#{fechJust, mode=IN, jdbcType=NUMERIC},
+		#{tipoDeud, mode=IN, jdbcType=VARCHAR},
+		#{ncheOper, mode=IN, jdbcType=VARCHAR},
+		#{tipoDocu, mode=IN, jdbcType=VARCHAR},
+		#{tipoMone, mode=IN, jdbcType=VARCHAR},
+		#{tipoCred, mode=IN, jdbcType=VARCHAR},
+		#{nombLoca, mode=IN, jdbcType=VARCHAR},
+		#{nombNota, mode=IN, jdbcType=VARCHAR},
+		#{tipoMoti, mode=IN, jdbcType=VARCHAR},
+		#{detaJust, mode=IN, jdbcType=VARCHAR},
+		#{nombLibr, mode=IN, jdbcType=VARCHAR},
+		#{usuario, mode=IN, jdbcType=NUMERIC}
+		)
+		}
+	</insert>
+	
+
+</mapper>

@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.amx.service.dao.ADDRInfoDetailsDAO">
+
+	<resultMap id="resultADDRInfoDet" type="aDDRInfoDetTO">
+		<result property="codigoCredScoreInfo" column="CORR_CREDSCOREINFO" />
+		<result property="addrText" column="ADDR_TEXT" />
+		<result property="city" column="CITY" />
+		<result property="distric" column="DISTRIC" />
+		<result property="state" column="STATE" />
+		<result property="costCenterRegion" column="COST_CENTERREGION" />
+		<result property="country" column="COUNTRY" />
+		<result property="area" column="AREA" />
+		<result property="quarter" column="QUARTER" />
+		<result property="stType" column="ST_TYPE" />
+		<result property="stName" column="ST_NAME" />
+		<result property="stPrefix" column="ST_PREFIX" />
+		<result property="stNumber" column="ST_NUMBER" />
+		<result property="stSuffix" column="ST_SUFFIX" />
+		<result property="stIntersection" column="ST_INTERSECTION" />
+		<result property="stIntersectionSuffix" column="ST_INTERSECTIONSUFFIX" />
+		<result property="addiInfo" column="ADDI_INFO" />
+		<result property="buildType" column="BUILD_TYPE" />
+		<result property="buildNumber" column="BUILD_NUMBER" />
+		<result property="intBuildingNumber" column="INT_BUILDINGNUMBER" />
+		<result property="intBuildingNumberSuffix" column="INT_BUILDINGNUMBERSUFFIX" />
+		<result property="aptNumber" column="APT_NUMBER" />
+		<result property="totalNumOffLoors" column="TOTAL_NUMOFFLOORS" />
+		<result property="neighborhood" column="NEIGHBORHOOD" />
+		<result property="poBox" column="PO_BOX" />
+		<result property="postalCode" column="POSTAL_CODE" />
+		<result property="socioEconomicalRank" column="SOCIO_ECONOMICALRANK" />
+		<result property="codUsuarioAlta" column="CORR_USUARIOALTA" />
+	</resultMap>
+
+	<parameterMap id="ADDRInfoDetParam" type="aDDRInfoDetTO">
+		<parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultADDRInfoDet" />
+	</parameterMap>
+
+	<select id="consultarADDRInfoDetailsByCodigo" parameterMap="ADDRInfoDetParam"
+		resultMap="resultADDRInfoDet" parameterType="aDDRInfoDetTO" statementType="CALLABLE">
+		{ call PRO_EVC_BUSCARADDRINFODETAILS
+			(
+				#{codigoCredScoreInfo, mode=IN, jdbcType=NUMERIC},
+				#{resultados, mode=OUT, jdbcType=CURSOR, resultMap=resultADDRInfoDet, javaType=java.sql.ResultSet}
+			)
+		}
+	</select>
+
+	<insert id="insertarADDRInfoDetails" parameterType="aDDRInfoDetTO"
+		statementType="CALLABLE">
+		{ call PRO_EVC_INGRESARADDRINF
+			(
+				#{codigoCredScoreInfo, mode=IN, jdbcType=NUMERIC},
+				#{addrText, mode=IN, jdbcType=VARCHAR},
+				#{city, mode=IN, jdbcType=VARCHAR},
+				#{distric, mode=IN, jdbcType=VARCHAR},
+				#{state, mode=IN, jdbcType=VARCHAR},
+				#{costCenterRegion, mode=IN, jdbcType=VARCHAR},
+				#{country, mode=IN, jdbcType=VARCHAR},
+				#{area, mode=IN, jdbcType=VARCHAR},
+				#{quarter, mode=IN, jdbcType=VARCHAR},
+				#{stType, mode=IN, jdbcType=VARCHAR},
+				#{stName, mode=IN, jdbcType=VARCHAR},
+				#{stPrefix, mode=IN, jdbcType=VARCHAR},
+				#{stNumber, mode=IN, jdbcType=VARCHAR},
+				#{stSuffix, mode=IN, jdbcType=VARCHAR},
+				#{stIntersection, mode=IN, jdbcType=VARCHAR},
+				#{stIntersectionSuffix, mode=IN, jdbcType=VARCHAR},
+				#{addiInfo, mode=IN, jdbcType=VARCHAR},
+				#{buildType, mode=IN, jdbcType=VARCHAR},
+				#{buildNumber, mode=IN, jdbcType=VARCHAR},
+				#{intBuildingNumber, mode=IN, jdbcType=VARCHAR},
+				#{intBuildingNumberSuffix, mode=IN, jdbcType=VARCHAR},
+				#{aptNumber, mode=IN, jdbcType=VARCHAR},
+				#{totalNumOffLoors, mode=IN, jdbcType=VARCHAR},
+				#{neighborhood, mode=IN, jdbcType=VARCHAR},
+				#{poBox, mode=IN, jdbcType=VARCHAR},
+				#{postalCode, mode=IN, jdbcType=VARCHAR},
+				#{socioEconomicalRank, mode=IN, jdbcType=VARCHAR},
+				#{codUsuarioAlta, mode=IN, jdbcType=NUMERIC}
+			)
+		}
+	</insert>
+
+</mapper>

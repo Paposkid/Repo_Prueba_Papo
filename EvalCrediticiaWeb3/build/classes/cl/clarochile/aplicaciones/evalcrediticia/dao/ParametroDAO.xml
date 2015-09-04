@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cl.clarochile.aplicaciones.evalcrediticia.dao.ParametroDAO">
+
+	<resultMap id="resultParametro" type="parametroTO">
+		<result property="codigoParametro" column="CORR_PARAMGLOBAL" />
+		<result property="nombreParametro" column="NOMB_PARAMGLOBAL" />
+		<result property="tipoParametro" column="TIPO_PARAMETRO" />
+		<result property="valorParametro" column="VLOR_PARAMGLOBAL" />
+		<result property="estadoParametro" column="ESTADO" />
+		<result property="fechaAlta" column="FECH_ALTA" />
+		<result property="codigoUsuarioAlta" column="CORR_USUARIOALTA" />
+		<result property="fechaModificacion" column="FECH_MODIFICACION" />
+		<result property="codigoUsuario" column="CORR_USUARIO" />
+		<result property="estadoDecode" column="estado_decode" />
+		</resultMap>
+	
+	<parameterMap id="parametroParam" type="parametroTO">
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultParametro" />
+	</parameterMap>
+
+	<select id="insertarParametro" parameterType="parametroTO" statementType="CALLABLE">
+		{ call PKG_EVC_PARAMETROS.PRO_EVC_INGRESARPARAMETRO
+		(
+		#{nombreParametro, mode=IN, jdbcType=VARCHAR},
+		#{tipoParametro, mode=IN, jdbcType=VARCHAR},
+		#{valorParametro, mode=IN, jdbcType=VARCHAR},
+		#{estadoParametro, mode=IN, jdbcType=VARCHAR},
+		#{codigoUsuario, mode=IN, jdbcType=NUMERIC}
+		)
+		}
+	</select>
+	
+	<select id="listarParametro" parameterMap="parametroParam" resultMap="resultParametro" parameterType="parametroTO" statementType="CALLABLE">
+		{ call
+		PKG_EVC_PARAMETROS.PRO_EVC_LISTARPARAMETROS
+		(
+		#{nombreParametro, mode=IN, jdbcType=VARCHAR},
+		#{tipoParametro, mode=IN, jdbcType=VARCHAR},
+		#{valorParametro, mode=IN, jdbcType=VARCHAR},
+		#{estadoParametro, mode=IN, jdbcType=VARCHAR},
+		#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultParametro,	javaType=java.sql.ResultSet}
+		)
+		}
+	</select>
+	
+	<select id="buscarParametroPorCodigo" parameterType="parametroTO" statementType="CALLABLE">
+		{ call PKG_EVC_PARAMETROS.PRO_EVC_BUSCAR_PARAMETROS_ID 
+		(
+		#{codigoParametro, mode=IN, jdbcType=NUMERIC},
+		#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultParametro,	javaType=java.sql.ResultSet}
+
+		)
+		}
+	</select>
+	
+	<select id="actualizarParametro" parameterType="parametroTO" statementType="CALLABLE">
+		{ call  PKG_EVC_PARAMETROS.PRO_EVC_ACTPARAMETRO
+			(
+		#{codigoParametro, mode=IN, jdbcType=VARCHAR},
+		#{nombreParametro, mode=IN, jdbcType=VARCHAR},
+		#{tipoParametro, mode=IN, jdbcType=VARCHAR},
+		#{valorParametro, mode=IN, jdbcType=VARCHAR},
+		#{estadoParametro, mode=IN, jdbcType=VARCHAR},
+		#{codigoUsuarioAlta, mode=IN, jdbcType=NUMERIC}
+			)
+		}
+	</select>
+</mapper>

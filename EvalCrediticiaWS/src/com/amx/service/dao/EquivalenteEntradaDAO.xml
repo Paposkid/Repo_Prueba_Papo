@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.amx.service.dao.EquivalenteEntradaDAO">
+
+	<resultMap id="resultEquiEntr" type="equivalenteTO">
+		<result property="campo" column="CAMP_EQUIENTRADA"/>
+		<result property="atributo" column="ATRI_EQUIENTRADA"/>
+		<result property="objeto" column="OBJE_EQUIENTRADA"/>
+		              
+	</resultMap>
+	
+ 
+	<parameterMap id="equivalenteParam" type="equivalenteTO">
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultEquiEntr" />
+    
+	</parameterMap>
+	
+		
+		<select id="buscarEquivalente" parameterMap="equivalenteParam" resultMap="resultEquiEntr" parameterType="equivalenteTO" statementType="CALLABLE">
+         { call  PRO_EVC_LISTAREQUIVALENTE
+			(
+			   #{campo, mode=IN, jdbcType=VARCHAR},               
+               #{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultEquiEntr, javaType=java.sql.ResultSet}
+			)
+		 }
+	</select>
+	
+	
+</mapper>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cl.clarochile.aplicaciones.evalcrediticia.dao.ReglaDAO">
+
+	<resultMap id="resultRegla" type="reglaTO">
+		<result property="codigo" column="CORR_REGLA" />
+		<result property="nombre" column="NOMB_REGLA" />
+		<result property="valor" column="VLOR_REGLA" />
+		<result property="descripcion" column="DESC_REGLA" />
+		<result property="tipoRegla" column="CORR_TIPOREGLA" />
+		<result property="subtipoRegla" column="SUBT_REGLA" />
+		<result property="tipoEvaluacion" column="TIPO_EVALUACION" />
+		<result property="fechaVigenciaDesde" column="FECH_VIGDESDE" />
+		<result property="fechaVigenciaHasta" column="FECH_VIGHASTA" />
+		<result property="sinVigencia" column="SIN_VIGENCIA" />
+		<result property="estado" column="ESTADO" />
+		<result property="fechaAlta" column="FECH_ALTA" />
+		<result property="usuarioAlta" column="CORR_USUARIOALTA" />
+		<result property="fechaModificacion" column="FECH_MODIFICACION" />
+		<result property="usuarioModificacion" column="CORR_USUARIO" />		
+		<result property="nombreTipoRegla" column="NOMBRE_TIPOREGLA" />
+		<result property="nombreEstado" column="NOMBRE_ESTADO" />
+	</resultMap>
+	
+	<parameterMap id="reglaParam" type="reglaTO">
+		<parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultRegla" />
+	</parameterMap>
+	
+	<select id="listarRegla" parameterMap="reglaParam" resultMap="resultRegla" parameterType="reglaTO" statementType="CALLABLE">
+		{ call PKG_EVC_REGLA.pro_evc_listar_reglas
+			(
+				#{codigo, jdbcType=VARCHAR, mode=IN },
+				#{tipoRegla, jdbcType=VARCHAR, mode=IN },
+				#{tipoEvaluacion, jdbcType=VARCHAR, mode=IN },
+				#{estado, jdbcType=VARCHAR, mode=IN },
+				#{fechaVigenciaDesde, jdbcType=DATE, mode=IN },
+				#{fechaVigenciaHasta, jdbcType=DATE, mode=IN },
+				#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultRegla, javaType=java.sql.ResultSet}
+			)
+		}
+	</select>
+	
+	<insert id="insertarRegla" parameterType="reglaTO" statementType="CALLABLE">
+		{ call PKG_EVC_REGLA.pro_evc_ingresar_regla
+			(
+				#{codigo, jdbcType=VARCHAR, mode=IN },
+				#{nombre, jdbcType=VARCHAR, mode=IN },
+				#{valor, jdbcType=VARCHAR, mode=IN },
+				#{descripcion, jdbcType=VARCHAR, mode=IN },
+				#{tipoRegla, jdbcType=VARCHAR, mode=IN },
+				#{subtipoRegla, jdbcType=VARCHAR, mode=IN },
+				#{tipoEvaluacion, mode=IN, jdbcType=VARCHAR},
+				#{fechaVigenciaDesde, jdbcType=DATE, mode=IN },
+				#{fechaVigenciaHasta, jdbcType=DATE, mode=IN },
+				#{sinVigencia, jdbcType=VARCHAR, mode=IN },
+				#{estado, jdbcType=VARCHAR, mode=IN },
+				#{fechaAlta, mode=IN, jdbcType=DATE},
+				#{usuarioAlta, jdbcType=VARCHAR, mode=IN },
+				#{codigoRegla, mode=OUT, jdbcType=NUMERIC}
+			)
+		}		
+	</insert>
+	
+	<select id="actualizarRegla" parameterType="reglaTO" statementType="CALLABLE">
+		{ call PKG_EVC_REGLA.pro_evc_modificar_regla
+			(
+				#{codigo, jdbcType=VARCHAR, mode=IN },
+				#{nombre, jdbcType=VARCHAR, mode=IN },
+				#{valor, jdbcType=VARCHAR, mode=IN },
+				#{descripcion, jdbcType=VARCHAR, mode=IN },
+				#{tipoRegla, jdbcType=VARCHAR, mode=IN },
+				#{subtipoRegla, jdbcType=VARCHAR, mode=IN },
+				#{tipoEvaluacion, mode=IN, jdbcType=VARCHAR},
+				#{fechaVigenciaDesde, jdbcType=DATE, mode=IN },
+				#{fechaVigenciaHasta, jdbcType=DATE, mode=IN },
+				#{sinVigencia, jdbcType=VARCHAR, mode=IN },
+				#{estado, jdbcType=VARCHAR, mode=IN },
+				#{fechaModificacion, mode=IN, jdbcType=DATE},
+				#{usuarioModificacion, jdbcType=VARCHAR, mode=IN }
+			)
+		}
+	</select>
+</mapper>

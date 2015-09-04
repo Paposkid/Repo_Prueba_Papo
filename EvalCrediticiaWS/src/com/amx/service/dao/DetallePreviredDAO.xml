@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.amx.service.dao.DetallePreviredDAO">
+	
+	<resultMap id="resultDetallePrevi" type="detallePreviredTO">
+		<result property="codDetallePrevired" column="CORR_DETALLEPREVIRED" />
+		<result property="codPrevired" column="CORR_PREVIRED" />
+		<result property="fechImposicion" column="FECH_IMPOSICION" />
+		<result property="emplImposicion" column="EMPL_IMPOSICION" />
+		<result property="montoImposicion" column="MONTO_IMPOSICION" />
+		<result property="codUsuarioAlta" column="CORR_USUARIOALTA" />
+	</resultMap>
+	
+	<parameterMap id="detallePreviParam" type="detallePreviredTO">
+		<parameter property="resultadosDos" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultDetallePrevi" />
+	</parameterMap>
+
+
+	<select id="consultarDetallePreviredByCodigo" parameterMap="detallePreviParam"
+		resultMap="resultDetallePrevi" parameterType="detallePreviredTO" statementType="CALLABLE">
+		{ call PRO_EVC_DETPREVI_CONSBYCOD
+			(
+				#{codPrevired, mode=IN, jdbcType=VARCHAR},
+				#{resultadosDos, mode=OUT, jdbcType=CURSOR, resultMap=resultDetallePrevi, javaType=java.sql.ResultSet}
+			)
+		}
+	</select>
+
+	
+	<select id="insertarDetallePrevired" parameterType="detallePreviredTO"
+		statementType="CALLABLE">
+		{ call PRO_EVC_DETPREVI_INSERTAR
+			(
+				#{codDetallePrevired, mode=OUT, jdbcType=NUMERIC},
+				#{fechImposicion, mode=IN, jdbcType=VARCHAR},
+				#{emplImposicion, mode=IN, jdbcType=VARCHAR},
+				#{montoImposicion, mode=IN, jdbcType=VARCHAR},
+				#{codPrevired, mode=IN, jdbcType=VARCHAR},
+				#{codUsuarioAlta, mode=IN, jdbcType=NUMERIC}
+			)
+		}
+	</select>
+
+</mapper>
+

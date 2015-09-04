@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.amx.service.dao.ReadParametroDAO">
+
+	<resultMap id="resultReadParametro" type="readParametroTypeTO">
+		<result property="codListaEspecial" column="CORR_LISTAESPECIAL"/>
+		<result property="idParam" column="NOMB_PARAMETRO"/>
+		<result property="valor" column="VLOR_PARAMETRO"/>
+		<result property="codUsuario" column="CORR_USUARIOALTA"/>
+        <result property="codParametro" column="CORR_PARAMETRO"/>
+    </resultMap>
+
+	<parameterMap id="readParametroParam" type="readParametroTypeTO">
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultReadParametro" />
+    </parameterMap>
+	
+	<select id="buscarParametro" parameterMap="readParametroParam" resultMap="resultReadParametro" parameterType="readParametroTypeTO" statementType="CALLABLE">
+         { call PRO_EVC_CONSENTPARAMETRO
+			(
+			   #{codListaEspecial, mode=IN, jdbcType=NUMERIC},               
+               #{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultReadParametro, javaType=java.sql.ResultSet}
+			)
+		 }
+	</select>
+	
+	<insert id="insertarParametro" parameterType="readParametroTypeTO" statementType="CALLABLE">
+		{ call PRO_EVC_INGRESARPARAMETRO
+			(
+			   #{codListaEspecial, mode=IN, jdbcType=NUMERIC},	
+			   #{idParam, mode=IN, jdbcType=VARCHAR},
+               #{valor, mode=IN, jdbcType=VARCHAR},
+               #{codUsuario ,mode=IN, jdbcType=NUMERIC}
+            )
+		}		
+	</insert>
+		
+</mapper>

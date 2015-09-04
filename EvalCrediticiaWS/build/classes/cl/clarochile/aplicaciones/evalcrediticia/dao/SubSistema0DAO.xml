@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.amx.service.dao.SubSistema0DAO">
+
+	<resultMap id="resultSubSistema0" type="subSistemaOBean">
+		<result property="serialVersion" column="SERIAL_VERSIONUID"/>
+		<result property="exitDeta" column="EXIT_DETA"/>
+		<result property="tipoDocu" column="TIPO_DOCU"/>
+		<result property="rutEval" column="RUT_EVAL"/>
+        <result property="numSerie" column="NUM_SERIE"/>
+        <result property="soloScri" column="SOLO_SCRI"/>
+        <result property="tipoInfo" column="TIPO_INFO"/>
+        <result property="difeDide" column="DIFE_DIDE"/>
+		<result property="cantImpa" column="CANT_IMPA"/>
+		<result property="montImpa" column="MONT_IMPA"/>
+		<result property="totalVige" column="TOTAL_VIGE"/>
+        <result property="indiAcre" column="INDI_ACRE"/>
+        <result property="indiDefu" column="INDI_DEFU"/>
+        <result property="errorIcom" column="ERROR_ICOM"/>     
+        <result property="serie" column="SERIE"/>
+        <result property="estDocu" column="EST_DOCU"/>
+		<result property="motivo" column="MOTIVO"/>
+		<result property="bloqFecha" column="BLOQ_FECHA"/>
+		<result property="bloqHora" column="BLOQ_HORA"/>
+        <result property="indiDocu" column="INDI_DOCU"/>
+        <result property="vctoFecha" column="VCTO_FECH"/>
+        <result property="vctoHora" column="VCTO_HORA"/>      
+        <result property="vctoSeri" column="VCTO_SERI"/>
+		<result property="tiprCedu" column="TIPR_CEDU"/>
+		<result property="usodDico" column="USOD_DICO"/>
+		<result property="codUsuarioAlta" column="CORR_USUARIOALTA"/>
+		</resultMap>
+	
+ 
+	<parameterMap id="subSistemaOParam" type="subSistemaOBean">
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultSubSistema0" />
+    
+	</parameterMap>
+	
+	<insert id="insetarSubSistema0" parameterType="subSistemaOBean" statementType="CALLABLE">
+		{ call   pro_evc_ingresarsubsistema00
+			(
+			   #{montImpa, mode=IN, jdbcType=INTEGER},
+			   #{totalVige, mode=IN, jdbcType=INTEGER},	
+			   #{serialVersion, mode=IN, jdbcType=INTEGER},
+               #{cantImpa, mode=IN, jdbcType=INTEGER},
+               #{vctoHora, mode=IN, jdbcType=INTEGER},
+               #{bloqHora, mode=IN, jdbcType=INTEGER},
+               #{vctoFecha, mode=IN, jdbcType=INTEGER},
+			   #{bloqFecha, mode=IN, jdbcType=INTEGER},	
+			   #{soloScri, mode=IN, jdbcType=VARCHAR},
+               #{usodDico, mode=IN, jdbcType=VARCHAR},
+               #{exitDeta, mode=IN, jdbcType=VARCHAR},
+			   #{tipoDocu, mode=IN, jdbcType=VARCHAR},	
+			   #{indiDocu, mode=IN, jdbcType=VARCHAR},
+               #{estDocu, mode=IN, jdbcType=VARCHAR},
+               #{serie, mode=IN, jdbcType=VARCHAR},
+               #{vctoSeri, mode=IN, jdbcType=VARCHAR},
+               #{rutEval, mode=IN, jdbcType=VARCHAR},
+			   #{numSerie, mode=IN, jdbcType=VARCHAR},	
+			   #{indiDefu, mode=IN, jdbcType=VARCHAR},
+               #{difeDide, mode=IN, jdbcType=VARCHAR},
+               #{indiAcre, mode=IN, jdbcType=VARCHAR},
+               #{errorIcom, mode=IN, jdbcType=VARCHAR},
+			   #{tipoInfo, mode=IN, jdbcType=VARCHAR},	
+			   #{motivo, mode=IN, jdbcType=VARCHAR},
+               #{tipoDocu, mode=IN, jdbcType=VARCHAR},               
+               #{codUsuarioAlta, mode=IN,	jdbcType=INTEGER}
+               
+			)
+		}		
+	</insert>
+	
+	<select id="listSubSys0" parameterMap="subSistemaOParam" resultMap="resultSubSistema0" parameterType="subSistemaOBean" statementType="CALLABLE">
+         { call  PRO_EVC_CONSSUBSISTEMA00
+			(
+			   #{serialVersion, mode=IN, jdbcType=INTEGER},               
+               #{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultSubSistema0, javaType=java.sql.ResultSet}
+			)
+		 }
+	</select>
+	
+	<select id="listSubSys0ByRut" parameterMap="subSistemaOParam" resultMap="resultSubSistema0" parameterType="subSistemaOBean" statementType="CALLABLE">
+         { call  PRO_EVC_CONSSUBSISTEMA0RUT	
+			(
+			   #{rutEval, mode=IN, jdbcType=VARCHAR},               
+               #{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultSubSistema0, javaType=java.sql.ResultSet}
+			)
+		 }
+	</select>
+	
+</mapper>

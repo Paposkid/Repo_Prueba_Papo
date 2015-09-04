@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.amx.service.dao.ConstanteDAO">
+
+	<resultMap id="resultConstante" type="constanteTO">
+		<result property="codigo" column="CORR_CONSTANTE" />
+		<result property="tipo" column="TIPO_DATO" />
+		<result property="nombre" column="NOMB_CONSTANTE" />
+		<result property="valor" column="VLOR_CONSTANTE" />
+		<result property="estado" column="ESTADO" />
+		<result property="fechaA" column="FECH_ALTA" />
+		<result property="codUsuarioA" column="CORR_USUARIOALTA" />
+		<result property="fechaM" column="FECH_MODIFICACION" />
+		<result property="codUsuarioM" column="CORR_USUARIO" />
+	</resultMap>
+
+	<parameterMap id="constanteParam" type="constanteTO">
+		<parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultConstante" />
+	</parameterMap>
+
+	<select id="insertarConstante" parameterType="constanteTO" statementType="CALLABLE">
+		{ call pkg_evc_constante.PRO_EVC_INGRESARCONSTANTE
+		(
+		#{codigo, mode=IN,jdbcType=VARCHAR},
+		#{tipo, mode=IN,jdbcType=VARCHAR},
+		#{nombre, mode=IN, jdbcType=VARCHAR},
+		#{valor,mode=IN, jdbcType=VARCHAR},
+		#{estado, mode=IN, jdbcType=VARCHAR},
+		#{codUsuarioA, mode=IN, jdbcType=INTEGER}
+		)
+		}
+	</select>
+	
+	<select id="listarConstantes" parameterType="constanteTO" statementType="CALLABLE">
+		{ call pkg_evc_constante.pro_evc_listar_constantes
+		(
+		#{codigo, mode=IN, jdbcType=VARCHAR},
+		#{nombre, mode=IN, jdbcType=VARCHAR},
+		#{tipo, mode=IN, jdbcType=VARCHAR},
+		#{estado, mode=IN, jdbcType=VARCHAR},
+		#{valor, mode=IN, jdbcType=VARCHAR},
+		#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultConstante, javaType=java.sql.ResultSet}
+		)
+		}
+	</select>
+
+	<select id="buscarConstantePorCodigo" parameterType="constanteTO" statementType="CALLABLE">
+		{ call pkg_evc_constante.PRO_EVC_BUSCARCONSTANTE_BYID
+		(
+		#{codigo, mode=IN, jdbcType=VARCHAR},
+		#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultConstante, javaType=java.sql.ResultSet}
+		)
+		}
+	</select>
+	
+	<select id="buscarConstantePorNombre" parameterType="constanteTO" statementType="CALLABLE">
+		{ call pkg_evc_constante.PRO_EVC_BUSCARCONSTANTEXNOMB
+		(
+		#{nombre, mode=IN, jdbcType=VARCHAR},
+		#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultConstante, javaType=java.sql.ResultSet}
+		)
+		}
+	</select>
+
+	<select id="actualizarConstante" parameterType="constanteTO" statementType="CALLABLE">
+		{ call pkg_evc_constante.PRO_EVC_MODIFICARCONSTANTE
+		(
+		#{codigo, mode=IN, jdbcType=VARCHAR},
+		#{tipo, mode=IN, jdbcType=VARCHAR},
+		#{valor, mode=IN, jdbcType=VARCHAR},
+		#{estado, mode=IN, jdbcType=VARCHAR},
+		#{codUsuarioM, mode=IN, jdbcType=NUMERIC}
+		)
+		}
+	</select>
+</mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.amx.service.dao.ResourcesDAO">
+
+	<resultMap id="resultResourcesTO" type="resourcesTO">
+		<result property="codeResource" column="RES_COD_RESOURCE" />
+		<result property="codeAplication" column="APP_COD_APLICATION" />
+		<result property="resourceName" column="RES_RESOURCE_NAME" />
+		<result property="valor" column="RES_VALOR" />
+	</resultMap>
+
+	<parameterMap id="resourcesParam" type="resourcesTO">
+        <parameter property="resultados" jdbcType="CURSOR" javaType="java.sql.ResultSet" mode="OUT" resultMap="resultResourcesTO" />
+	</parameterMap>
+
+
+	<select id="listarResources" parameterMap="resourcesParam" resultMap="resultResourcesTO" parameterType="resourcesTO" statementType="CALLABLE">
+	
+		{ call PRO_SNCA_LISTAR_RESOURCES
+			(
+				#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultResourcesTO,	javaType=java.sql.ResultSet}
+			)
+		}
+	</select>
+	
+	<select id="resourcesPorNombre" parameterMap="resourcesParam" resultMap="resultResourcesTO" parameterType="resourcesTO" statementType="CALLABLE">
+	
+		{ call PRO_SNCA_LISTAR_BY_NOMBRE
+			(
+				#{resourceName, mode=IN, jdbcType=VARCHAR},
+				#{resultados, jdbcType=CURSOR, mode=OUT, resultMap=resultResourcesTO,	javaType=java.sql.ResultSet}
+			)
+		}
+	</select>
+	
+</mapper>
